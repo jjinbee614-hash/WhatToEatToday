@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>오늘 뭐 먹지? 🍽️</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2a202fc6da16c2ff08cc316ddd1ed0d5&libraries=services&autoload=false"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans KR',sans-serif;background:linear-gradient(160deg,#1a1117,#1e1520 30%,#151218);min-height:100vh;color:#fff;overflow-x:hidden}
+.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px;position:relative}
+.blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
+.blob-a{width:340px;height:340px;background:radial-gradient(circle,rgba(255,107,53,.18),transparent 70%);top:-60px;right:-80px;animation:floatA 8s ease-in-out infinite}
+.blob-b{width:260px;height:260px;background:radial-gradient(circle,rgba(255,195,0,.14),transparent 70%);bottom:40px;left:-60px;animation:floatB 10s ease-in-out infinite}
+.blob-c{width:200px;height:200px;background:radial-gradient(circle,rgba(255,87,87,.12),transparent 70%);top:40%;left:50%;animation:floatC 12s ease-in-out infinite}
+.container{width:100%;max-width:440px;position:relative;z-index:1}
+.progress{display:flex;gap:6px;justify-content:center;margin-bottom:28px}
+.progress-dot{height:5px;border-radius:3px;transition:all .4s cubic-bezier(.4,0,.2,1)}
+.btn-primary{width:100%;padding:16px 24px;border-radius:14px;border:none;background:linear-gradient(135deg,#FF6B35,#FF9F1C);color:#fff;font-size:17px;font-weight:800;cursor:pointer;font-family:'Noto Sans KR',sans-serif;box-shadow:0 8px 32px rgba(255,107,53,.35);transition:all .25s ease}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,107,53,.45)}
+.btn-ghost{width:100%;padding:14px 24px;border-radius:14px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);backdrop-filter:blur(10px);color:rgba(255,255,255,.7);font-size:15px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .25s ease}
+.btn-ghost:hover{border-color:rgba(255,255,255,.3);color:#fff}
+.option-btn{padding:14px 20px;border-radius:14px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);backdrop-filter:blur(10px);color:#fff;font-size:16px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .25s cubic-bezier(.4,0,.2,1);text-align:left;width:100%}
+.option-btn:hover{border-color:rgba(255,107,53,.5);background:rgba(255,255,255,.08);transform:translateX(4px)}
+.option-btn.selected{border-color:#FF6B35;background:linear-gradient(135deg,rgba(255,107,53,.25),rgba(255,159,28,.15))}
+.rank-cards{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.rank-card{border-radius:16px;border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);backdrop-filter:blur(8px);overflow:hidden;cursor:pointer;transition:all .25s ease}
+.rank-card:hover{border-color:rgba(255,107,53,.4);background:rgba(255,255,255,.06);transform:translateY(-1px)}
+.rank-card.active{border-color:#FF6B35;background:rgba(255,107,53,.08)}
+.rank-card-inner{display:flex;align-items:center;gap:14px;padding:14px 16px}
+.rank-badge{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0}
+.rank-1{background:linear-gradient(135deg,#FF6B35,#FF9F1C);color:#fff}
+.rank-2{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8)}
+.rank-3{background:rgba(255,255,255,.08);color:rgba(255,255,255,.5)}
+.rank-food-img{width:48px;height:48px;border-radius:12px;object-fit:cover;flex-shrink:0;background:rgba(255,255,255,.06)}
+.rank-info{flex:1;min-width:0}
+.rank-info .rname{font-size:16px;font-weight:800;margin-bottom:2px}
+.rank-info .rdesc{font-size:12px;color:rgba(255,255,255,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tab-row{display:flex;gap:6px;margin-bottom:10px}
+.tab-btn{flex:1;padding:9px 6px;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:rgba(255,255,255,.6);font-size:11px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .2s;text-align:center;line-height:1.4}
+.tab-btn.active{border-color:#FF6B35;background:rgba(255,107,53,.12);color:#FF9F1C}
+.tab-btn:hover{border-color:rgba(255,107,53,.4)}
+.restaurant-list{display:flex;flex-direction:column;gap:8px;margin-top:8px;max-height:300px;overflow-y:auto;padding-right:4px}
+.restaurant-list::-webkit-scrollbar{width:4px}
+.restaurant-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:2px}
+.rest-card{padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);transition:all .2s ease;display:flex;gap:10px;align-items:center}
+.rest-card:hover{background:rgba(255,107,53,.08);border-color:rgba(255,107,53,.25)}
+.rest-emoji{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.06);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px}
+.rest-info{flex:1;min-width:0}
+.rest-info .rname{font-size:13px;font-weight:700;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rest-info .rdetail{font-size:10px;color:rgba(255,255,255,.45);line-height:1.5}
+.naver-map-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:7px 9px;border-radius:10px;background:#03c75a;color:#fff;text-decoration:none;font-size:10px;font-weight:800;flex-shrink:0;transition:all .2s;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;border:none;cursor:pointer;min-width:44px}
+.naver-map-btn:hover{background:#02a84a;transform:scale(1.06);box-shadow:0 4px 14px rgba(3,199,90,.4)}
+.kakao-map-wrap{border-radius:16px;overflow:hidden;border:1.5px solid rgba(255,255,255,.1);position:relative;background:#1a1520;margin-bottom:8px;height:340px}
+.kakao-map-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#FF6B35,#FF9F1C);z-index:10;pointer-events:none}
+#kakao-map{width:100%;height:100%}
+.map-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#1a1520;z-index:5;gap:10px;pointer-events:none}
+/* Kakao custom infowindow */
+.kakao-iw{background:#1e1520;border-radius:12px;padding:12px 14px;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:12px;box-shadow:0 8px 24px rgba(0,0,0,.6);min-width:160px;border:1px solid rgba(255,255,255,.12);position:relative}
+.kakao-iw::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:#1e1520;border-bottom:none}
+.kakao-iw .iw-name{font-weight:800;font-size:13px;margin-bottom:4px;white-space:nowrap}
+.kakao-iw .iw-dist{color:#FF9F1C;font-size:11px;font-weight:700}
+.kakao-iw .iw-addr{color:rgba(255,255,255,.5);font-size:11px;margin-top:2px}
+.kakao-iw .iw-naver{display:inline-block;margin-top:6px;padding:4px 10px;background:#03c75a;border-radius:6px;color:#fff;text-decoration:none;font-size:11px;font-weight:800}
+@keyframes floatA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,20px) scale(1.08)}}
+@keyframes floatB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-25px) scale(1.12)}}
+@keyframes floatC{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-15px,30px) scale(.95)}}
+@keyframes slideIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="blob blob-a"></div><div class="blob blob-b"></div><div class="blob blob-c"></div>
+  <div class="container" id="root"></div>
+</div>
+<script>
+const QUESTIONS=[
+  {id:"mood",emoji:"😋",question:"지금 어떤 느낌이 당기나요?",options:[
+    {label:"🔥 뭔가 자극적인 것",value:"spicy"},
+    {label:"☁️ 따뜻하고 든든한 것",value:"warm"},
+    {label:"✨ 가볍고 산뜻한 것",value:"light"},
+    {label:"💎 뭔가 특별한 것",value:"special"}]},
+  {id:"meal",emoji:"🕐",question:"지금 몇 끼를 먹으러 가나요?",options:[
+    {label:"🌅 아침 / 브런치",value:"breakfast"},
+    {label:"☀️ 점심",value:"lunch"},
+    {label:"🌙 저녁",value:"dinner"},
+    {label:"🌃 야식 / 간식",value:"snack"}]},
+  {id:"company",emoji:"🧑‍🤝‍🧑",question:"누구와 함께인가요?",options:[
+    {label:"🙋 혼자",value:"solo"},
+    {label:"💑 2인 (데이트/친구)",value:"couple"},
+    {label:"👨‍👩‍👧 3~4명",value:"small"},
+    {label:"🎉 5명 이상",value:"large"}]},
+  {id:"cuisine",emoji:"🌍",question:"어떤 계열의 음식이 끌리나요?",options:[
+    {label:"🇰🇷 한식",value:"korean"},
+    {label:"🍜 아시안",value:"asian"},
+    {label:"🍕 양식 / 패스트푸드",value:"western"},
+    {label:"🎲 아무거나!",value:"any_cuisine"}]},
+  {id:"budget",emoji:"💰",question:"오늘 예산은 얼마나 되나요?",options:[
+    {label:"💚 1만원 이하",value:"cheap"},
+    {label:"💛 1~2만원",value:"mid"},
+    {label:"🧡 2~4만원",value:"expensive"},
+    {label:"❤️ 4만원 이상",value:"flex"}]}
+];
+
+const FOOD_DB={
+  kimchi_jjigae:{name:"🍲 김치찌개",cuisine:"korean",desc:"묵은지의 깊은 맛이 우러난 칼칼한 김치찌개",img:"kimchi+jjigae+stew",price:8000,search:["김치찌개","김치"]},
+  sundubu:{name:"🍚 순두부찌개",cuisine:"korean",desc:"부드러운 순두부에 몸이 녹는 한 끼",img:"sundubu+jjigae",price:8000,search:["순두부","두부"]},
+  doenjang:{name:"🫕 된장찌개",cuisine:"korean",desc:"구수한 된장 향이 가득, 엄마 손맛 한 그릇",img:"doenjang+jjigae",price:8000,search:["된장찌개","백반","한정식"]},
+  budae:{name:"🍲 부대찌개",cuisine:"korean",desc:"햄, 라면, 치즈까지! 든든한 부대찌개",img:"budae+jjigae+army+stew",price:11000,search:["부대찌개","부대"]},
+  gamjatang:{name:"🦴 감자탕",cuisine:"korean",desc:"뼈다귀 우려낸 진한 국물의 감자탕",img:"gamjatang+pork+bone+soup",price:10000,search:["감자탕","뼈해장"]},
+  galbitang:{name:"🍖 갈비탕",cuisine:"korean",desc:"맑고 깊은 국물에 갈비가 쏙, 보양식",img:"galbitang+short+rib+soup",price:15000,search:["갈비탕","갈비","한우"]},
+  samgyetang:{name:"🐔 삼계탕",cuisine:"korean",desc:"인삼 향 가득한 영양 만점 삼계탕",img:"samgyetang+ginseng+chicken+soup",price:16000,search:["삼계탕","닭한마리","닭"]},
+  seolleongtang:{name:"🥛 설렁탕",cuisine:"korean",desc:"뽀얀 사골 국물, 소박하지만 깊은 맛",img:"seolleongtang+ox+bone+soup",price:10000,search:["설렁탕","곰탕","사골"]},
+  bibimbap:{name:"🍱 비빔밥",cuisine:"korean",desc:"알록달록 나물에 고추장 쓱쓱, 영양 비빔밥",img:"bibimbap+korean+rice+bowl",price:9000,search:["비빔밥","한정식","백반"]},
+  kalguksu:{name:"🍜 칼국수",cuisine:"korean",desc:"손으로 칼칼 썬 면발의 시원한 칼국수",img:"kalguksu+knife+cut+noodles",price:9000,search:["칼국수","수제비","국수"]},
+  naengmyeon:{name:"🧊 냉면",cuisine:"korean",desc:"시원한 육수와 쫄깃한 면의 물냉면",img:"naengmyeon+cold+noodles",price:11000,search:["냉면","물냉면","평양"]},
+  korean_bbq:{name:"🥩 소고기 구이",cuisine:"korean",desc:"불 위에서 지글지글, 고기 한 판!",img:"korean+bbq+beef+grilled",price:35000,search:["소고기","한우","고기구이","정육"]},
+  samgyeopsal:{name:"🥓 삼겹살",cuisine:"korean",desc:"두툼한 삼겹살을 구워 쌈에 싸먹는 행복",img:"samgyeopsal+pork+belly+grill",price:16000,search:["삼겹살","고기","돼지구이"]},
+  dakgalbi:{name:"🍗 닭갈비",cuisine:"korean",desc:"매콤달콤 양념에 볶은 춘천 닭갈비",img:"dakgalbi+spicy+chicken",price:13000,search:["닭갈비","춘천","닭"]},
+  bossam:{name:"🥬 보쌈",cuisine:"korean",desc:"부드러운 수육에 김치를 올려 한 입에 쏙",img:"bossam+pork+wrap",price:15000,search:["보쌈","수육","족발"]},
+  jokbal:{name:"🦶 족발",cuisine:"korean",desc:"쫀득쫀득 콜라겐 가득한 족발",img:"jokbal+pig+feet",price:18000,search:["족발","보쌈","야식"]},
+  tteokbokki:{name:"🌶️ 떡볶이",cuisine:"korean",desc:"매콤달콤 중독되는 국민 간식",img:"tteokbokki+spicy+rice+cake",price:5000,search:["떡볶이","분식","즉석떡볶이"]},
+  fire_chicken:{name:"🔥 불닭",cuisine:"korean",desc:"화끈하게 매운 불닭! 매운맛 마니아 집합",img:"fire+chicken+buldak",price:14000,search:["불닭","닭","매운닭"]},
+  gukbap:{name:"🍚 국밥",cuisine:"korean",desc:"뜨끈한 국물에 밥 말아 먹는 소울푸드",img:"gukbap+rice+soup",price:8000,search:["국밥","돼지국밥","해장"]},
+  chicken:{name:"🍗 치킨",cuisine:"korean",desc:"바삭한 후라이드? 달콤한 양념? 오늘은 치킨!",img:"korean+fried+chicken",price:20000,search:["치킨","후라이드","양념치킨"]},
+  kimbap:{name:"🍙 김밥",cuisine:"korean",desc:"알록달록 속재료가 가득, 한 줄 김밥",img:"kimbap+korean+rice+roll",price:4000,search:["김밥","분식","김밥천국"]},
+  jeon:{name:"🥞 파전",cuisine:"korean",desc:"바삭바삭 파전에 막걸리 한 잔이면 최고",img:"pajeon+korean+pancake",price:10000,search:["파전","전","빈대떡","전집"]},
+  ramen:{name:"🍜 라멘",cuisine:"japanese",desc:"진한 돈코츠 육수의 일본식 라멘",img:"tonkotsu+ramen+japanese",price:12000,search:["라멘","ramen","돈코츠"]},
+  sushi:{name:"🍣 초밥",cuisine:"japanese",desc:"신선한 네타가 입안에서 살살 녹는 초밥",img:"sushi+nigiri+japanese",price:25000,search:["초밥","스시","sushi","오마카세"]},
+  sashimi:{name:"🐟 사시미",cuisine:"japanese",desc:"두툼하게 썬 신선한 회, 와사비와 함께",img:"sashimi+raw+fish+platter",price:30000,search:["사시미","회","횟집","활어"]},
+  udon:{name:"🍲 우동",cuisine:"japanese",desc:"쫄깃한 면에 맑은 다시 국물, 따끈한 우동",img:"udon+noodle+soup",price:10000,search:["우동","udon","일본우동"]},
+  katsu:{name:"🍱 돈카츠",cuisine:"japanese",desc:"두툼하게 튀긴 바삭한 일본식 돈카츠",img:"tonkatsu+pork+cutlet+japanese",price:14000,search:["돈카츠","돈까스","카츠"]},
+  curry_jp:{name:"🍛 일본 카레",cuisine:"japanese",desc:"달콤하고 깊은 맛의 일본식 카레라이스",img:"japanese+curry+rice",price:11000,search:["카레","커리","curry","일본카레"]},
+  jjajang:{name:"🍜 짜장면",cuisine:"chinese",desc:"달짝지근한 춘장의 매력, 짜장면",img:"jjajangmyeon+black+bean+noodle",price:7000,search:["짜장","짜장면","중국집"]},
+  jjambbong:{name:"🥘 짬뽕",cuisine:"chinese",desc:"해물 가득, 칼칼한 국물의 짬뽕",img:"jjambbong+spicy+seafood+noodle",price:8000,search:["짬뽕","중국집","중화"]},
+  malatang:{name:"🌶️ 마라탕",cuisine:"chinese",desc:"얼얼하고 화끈한 마라의 세계",img:"malatang+spicy+hot+pot",price:12000,search:["마라탕","마라","마라샹궈"]},
+  yanggochi:{name:"🍢 양꼬치",cuisine:"chinese",desc:"쯔란 향 가득한 양꼬치에 칭따오 한 잔",img:"lamb+skewer+yanggochi",price:14000,search:["양꼬치","양고기","꼬치"]},
+  dimsum:{name:"🥟 딤섬",cuisine:"chinese",desc:"한 입에 쏙, 다양한 딤섬 모듬 세트",img:"dim+sum+dumplings",price:18000,search:["딤섬","만두","점심"]},
+  pho:{name:"🍜 쌀국수",cuisine:"vietnamese",desc:"맑고 깊은 육수에 쌀면, 베트남 쌀국수",img:"pho+vietnamese+noodle+soup",price:10000,search:["쌀국수","pho","베트남"]},
+  banh_mi:{name:"🥖 반미",cuisine:"vietnamese",desc:"바삭한 바게트에 고수와 고기가 가득",img:"banh+mi+vietnamese+sandwich",price:7000,search:["반미","바게트","베트남"]},
+  pad_thai:{name:"🍜 팟타이",cuisine:"thai",desc:"달콤짭짤새콤, 태국 볶음면 팟타이",img:"pad+thai+noodle",price:12000,search:["팟타이","태국","타이"]},
+  tom_yum:{name:"🍲 똠양꿍",cuisine:"thai",desc:"새콤하고 매콤한 태국 새우 수프",img:"tom+yum+goong+soup",price:13000,search:["똠양꿍","똠양","태국"]},
+  pasta:{name:"🍝 파스타",cuisine:"italian",desc:"알덴테 면발의 정통 이탈리안 파스타",img:"pasta+italian+spaghetti",price:16000,search:["파스타","pasta","이탈리안"]},
+  pizza:{name:"🍕 피자",cuisine:"italian",desc:"쭉쭉 늘어나는 치즈의 유혹, 화덕 피자",img:"pizza+margherita+wood+fired",price:18000,search:["피자","pizza","화덕피자"]},
+  steak:{name:"🥩 스테이크",cuisine:"western",desc:"육즙 가득한 프리미엄 스테이크",img:"steak+ribeye+grilled",price:40000,search:["스테이크","steak","그릴","다이닝"]},
+  burger:{name:"🍔 수제버거",cuisine:"western",desc:"두툼한 패티에 신선한 야채, 수제버거",img:"craft+burger+gourmet",price:14000,search:["버거","burger","수제버거"]},
+  risotto:{name:"🍚 리조또",cuisine:"italian",desc:"치즈가 녹아든 크리미한 리조또",img:"risotto+mushroom+cheese",price:17000,search:["리조또","risotto","이탈리안"]},
+  bbq_ribs:{name:"🍖 BBQ 립",cuisine:"western",desc:"소스에 절여 구운 부드러운 바베큐 립",img:"bbq+ribs+smoked",price:28000,search:["BBQ","바베큐","립","ribs"]},
+  brunch:{name:"🍳 에그 베네딕트",cuisine:"cafe",desc:"반숙 달걀에 올랑데즈 소스, 완벽한 브런치",img:"eggs+benedict+brunch",price:16000,search:["브런치","brunch","에그베네딕트","카페"]},
+  salad:{name:"🥗 포케 샐러드",cuisine:"cafe",desc:"신선한 해산물과 채소의 건강한 한 그릇",img:"poke+bowl+salad+fresh",price:13000,search:["포케","샐러드","salad"]},
+  cafe:{name:"☕ 브런치 카페",cuisine:"cafe",desc:"커피와 함께하는 여유로운 브런치 타임",img:"brunch+cafe+coffee",price:12000,search:["카페","cafe","브런치","커피"]},
+  bakery:{name:"🥐 빵집",cuisine:"cafe",desc:"갓 구운 빵 냄새가 솔솔, 동네 베이커리",img:"bakery+fresh+bread+croissant",price:5000,search:["빵","베이커리","bakery","제과"]},
+  bingsu:{name:"🍧 빙수",cuisine:"cafe",desc:"눈꽃처럼 곱게 간 얼음 위 달콤한 토핑",img:"bingsu+korean+shaved+ice",price:12000,search:["빙수","디저트","설빙"]}
+};
+
+const OSM_CUISINE={korean:"korean",japanese:"japanese;sushi;ramen",western:"italian;burger;steak;american",chinese:"chinese",italian:"italian;pizza;pasta",cafe:"coffee_shop;cafe",vietnamese:"vietnamese",thai:"thai",asian:"asian;noodle"};
+
+function foodImgUrl(food,size){return`https://source.unsplash.com/featured/${size||'400x300'}/?food,${food.img}`}
+function formatPrice(p){if(p>=10000){const v=p/10000;return(Number.isInteger(v)?v:v.toFixed(1))+'만원'}return p.toLocaleString()+'원'}
+function priceTag(p){if(p<=10000)return'💸';if(p<=20000)return'💵';if(p<=35000)return'🧡';return'💎'}
+
+function getTop3(answers){
+  const a={};answers.forEach(x=>a[x.questionId]=x.value);
+  const all=Object.keys(FOOD_DB);
+  function score(key){
+    const f=FOOD_DB[key];let s=0;
+    // Cuisine
+    if(a.cuisine==="korean"&&f.cuisine==="korean")s+=10;
+    else if(a.cuisine==="asian"&&["japanese","chinese","vietnamese","thai"].includes(f.cuisine))s+=10;
+    else if(a.cuisine==="western"&&["western","italian","cafe"].includes(f.cuisine))s+=10;
+    else if(a.cuisine==="any_cuisine")s+=3;
+    else s-=4;
+    // Mood
+    const spicyF=["kimchi_jjigae","budae","dakgalbi","tteokbokki","fire_chicken","malatang","jjambbong","tom_yum"];
+    const warmF=["sundubu","doenjang","gamjatang","galbitang","samgyetang","seolleongtang","kalguksu","gukbap","udon","ramen","pho","jjajang","curry_jp","budae"];
+    const lightF=["salad","cafe","bakery","bingsu","kimbap","banh_mi","brunch","naengmyeon"];
+    const specialF=["steak","sushi","sashimi","korean_bbq","risotto","bbq_ribs","dimsum","jokbal"];
+    if(a.mood==="spicy"){if(spicyF.includes(key))s+=8;else if(lightF.includes(key))s-=3}
+    if(a.mood==="warm"){if(warmF.includes(key))s+=7;else if(lightF.includes(key))s-=2}
+    if(a.mood==="light"){if(lightF.includes(key))s+=8;else if(spicyF.includes(key))s-=4}
+    if(a.mood==="special"){if(specialF.includes(key))s+=8;else s-=1}
+    // Meal
+    if(a.meal==="breakfast"){if(["brunch","cafe","bakery","salad"].includes(key))s+=7}
+    if(a.meal==="snack"){if(["tteokbokki","kimbap","bingsu","bakery","chicken"].includes(key))s+=7}
+    if(a.meal==="dinner"){if(["steak","korean_bbq","samgyeopsal","sushi","sashimi","bossam","bbq_ribs","jokbal"].includes(key))s+=4}
+    // Company
+    if(a.company==="solo"){if(["ramen","udon","kalguksu","gukbap","jjajang","jjambbong","curry_jp","kimbap","bibimbap","katsu"].includes(key))s+=5}
+    if(a.company==="couple"){if(["steak","sushi","pasta","risotto","brunch","pizza","samgyeopsal"].includes(key))s+=4}
+    if(a.company==="large"){if(["korean_bbq","samgyeopsal","dakgalbi","malatang","yanggochi","chicken","budae","bossam"].includes(key))s+=5}
+    // Budget
+    const p=f.price||10000;
+    if(a.budget==="cheap"){if(p<=8000)s+=9;else if(p<=12000)s+=3;else s-=5}
+    if(a.budget==="mid"){if(p>8000&&p<=18000)s+=7;else if(p<=8000)s+=3;else s-=3}
+    if(a.budget==="expensive"){if(p>15000&&p<=35000)s+=7;else if(p<=15000)s-=2}
+    if(a.budget==="flex"){if(p>=30000)s+=9;else if(p>=20000)s+=5;else s-=3}
+    s+=Math.random()*2.5;
+    return s;
+  }
+  const scored=all.map(k=>({key:k,score:score(k),cuisine:FOOD_DB[k].cuisine})).sort((a,b)=>b.score-a.score);
+  const result=[scored[0]];
+  for(let i=1;i<scored.length&&result.length<3;i++){
+    if(result.every(r=>r.cuisine!==scored[i].cuisine)||result.length===2)result.push(scored[i]);
+  }
+  return result.map(r=>({...FOOD_DB[r.key],key:r.key}));
+}
+
+let state={screen:"intro",currentQ:0,answers:[],recommendations:[],selectedRec:0,location:null,restaurants:[]};
+function setState(u){Object.assign(state,u);render()}
+
+function getDistance(la1,lo1,la2,lo2){const R=6371000,r=Math.PI/180,dL=(la2-la1)*r,dG=(lo2-lo1)*r;const a=Math.sin(dL/2)**2+Math.cos(la1*r)*Math.cos(la2*r)*Math.sin(dG/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a))}
+function formatDist(m){return m<1000?Math.round(m)+'m':(m/1000).toFixed(1)+'km'}
+
+// ── 음식별 대표 메뉴 & 정밀 매칭 키워드 ──
+const FOOD_MENU={
+  kimchi_jjigae:{menu:"김치찌개·묵은지찌개·두루치기",strict:["김치찌개","김치 찌개","묵은지"]},
+  sundubu:{menu:"순두부찌개·해물순두부·고기순두부",strict:["순두부"]},
+  doenjang:{menu:"된장찌개·청국장·쌈밥정식",strict:["된장","청국장","쌈밥","한정식","백반"]},
+  budae:{menu:"부대찌개·존슨탕·부대전골",strict:["부대찌개","부대 찌개","존슨"]},
+  gamjatang:{menu:"감자탕·뼈해장국·등뼈찜",strict:["감자탕","뼈해장","등뼈"]},
+  galbitang:{menu:"갈비탕·갈비찜·한우갈비",strict:["갈비탕","갈비찜","한우"]},
+  samgyetang:{menu:"삼계탕·닭백숙·닭한마리",strict:["삼계탕","닭백숙","닭한마리"]},
+  seolleongtang:{menu:"설렁탕·곰탕·사골국밥",strict:["설렁탕","곰탕","사골"]},
+  bibimbap:{menu:"비빔밥·돌솥비빔밥·한정식",strict:["비빔밥","돌솥","한정식","백반"]},
+  kalguksu:{menu:"칼국수·수제비·바지락칼국수",strict:["칼국수","수제비"]},
+  naengmyeon:{menu:"물냉면·비빔냉면·평양냉면",strict:["냉면","평양냉면","함흥냉면"]},
+  korean_bbq:{menu:"한우구이·소고기구이·갈비",strict:["한우","소고기","갈비","정육"]},
+  samgyeopsal:{menu:"삼겹살·목살·항정살",strict:["삼겹살","삼겹 살","목살","항정살","돼지구이"]},
+  dakgalbi:{menu:"닭갈비·철판닭갈비·춘천닭갈비",strict:["닭갈비","춘천"]},
+  bossam:{menu:"보쌈·수육·족발보쌈",strict:["보쌈","수육","족발"]},
+  jokbal:{menu:"족발·앞다리족발·족발보쌈",strict:["족발"]},
+  tteokbokki:{menu:"떡볶이·라볶이·즉석떡볶이",strict:["떡볶이","라볶이","분식"]},
+  fire_chicken:{menu:"불닭·매운닭갈비·화끈닭",strict:["불닭","매운닭"]},
+  gukbap:{menu:"국밥·돼지국밥·뼈국밥",strict:["국밥","돼지국밥","뼈국밥"]},
+  chicken:{menu:"후라이드·양념치킨·간장치킨",strict:["치킨","후라이드","양념치킨","BBQ","bhc","교촌","굽네","네네"]},
+  kimbap:{menu:"김밥·충무김밥·참치김밥",strict:["김밥","분식"]},
+  jeon:{menu:"파전·해물파전·빈대떡",strict:["파전","해물전","빈대떡","전집","막걸리"]},
+  ramen:{menu:"라멘·돈코츠라멘·쇼유라멘",strict:["라멘","ramen","라면전문","돈코츠","쇼유"]},
+  sushi:{menu:"초밥·스시·오마카세",strict:["초밥","스시","sushi","오마카세","회전초밥"]},
+  sashimi:{menu:"회·모둠회·활어회",strict:["횟집","회","활어","사시미"]},
+  udon:{menu:"우동·가케우동·자루우동",strict:["우동","udon"]},
+  katsu:{menu:"돈카츠·히레카츠·로스카츠",strict:["돈카츠","돈까스","카츠","톤카츠"]},
+  curry_jp:{menu:"카레라이스·일본카레·치킨카레",strict:["카레","커리","curry"]},
+  jjajang:{menu:"짜장면·짜장밥·간짜장",strict:["짜장","중국집","중화요리","중화"]},
+  jjambbong:{menu:"짬뽕·짬뽕밥·해물짬뽕",strict:["짬뽕","중국집","중화"]},
+  malatang:{menu:"마라탕·마라샹궈·마라훠궈",strict:["마라탕","마라샹궈","마라 탕","마라"]},
+  yanggochi:{menu:"양꼬치·양갈비·신장꼬치",strict:["양꼬치","양고기"]},
+  dimsum:{menu:"딤섬·하카우·슈마이",strict:["딤섬","점심","딤섬전문"]},
+  pho:{menu:"쌀국수·소고기쌀국수·닭쌀국수",strict:["쌀국수","pho","베트남"]},
+  banh_mi:{menu:"반미·베트남샌드위치",strict:["반미","베트남"]},
+  pad_thai:{menu:"팟타이·태국볶음면",strict:["팟타이","태국","타이"]},
+  tom_yum:{menu:"똠양꿍·태국수프·코코넛수프",strict:["똠양","태국","타이"]},
+  pasta:{menu:"파스타·스파게티·까르보나라",strict:["파스타","pasta","이탈리안","스파게티"]},
+  pizza:{menu:"피자·화덕피자·나폴리피자",strict:["피자","pizza","화덕"]},
+  steak:{menu:"스테이크·립아이·안심스테이크",strict:["스테이크","steak","그릴","다이닝"]},
+  burger:{menu:"수제버거·클래식버거·스모크버거",strict:["버거","burger","햄버거","수제버거"]},
+  risotto:{menu:"리조또·트러플리조또·해산물리조또",strict:["리조또","risotto","이탈리안"]},
+  bbq_ribs:{menu:"바베큐립·풀드포크·스모크BBQ",strict:["BBQ","바베큐","립","ribs"]},
+  brunch:{menu:"에그베네딕트·팬케이크·브런치",strict:["브런치","brunch","카페","에그"]},
+  salad:{menu:"포케볼·그린샐러드·시저샐러드",strict:["포케","샐러드","salad","건강"]},
+  cafe:{menu:"아메리카노·카페라떼·브런치",strict:["카페","cafe","커피","coffee"]},
+  bakery:{menu:"크루아상·소금빵·스콘",strict:["베이커리","bakery","빵집","제과"]},
+  bingsu:{menu:"팥빙수·딸기빙수·눈꽃빙수",strict:["빙수","설빙","디저트"]}
+};
+
+async function searchNearby(lat, lng, rec){
+  const radius = 1000;
+  const strictKw = (FOOD_MENU[rec.key] || {}).strict || rec.search || [];
+
+  const seen = new Set();
+  let allResults = [];
+
+  for(const kw of strictKw.slice(0, 4)){
+    try{
+      const qs = new URLSearchParams({
+        query: kw,
+        x: lng,
+        y: lat,
+        radius: radius,
+        size: 15
+      });
+      const res = await fetch(`/api/kakao/search?${qs}`);
+      const data = await res.json();
+      const docs = data.documents || [];
+
+      docs.forEach(d => {
+        if(seen.has(d.id)) return;
+        seen.add(d.id);
+
+        const dist = parseFloat(d.distance) || 0;
+        if(dist > 1000) return;
+
+        const placeName = (d.place_name || "");
+        const placeNameLower = placeName.toLowerCase();
+
+        // ✅ 이름에 키워드가 포함된 경우만 허용 (엄격 필터)
+        const kwLower = kw.toLowerCase();
+        if(!placeNameLower.includes(kwLower)) return;
+
+        allResults.push({
+          id: d.id,
+          name: placeName,
+          lat: parseFloat(d.y),
+          lng: parseFloat(d.x),
+          category: d.category_name || "",
+          addr: d.road_address_name || d.address_name || "",
+          phone: d.phone || "",
+          distance: dist,
+          placeUrl: d.place_url || ""
+        });
+      });
+    }catch(e){ console.error("카카오 검색 오류:", e); }
+  }
+
+  // 거리순 정렬, 중복 제거
+  allResults.sort((a, b) => a.distance - b.distance);
+  return allResults.slice(0, 10);
+}
+
+// TOP3 선정 전 주변 식당 존재 여부 확인
+async function verifyAndGetTop3(answers, lat, lng){
+  const candidates=getTop3candidates(answers); // 상위 후보 최대 9개
+  const verified=[];
+  for(const rec of candidates){
+    if(verified.length>=3)break;
+    const rests=await searchNearby(lat,lng,rec);
+    if(rests.length>0)verified.push({rec,rests});
+  }
+  return verified; // [{rec, rests}, ...]
+}
+
+function getTop3candidates(answers){
+  const a={};answers.forEach(x=>a[x.questionId]=x.value);
+  const all=Object.keys(FOOD_DB);
+  function score(key){
+    const f=FOOD_DB[key];let s=0;
+    if(a.cuisine==="korean"&&f.cuisine==="korean")s+=10;
+    else if(a.cuisine==="asian"&&["japanese","chinese","vietnamese","thai"].includes(f.cuisine))s+=10;
+    else if(a.cuisine==="western"&&["western","italian","cafe"].includes(f.cuisine))s+=10;
+    else if(a.cuisine==="any_cuisine")s+=3;
+    else s-=4;
+    const spicyF=["kimchi_jjigae","budae","dakgalbi","tteokbokki","fire_chicken","malatang","jjambbong","tom_yum"];
+    const warmF=["sundubu","doenjang","gamjatang","galbitang","samgyetang","seolleongtang","kalguksu","gukbap","udon","ramen","pho","jjajang","curry_jp","budae"];
+    const lightF=["salad","cafe","bakery","bingsu","kimbap","banh_mi","brunch","naengmyeon"];
+    const specialF=["steak","sushi","sashimi","korean_bbq","risotto","bbq_ribs","dimsum","jokbal"];
+    if(a.mood==="spicy"){if(spicyF.includes(key))s+=8;else if(lightF.includes(key))s-=3}
+    if(a.mood==="warm"){if(warmF.includes(key))s+=7;else if(lightF.includes(key))s-=2}
+    if(a.mood==="light"){if(lightF.includes(key))s+=8;else if(spicyF.includes(key))s-=4}
+    if(a.mood==="special"){if(specialF.includes(key))s+=8;else s-=1}
+    if(a.meal==="breakfast"){if(["brunch","cafe","bakery","salad"].includes(key))s+=7}
+    if(a.meal==="snack"){if(["tteokbokki","kimbap","bingsu","bakery","chicken"].includes(key))s+=7}
+    if(a.meal==="dinner"){if(["steak","korean_bbq","samgyeopsal","sushi","sashimi","bossam","bbq_ribs","jokbal"].includes(key))s+=4}
+    if(a.company==="solo"){if(["ramen","udon","kalguksu","gukbap","jjajang","jjambbong","curry_jp","kimbap","bibimbap","katsu"].includes(key))s+=5}
+    if(a.company==="couple"){if(["steak","sushi","pasta","risotto","brunch","pizza","samgyeopsal"].includes(key))s+=4}
+    if(a.company==="large"){if(["korean_bbq","samgyeopsal","dakgalbi","malatang","yanggochi","chicken","budae","bossam"].includes(key))s+=5}
+    const p=f.price||10000;
+    if(a.budget==="cheap"){if(p<=8000)s+=9;else if(p<=12000)s+=3;else s-=5}
+    if(a.budget==="mid"){if(p>8000&&p<=18000)s+=7;else if(p<=8000)s+=3;else s-=3}
+    if(a.budget==="expensive"){if(p>15000&&p<=35000)s+=7;else if(p<=15000)s-=2}
+    if(a.budget==="flex"){if(p>=30000)s+=9;else if(p>=20000)s+=5;else s-=3}
+    s+=Math.random()*2.5;
+    return s;
+  }
+  const scored=all.map(k=>({key:k,score:score(k),cuisine:FOOD_DB[k].cuisine})).sort((a,b)=>b.score-a.score);
+  // 다양한 cuisine 확보하면서 상위 9개 후보 반환
+  const result=[];
+  const seen=new Set();
+  for(const s of scored){
+    if(result.length>=9)break;
+    result.push({...FOOD_DB[s.key],key:s.key});
+  }
+  return result;
+}
+
+function render(){
+  const root=document.getElementById("root"),s=state;
+
+  if(s.screen==="intro"){
+    root.innerHTML=`<div style="text-align:center;animation:scaleIn .6s cubic-bezier(.16,1,.3,1) forwards;opacity:0">
+      <div style="font-size:64px;margin-bottom:8px;animation:bounce 2s ease-in-out infinite">🍽️</div>
+      <h1 style="font-size:28px;font-weight:900;letter-spacing:-.03em">오늘 뭐 먹지?</h1>
+      <p style="color:rgba(255,255,255,.5);font-size:14px;margin:4px 0 32px">5개 질문으로 오늘의 메뉴 TOP 3를 찾아드려요</p>
+      <button class="btn-primary" style="width:auto;padding:16px 48px;border-radius:16px;font-size:18px" onclick="startQuiz()">시작하기 →</button>
+    </div>`;return}
+
+  if(s.screen==="quiz"){
+    const q=QUESTIONS[s.currentQ];
+    let prog='<div class="progress">';
+    for(let i=0;i<QUESTIONS.length;i++)prog+=`<div class="progress-dot" style="width:${i<=s.currentQ?28:18}px;background:${i<s.currentQ?"#FF6B35":i===s.currentQ?"#FF9F1C":"rgba(255,255,255,.15)"}"></div>`;
+    prog+='</div>';
+    let opts='';
+    q.options.forEach((o,i)=>{opts+=`<button class="option-btn" style="animation:fadeUp .4s cubic-bezier(.16,1,.3,1) ${i*.07}s forwards;opacity:0" onclick="selectOption(${s.currentQ},${i})">${o.label}</button>`});
+    root.innerHTML=`${prog}<div style="animation:slideIn .45s cubic-bezier(.16,1,.3,1) forwards;opacity:0;transform:translateY(20px)"><div style="font-size:52px;text-align:center;margin-bottom:8px;animation:bounce 2s ease-in-out infinite">${q.emoji}</div><h2 style="font-size:22px;font-weight:800;text-align:center;line-height:1.4;letter-spacing:-.02em;margin-bottom:24px">${q.question}</h2><div style="display:flex;flex-direction:column;gap:10px">${opts}</div></div>`;
+    return}
+
+  if(s.screen==="result"){
+    const recs=s.recommendations;
+    const rankClasses=["rank-1","rank-2","rank-3"];
+    let cardsHTML='';
+    recs.forEach((r,i)=>{
+      cardsHTML+=`<div class="rank-card ${i===0?'active':''}" onclick="selectRecAndFind(${i})" style="animation:fadeUp .4s cubic-bezier(.16,1,.3,1) ${i*.1}s forwards;opacity:0">
+        <div class="rank-card-inner">
+          <div class="rank-badge ${rankClasses[i]}">${i+1}</div>
+          <img class="rank-food-img" src="${foodImgUrl(r,'200x200')}" alt="${r.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,.06);display:none;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">${r.name.split(" ")[0]}</div>
+          <div class="rank-info">
+            <div class="rname">${r.name}</div>
+            <div class="rdesc">${r.desc}</div>
+            <div style="margin-top:3px;font-size:12px"><span style="color:#FF9F1C;font-weight:700">${priceTag(r.price)} ~${formatPrice(r.price)}</span><span style="color:rgba(255,255,255,.35);margin-left:6px">/1인 예상</span></div>
+          </div>
+          <div style="color:rgba(255,255,255,.3);font-size:18px;flex-shrink:0">›</div>
+        </div>
+      </div>`;
+    });
+    root.innerHTML=`<div style="animation:scaleIn .6s cubic-bezier(.16,1,.3,1) forwards;opacity:0">
+      <div style="text-align:center;margin-bottom:20px">
+        <h2 style="font-size:24px;font-weight:900;margin-bottom:4px">오늘의 추천 TOP 3 🏆</h2>
+        <p style="color:rgba(255,255,255,.5);font-size:13px">마음에 드는 메뉴를 선택하면<br>주변 맛집 지도를 보여드려요</p>
+      </div>
+      <div class="rank-cards">${cardsHTML}</div>
+      <button class="btn-ghost" style="margin-top:8px" onclick="restart()">🔄 다시 테스트하기</button>
+    </div>`;return}
+
+  if(s.screen==="locationPrompt"){
+    const rec=s.recommendations[s.selectedRec];
+    root.innerHTML=`<div style="text-align:center;animation:slideIn .45s cubic-bezier(.16,1,.3,1) forwards;opacity:0;transform:translateY(20px)">
+      <div style="font-size:52px;margin-bottom:16px">${rec.name.split(" ")[0]}</div>
+      <h3 style="font-size:20px;font-weight:800;margin-bottom:6px">${rec.name}</h3>
+      <p style="color:rgba(255,255,255,.6);font-size:14px;margin-bottom:24px;line-height:1.5">주변 맛집을 찾기 위해<br>위치 정보를 허용해 주세요</p>
+      <button class="btn-primary" style="margin-bottom:10px" onclick="allowLocation()">📍 위치 허용하고 찾기</button>
+      <button class="btn-ghost" onclick="goBackToResult()">← TOP 3로 돌아가기</button>
+    </div>`;return}
+
+  if(s.screen==="finding"){
+    root.innerHTML=`<div style="text-align:center;animation:fadeUp .4s ease forwards">
+      <div style="font-size:48px;margin-bottom:16px;animation:spin 2s linear infinite">📍</div>
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:8px">주변 맛집을 분석하는 중...</h3>
+      <p style="color:rgba(255,255,255,.5);font-size:13px;animation:pulse 1.5s ease-in-out infinite">1km 이내 식당을 확인하고 있어요</p>
+    </div>`;return}
+
+  if(s.screen==="noResult"){
+    root.innerHTML=`<div style="text-align:center;animation:slideIn .45s cubic-bezier(.16,1,.3,1) forwards;opacity:0">
+      <div style="font-size:52px;margin-bottom:16px">😅</div>
+      <h3 style="font-size:20px;font-weight:800;margin-bottom:8px">주변 1km에 맛집이 없어요</h3>
+      <p style="color:rgba(255,255,255,.6);font-size:14px;margin-bottom:24px;line-height:1.6">추천한 음식들을 취급하는 식당이<br>근처에 없는 것 같아요</p>
+      <button class="btn-primary" style="margin-bottom:10px" onclick="restart()">🔄 다시 테스트하기</button>
+    </div>`;return}
+
+  if(s.screen==="locationError"){
+    root.innerHTML=`<div style="text-align:center;animation:slideIn .45s cubic-bezier(.16,1,.3,1) forwards;opacity:0">
+      <div style="font-size:52px;margin-bottom:16px">😢</div>
+      <h3 style="font-size:20px;font-weight:800;margin-bottom:8px">위치를 가져올 수 없어요</h3>
+      <p style="color:rgba(255,255,255,.6);font-size:14px;margin-bottom:24px;line-height:1.6">브라우저 설정에서 위치 접근을<br>허용했는지 확인해 주세요</p>
+      <button class="btn-primary" style="margin-bottom:10px" onclick="allowLocation()">다시 시도하기</button>
+      <button class="btn-ghost" onclick="goBackToResult()">← 결과로 돌아가기</button>
+    </div>`;return}
+
+  if(s.screen==="map"){
+    const recs=s.recommendations,si=s.selectedRec,rec=recs[si],rests=s.restaurants;
+    const medals=["🥇","🥈","🥉"];
+    const foodEmoji=rec.name.split(" ")[0]||"🍽️";
+    const searchKw=rec.search&&rec.search[0]?rec.search[0]:rec.name.replace(/^[^\s]+\s/,'');
+    const naverAppSrc=`https://map.naver.com/p/search/${encodeURIComponent(searchKw)}`;
+
+    // Tabs
+    let tabs='<div class="tab-row">';
+    recs.forEach((r,i)=>{
+      const short=r.name.replace(/^[^\s]+\s/,'');
+      tabs+=`<div class="tab-btn ${i===si?'active':''}" onclick="switchRec(${i})">${medals[i]}<br>${short}</div>`;
+    });
+    tabs+='</div>';
+
+    // Restaurant list
+    let listHTML='';
+    if(rests.length===0){
+      listHTML=`<div style="text-align:center;padding:20px;color:rgba(255,255,255,.4)">
+        <div style="font-size:28px;margin-bottom:6px">🔍</div>
+        <div style="font-size:13px">근처에 등록된 식당이 없어요</div>
+        <div style="font-size:11px;margin-top:4px">지도에서 직접 검색해 보세요</div>
+      </div>`;
+    }else{
+      const repMenu=(FOOD_MENU[rec.key]||{}).menu||rec.desc||"";
+      rests.forEach((r,i)=>{
+        const naverWebUrl=`https://map.naver.com/p/search/${encodeURIComponent(r.name)}`;
+        listHTML+=`<div class="rest-card" id="rest-card-${i}" style="animation:fadeUp .3s ${i*.04}s forwards;opacity:0" onclick="focusMarker(${i})">
+          <div class="rest-emoji">${foodEmoji}</div>
+          <div class="rest-info">
+            <div class="rname">${r.name}</div>
+            <div style="font-size:10px;color:#4ade80;font-weight:700;margin-bottom:2px">🍽️ ${repMenu}</div>
+            ${r.category?`<div class="rdetail" style="color:rgba(255,255,255,.4)">📂 ${r.category}</div>`:''}
+            ${r.addr?`<div class="rdetail">📍 ${r.addr}</div>`:''}
+            ${r.phone?`<div class="rdetail">📞 ${r.phone}</div>`:''}
+            <div class="rdetail" style="color:#FF9F1C;font-weight:700">📏 ${formatDist(r.distance)}</div>
+          </div>
+          <a class="naver-map-btn" href="${naverWebUrl}" target="_blank" onclick="event.stopPropagation()">
+            <span style="font-size:16px;font-weight:900;line-height:1">N</span>
+            <span>지도</span>
+          </a>
+        </div>`;
+      });
+    }
+
+    root.innerHTML=`<div style="animation:scaleIn .5s cubic-bezier(.16,1,.3,1) forwards;opacity:0">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <button onclick="goBackToResult()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(255,255,255,.7);cursor:pointer;font-size:13px;padding:7px 12px;font-family:'Noto Sans KR',sans-serif;font-weight:600">← 뒤로</button>
+        <div style="flex:1;font-size:14px;font-weight:800">${rec.name} 주변</div>
+        <a href="${naverAppSrc}" target="_blank"
+           style="display:flex;align-items:center;gap:5px;background:#03c75a;border-radius:10px;color:#fff;text-decoration:none;font-size:11px;font-weight:800;padding:7px 11px;white-space:nowrap;font-family:'Noto Sans KR',sans-serif">
+          <span style="font-size:14px;font-weight:900">N</span> 지도 앱 ↗
+        </a>
+      </div>
+      ${tabs}
+      <div class="kakao-map-wrap">
+        <div class="map-loading" id="map-loading">
+          <div style="font-size:28px;animation:spin 1.5s linear infinite">🗺️</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);animation:pulse 1.5s ease-in-out infinite">지도 불러오는 중...</div>
+        </div>
+        <div id="kakao-map"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="font-size:12px;color:rgba(255,255,255,.45)">📋 주변 식당 ${rests.length}곳</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.3)">N 버튼 → 네이버 지도</span>
+      </div>
+      <div class="restaurant-list">${listHTML}</div>
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button class="btn-ghost" style="flex:1;font-size:12px;padding:10px" onclick="restart()">🔄 처음부터</button>
+        <button class="btn-ghost" style="flex:1;font-size:12px;padding:10px" onclick="refreshSearch()">🔍 재검색</button>
+      </div>
+    </div>`;
+
+    setTimeout(()=>{
+      // 카카오 SDK 로드 완료 확인 후 초기화
+      function tryInit(attempt){
+        if(typeof kakao !== 'undefined' && kakao.maps){
+          kakao.maps.load(()=>initKakaoMap(s.location, rests));
+        } else if(attempt < 20){
+          setTimeout(()=>tryInit(attempt+1), 300);
+        } else {
+          const l=document.getElementById('map-loading');
+          if(l) l.innerHTML='<div style="font-size:28px;margin-bottom:8px">⚠️</div><div style="font-size:12px;color:rgba(255,255,255,.5)">지도를 불러올 수 없어요</div>';
+        }
+      }
+      tryInit(0);
+    }, 200);
+  }
+}
+
+// ── Kakao Map ──
+let kakaoMapInstance=null;
+let kakaoMarkers=[];
+let kakaoOverlays=[];
+let openOverlay=null;
+
+function initKakaoMap(loc, restaurants){
+  const mapEl=document.getElementById('kakao-map');
+  if(!mapEl||typeof kakao==='undefined')return;
+  document.getElementById('map-loading').style.display='none';
+
+  const center=new kakao.maps.LatLng(loc.lat, loc.lng);
+  const map=new kakao.maps.Map(mapEl,{center, level:4});
+  kakaoMapInstance=map;
+  kakaoMarkers=[];
+  kakaoOverlays=[];
+  openOverlay=null;
+
+  // 내 위치 마커
+  new kakao.maps.CustomOverlay({
+    map,
+    position: center,
+    content: '<div style="width:16px;height:16px;background:#4285f4;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(66,133,244,.7)"></div>',
+    zIndex: 10
+  });
+
+  if(restaurants.length===0)return;
+
+  const bounds=new kakao.maps.LatLngBounds();
+  bounds.extend(center);
+
+  restaurants.forEach((r,i)=>{
+    const pos=new kakao.maps.LatLng(r.lat, r.lng);
+    bounds.extend(pos);
+
+    // 마커
+    const markerColor=r.matchScore>=10?'#4ade80':r.matchScore>=5?'#FF9F1C':'#FF6B35';
+    const marker=new kakao.maps.CustomOverlay({
+      map,
+      position: pos,
+      content: `<div onclick="focusMarker(${i})" style="width:32px;height:32px;background:${markerColor};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 3px 10px rgba(0,0,0,.4);border:2px solid rgba(255,255,255,.3);cursor:pointer">🍽️</div>`,
+      zIndex: 3
+    });
+    kakaoMarkers.push(marker);
+
+    // 인포윈도우 (커스텀 오버레이)
+    const overlay=new kakao.maps.CustomOverlay({
+      position: pos,
+      content: `<div class="kakao-iw">
+        <div class="iw-name">${r.name}</div>
+        ${r.category?`<div class="iw-addr" style="color:#FF9F1C">📂 ${r.category.split('>').pop().trim()}</div>`:''}
+        <div class="iw-dist">📏 ${formatDist(r.distance)}</div>
+        ${r.addr?`<div class="iw-addr">📍 ${r.addr}</div>`:''}
+        ${r.phone?`<div class="iw-addr">📞 ${r.phone}</div>`:''}
+      </div>`,
+      zIndex: 5,
+      yAnchor: 1.4
+    });
+    kakaoOverlays.push(overlay);
+  });
+
+  map.setBounds(bounds, 60, 60, 60, 60);
+
+  // 지도 클릭 시 오버레이 닫기
+  kakao.maps.event.addListener(map,'click',()=>{
+    if(openOverlay){openOverlay.setMap(null);openOverlay=null;}
+    document.querySelectorAll('.rest-card').forEach(c=>c.style.borderColor='rgba(255,255,255,.08)');
+  });
+}
+
+function focusMarker(idx){
+  if(!kakaoMapInstance)return;
+  const r=state.restaurants[idx];
+  if(!r)return;
+  const pos=new kakao.maps.LatLng(r.lat, r.lng);
+  kakaoMapInstance.setCenter(pos);
+  kakaoMapInstance.setLevel(3);
+  if(openOverlay){openOverlay.setMap(null);}
+  kakaoOverlays[idx].setMap(kakaoMapInstance);
+  openOverlay=kakaoOverlays[idx];
+  // 카드 하이라이트
+  document.querySelectorAll('.rest-card').forEach((c,i)=>{
+    c.style.borderColor=i===idx?'rgba(255,107,53,.5)':'rgba(255,255,255,.08)';
+    c.style.background=i===idx?'rgba(255,107,53,.1)':'rgba(255,255,255,.04)';
+  });
+  // 스크롤
+  const card=document.getElementById(`rest-card-${idx}`);
+  if(card)card.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function startQuiz(){setState({screen:"quiz",currentQ:0,answers:[]})}
+function selectOption(qIdx,optIdx){
+  const q=QUESTIONS[qIdx],opt=q.options[optIdx];
+  document.querySelectorAll(".option-btn")[optIdx].classList.add("selected");
+  setTimeout(()=>{
+    const na=[...state.answers,{questionId:q.id,value:opt.value}];
+    if(qIdx<QUESTIONS.length-1){
+      setState({answers:na,currentQ:qIdx+1});
+    }else{
+      // 마지막 질문 → 일단 후보 기반으로 result 화면 (위치 없이)
+      const recs=getTop3candidates(na).slice(0,3).map(r=>r);
+      setState({answers:na,recommendations:recs,screen:"result"});
+    }
+  },350);
+}
+function restart(){setState({screen:"intro",currentQ:0,answers:[],recommendations:[],selectedRec:0,location:null,restaurants:[]})}
+function goBackToResult(){setState({screen:"result"})}
+function selectRecAndFind(idx){setState({selectedRec:idx,screen:"locationPrompt"})}
+function allowLocation(){
+  if(navigator.geolocation){
+    setState({screen:"finding"});
+    navigator.geolocation.getCurrentPosition(
+      pos=>doSearch(pos.coords.latitude,pos.coords.longitude),
+      ()=>setState({screen:"locationError"}),
+      {timeout:10000,enableHighAccuracy:true}
+    );
+  }else setState({screen:"locationError"});
+}
+async function doSearch(lat,lng){
+  setState({screen:"finding",location:{lat,lng}});
+  // 위치 확인 후 TOP3 검증 — 주변에 없으면 해당 음식 제외
+  const verified=await verifyAndGetTop3(state.answers,lat,lng);
+  if(verified.length===0){
+    // 주변에 아무것도 없으면 안내
+    setState({screen:"noResult"});
+    return;
+  }
+  const recs=verified.map(v=>v.rec);
+  const firstRests=verified[0].rests;
+  setState({recommendations:recs,selectedRec:0,screen:"map",restaurants:firstRests,location:{lat,lng}});
+}
+async function switchRec(idx){
+  const loc=state.location;if(!loc)return;
+  setState({selectedRec:idx,screen:"finding"});
+  const restaurants=await searchNearby(loc.lat,loc.lng,state.recommendations[idx]);
+  setState({screen:"map",restaurants,location:loc,selectedRec:idx});
+}
+async function refreshSearch(){
+  const loc=state.location;if(!loc){setState({screen:"locationPrompt"});return}
+  setState({screen:"finding"});
+  const restaurants=await searchNearby(loc.lat,loc.lng,state.recommendations[state.selectedRec]);
+  setState({screen:"map",restaurants,location:loc});
+}
+
+render();
+</script>
+</body>
+</html>
