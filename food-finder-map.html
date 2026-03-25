@@ -260,7 +260,7 @@ function getTop3(answers){
   return result.map(r=>({...FOOD_DB[r.key],key:r.key}));
 }
 
-let state={screen:"intro",currentQ:0,answers:[],recommendations:[],selectedRec:0,location:null,restaurants:[]};
+let state={screen:"intro",currentQ:0,answers:[],recommendations:[],selectedRec:0,location:null,restaurants:[],allRests:null};
 function setState(u){Object.assign(state,u);render()}
 
 function getDistance(la1,lo1,la2,lo2){const R=6371000,r=Math.PI/180,dL=(la2-la1)*r,dG=(lo2-lo1)*r;const a=Math.sin(dL/2)**2+Math.cos(la1*r)*Math.cos(la2*r)*Math.sin(dG/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a))}
@@ -728,7 +728,7 @@ function selectOption(qIdx,optIdx){
     }
   },350);
 }
-function restart(){setState({screen:"intro",currentQ:0,answers:[],recommendations:[],selectedRec:0,location:null,restaurants:[]})}
+function restart(){setState({screen:"intro",currentQ:0,answers:[],recommendations:[],selectedRec:0,location:null,restaurants:[],allRests:null})}
 function goBackToResult(){setState({screen:"result"})}
 function selectRecAndFind(idx){setState({selectedRec:idx,screen:"locationPrompt"})}
 function allowLocation(){
@@ -742,24 +742,41 @@ function allowLocation(){
   }else setState({screen:"locationError"});
 }
 async function doSearch(lat,lng){
-  const selectedIdx = state.selectedRec; // 사용자가 선택한 순위 기억
+  const selectedIdx = state.selectedRec;
+  const existingRecs = state.recommendations; // result 화면에서 정해진 순위 그대로 사용
   setState({screen:"finding",location:{lat,lng}});
-  const verified=await verifyAndGetTop3(state.answers,lat,lng);
-  if(verified.length===0){
-    setState({screen:"noResult"});
+
+  // 이미 추천 순위가 정해진 경우 → 그대로 사용, 식당만 새로 검색
+  if(existingRecs && existingRecs.length > 0){
+    // 선택한 순위의 식당 검색
+    const targetRests = await searchNearby(lat, lng, existingRecs[selectedIdx]);
+    // 나머지 순위도 미리 검색해서 캐시
+    const allRests = [null, null, null];
+    allRests[selectedIdx] = targetRests;
+    setState({recommendations:existingRecs, selectedRec:selectedIdx, screen:"map", restaurants:targetRests, location:{lat,lng}, allRests});
     return;
   }
-  const recs=verified.map(v=>v.rec);
-  // 선택한 순위가 verified 결과 안에 있으면 그걸 보여주고, 없으면 0번
+
+  // 처음 검색하는 경우 (추천 없을 때 fallback)
+  const verified = await verifyAndGetTop3(state.answers, lat, lng);
+  if(verified.length===0){ setState({screen:"noResult"}); return; }
+  const recs = verified.map(v=>v.rec);
   const targetIdx = Math.min(selectedIdx, verified.length-1);
-  const targetRests = verified[targetIdx].rests;
-  setState({recommendations:recs, selectedRec:targetIdx, screen:"map", restaurants:targetRests, location:{lat,lng}});
+  setState({recommendations:recs, selectedRec:targetIdx, screen:"map", restaurants:verified[targetIdx].rests, location:{lat,lng}});
 }
 async function switchRec(idx){
-  const loc=state.location;if(!loc)return;
-  setState({selectedRec:idx,screen:"finding"});
-  const restaurants=await searchNearby(loc.lat,loc.lng,state.recommendations[idx]);
-  setState({screen:"map",restaurants,location:loc,selectedRec:idx});
+  const loc=state.location; if(!loc) return;
+  // 이미 캐시된 결과가 있으면 바로 사용
+  if(state.allRests && state.allRests[idx]){
+    setState({selectedRec:idx, restaurants:state.allRests[idx]});
+    return;
+  }
+  setState({selectedRec:idx, screen:"finding"});
+  const restaurants = await searchNearby(loc.lat, loc.lng, state.recommendations[idx]);
+  // 캐시 저장
+  const allRests = state.allRests ? [...state.allRests] : [null,null,null];
+  allRests[idx] = restaurants;
+  setState({screen:"map", restaurants, location:loc, selectedRec:idx, allRests});
 }
 async function refreshSearch(){
   const loc=state.location;if(!loc){setState({screen:"locationPrompt"});return}
