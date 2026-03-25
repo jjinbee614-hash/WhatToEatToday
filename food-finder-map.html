@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>오늘 뭐 먹지?</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2a202fc6da16c2ff08cc316ddd1ed0d5&libraries=services&autoload=false"></script>
 <style>
 :root{
@@ -62,7 +62,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .rank-card.rank-2 .rank-card-badge{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);backdrop-filter:blur(8px)}
 .rank-card.rank-3 .rank-card-badge{background:rgba(255,255,255,.07);color:rgba(255,255,255,.4);backdrop-filter:blur(8px)}
 .rank-card-title{position:absolute;bottom:14px;left:16px;right:16px}
-.rank-card-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:-.01em;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.rank-card-name{font-family:'Noto Sans KR',sans-serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:-.01em;text-shadow:0 2px 8px rgba(0,0,0,.5)}
 .rank-card-body{padding:14px 16px}
 .rank-card-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px}
 .rank-card-footer{display:flex;align-items:center;justify-content:space-between}
@@ -444,7 +444,7 @@ function render(){
   if(s.screen==="intro"){
     root.innerHTML=`<div class="anim-scaleUp" style="text-align:center;padding:20px 0">
       <div style="font-size:11px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:28px">오늘의 식사 추천</div>
-      <div style="font-family:'Playfair Display',serif;font-size:52px;font-weight:900;line-height:1.1;margin-bottom:16px;background:linear-gradient(135deg,var(--text),rgba(237,233,225,.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent">오늘<br>뭐 먹지?</div>
+      <div style="font-family:'Noto Sans KR',sans-serif;font-size:52px;font-weight:900;line-height:1.1;margin-bottom:16px;background:linear-gradient(135deg,var(--text),rgba(237,233,225,.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent">오늘<br>뭐 먹지?</div>
       <div style="width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 20px"></div>
       <p style="color:var(--muted);font-size:13px;font-weight:300;line-height:1.7;margin-bottom:40px">5가지 질문으로 지금 이 순간<br>당신에게 딱 맞는 메뉴를 찾아드려요</p>
       <button class="btn-primary" style="width:auto;padding:16px 52px;font-size:15px;letter-spacing:.06em" onclick="startQuiz()">시작하기</button>
@@ -467,7 +467,7 @@ function render(){
       </div>
       <div class="anim-slideUp" style="margin-bottom:28px">
         <div style="font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:16px">Question ${s.currentQ+1}</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;line-height:1.35;letter-spacing:-.01em">${q.question}</h2>
+        <h2 style="font-family:'Noto Sans KR',sans-serif;font-size:24px;font-weight:700;line-height:1.35;letter-spacing:-.01em">${q.question}</h2>
       </div>
       <div class="options-list">${opts}</div>`;
     return}
@@ -500,7 +500,7 @@ function render(){
     root.innerHTML=`<div class="anim-scaleUp">
       <div style="margin-bottom:24px">
         <div style="font-size:11px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:10px">Today's Pick</div>
-        <div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700">오늘의 추천 메뉴</div>
+        <div style="font-family:'Noto Sans KR',sans-serif;font-size:26px;font-weight:700">오늘의 추천 메뉴</div>
       </div>
       <div class="rank-cards">${cardsHTML}</div>
       <button class="btn-ghost" style="margin-top:4px;font-size:13px" onclick="restart()">처음부터 다시하기</button>
@@ -513,7 +513,7 @@ function render(){
       <div style="border-radius:16px;overflow:hidden;height:160px;margin-bottom:24px;position:relative">
         <img src="${imgSrc}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'" loading="lazy"/>
         <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(7,7,14,.8))"></div>
-        <div style="position:absolute;bottom:14px;left:0;right:0;font-family:'Playfair Display',serif;font-size:22px;font-weight:700">${rec.name.replace(/^[^\s]+\s/,'')}</div>
+        <div style="position:absolute;bottom:14px;left:0;right:0;font-family:'Noto Sans KR',sans-serif;font-size:22px;font-weight:700">${rec.name.replace(/^[^\s]+\s/,'')}</div>
       </div>
       <p style="color:var(--muted);font-size:13px;font-weight:300;margin-bottom:28px;line-height:1.7">주변 맛집을 찾기 위해<br>위치 정보를 허용해 주세요</p>
       <button class="btn-primary" style="margin-bottom:10px;font-size:14px" onclick="allowLocation()">내 위치로 맛집 찾기</button>
@@ -523,14 +523,14 @@ function render(){
   if(s.screen==="finding"){
     root.innerHTML=`<div class="anim-fadeUp" style="text-align:center;padding:40px 0">
       <div style="width:48px;height:48px;border:1.5px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 24px"></div>
-      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:10px">맛집을 분석하는 중</div>
+      <div style="font-family:'Noto Sans KR',sans-serif;font-size:20px;font-weight:700;margin-bottom:10px">맛집을 분석하는 중</div>
       <p style="color:var(--muted);font-size:12px;font-weight:300;letter-spacing:.04em;animation:pulse 2s ease-in-out infinite">주변 1.5km 내 식당을 확인하고 있어요</p>
     </div>`;return}
 
   if(s.screen==="noResult"){
     root.innerHTML=`<div class="anim-slideUp" style="text-align:center;padding:40px 0">
       <div style="font-size:48px;margin-bottom:20px;opacity:.5">🍽️</div>
-      <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:12px">주변에 맛집이 없어요</div>
+      <div style="font-family:'Noto Sans KR',sans-serif;font-size:22px;font-weight:700;margin-bottom:12px">주변에 맛집이 없어요</div>
       <p style="color:var(--muted);font-size:13px;font-weight:300;line-height:1.7;margin-bottom:28px">추천 메뉴를 판매하는 식당이<br>주변 1.5km 내에 없는 것 같아요</p>
       <button class="btn-primary" onclick="restart()">다시 테스트하기</button>
     </div>`;return}
@@ -538,7 +538,7 @@ function render(){
   if(s.screen==="locationError"){
     root.innerHTML=`<div class="anim-slideUp" style="text-align:center;padding:40px 0">
       <div style="font-size:48px;margin-bottom:20px;opacity:.5">📍</div>
-      <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:12px">위치를 가져올 수 없어요</div>
+      <div style="font-family:'Noto Sans KR',sans-serif;font-size:22px;font-weight:700;margin-bottom:12px">위치를 가져올 수 없어요</div>
       <p style="color:var(--muted);font-size:13px;font-weight:300;line-height:1.7;margin-bottom:28px">브라우저 설정에서<br>위치 접근을 허용해 주세요</p>
       <button class="btn-primary" style="margin-bottom:10px" onclick="allowLocation()">다시 시도하기</button>
       <button class="btn-ghost" onclick="goBackToResult()">← 돌아가기</button>
@@ -569,17 +569,17 @@ function render(){
       rests.forEach((r,i)=>{
         const naverWebUrl=`https://map.naver.com/p/search/${encodeURIComponent(r.name)}`;
         listHTML+=`<div class="rest-card anim-fadeUp" id="rest-card-${i}" style="animation-delay:${i*.04}s" onclick="focusMarker(${i})">
-          <div class="rest-card-thumb-placeholder">${rec.name.split(' ')[0]||'🍽️'}</div>
-          <div class="rest-card-body">
-            <div class="rest-card-name">${r.name}</div>
-            ${repMenu?`<div class="rest-card-menu">${repMenu}</div>`:''}
-            ${r.addr?`<div class="rest-card-addr">📍 ${r.addr}</div>`:''}
-            ${r.phone?`<div class="rest-card-addr">📞 ${r.phone}</div>`:''}
-            <div class="rest-card-dist">📏 ${formatDist(r.distance)}</div>
+          <div style="width:44px;height:auto;min-height:72px;background:var(--card2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px">${rec.name.split(' ')[0]||'🍽️'}</div>
+          <div style="flex:1;padding:10px 12px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:3px">
+            <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)">${r.name}</div>
+            ${repMenu?`<div style="font-size:10px;color:var(--gold);font-weight:600">${repMenu}</div>`:''}
+            ${r.addr?`<div style="font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">📍 ${r.addr}</div>`:''}
+            ${r.phone?`<div style="font-size:10px;color:var(--muted)">📞 ${r.phone}</div>`:''}
+            <div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:500">📏 ${formatDist(r.distance)}</div>
           </div>
           <a class="naver-btn" href="${naverWebUrl}" target="_blank" onclick="event.stopPropagation()">
-            <span class="naver-btn-n">N</span>
-            <span>지도</span>
+            <span style="font-size:17px;font-weight:900;line-height:1;font-family:serif">N</span>
+            <span style="font-size:9px;font-weight:700;letter-spacing:.03em">지도</span>
           </a>
         </div>`;
       });
@@ -589,7 +589,7 @@ function render(){
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
         <button onclick="goBackToResult()" style="padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:12px;font-family:'Noto Sans KR',sans-serif;transition:all .2s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">← 뒤로</button>
         <div style="flex:1">
-          <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700">${rec.name.replace(/^[^\s]+\s/,'')} 주변</div>
+          <div style="font-family:'Noto Sans KR',sans-serif;font-size:16px;font-weight:700">${rec.name.replace(/^[^\s]+\s/,'')} 주변</div>
         </div>
         <a href="${naverAppSrc}" target="_blank" style="display:flex;align-items:center;gap:5px;background:var(--green);border-radius:10px;color:#fff;text-decoration:none;font-size:11px;font-weight:700;padding:8px 12px;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;letter-spacing:.02em">
           <span style="font-size:14px;font-weight:900;font-family:serif">N</span> 지도 앱
