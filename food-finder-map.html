@@ -84,21 +84,14 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .map-loading-text{font-size:11px;color:var(--muted);letter-spacing:.06em}
 
 /* Restaurant Cards */
-.restaurant-list{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;padding-right:2px}
+.restaurant-list{display:flex;flex-direction:column;gap:10px;max-height:400px;overflow-y:auto;padding-right:2px}
 .restaurant-list::-webkit-scrollbar{width:2px}
 .restaurant-list::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:2px}
-.rest-card{border-radius:14px;border:1px solid var(--border);background:var(--card);display:flex;overflow:hidden;cursor:pointer;transition:all .2s ease}
-.rest-card:hover{border-color:rgba(201,168,76,.2);background:var(--card2);transform:translateX(2px)}
-.rest-card-thumb{width:76px;height:76px;object-fit:cover;flex-shrink:0;display:block}
-.rest-card-thumb-placeholder{width:76px;height:76px;background:var(--card2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:26px}
-.rest-card-body{flex:1;padding:11px 12px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:3px}
-.rest-card-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rest-card-menu{font-size:10px;color:var(--gold);font-weight:600;letter-spacing:.02em}
-.rest-card-addr{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rest-card-dist{font-size:10px;color:rgba(255,255,255,.35);font-weight:500}
-.naver-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0 14px;background:var(--green);color:#fff;text-decoration:none;font-size:9px;font-weight:700;flex-shrink:0;transition:background .2s;font-family:'Noto Sans KR',sans-serif;border:none;cursor:pointer;letter-spacing:.03em}
+.rest-card{border-radius:14px;border:1px solid rgba(255,255,255,.1);background:#1a1a2e;display:flex;overflow:hidden;cursor:pointer;transition:all .2s ease;min-height:90px}
+.rest-card:hover{border-color:rgba(201,168,76,.3);background:#222236;transform:translateX(2px)}
+.naver-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0 16px;background:var(--green);color:#fff;text-decoration:none;font-size:9px;font-weight:700;flex-shrink:0;transition:background .2s;font-family:'Noto Sans KR',sans-serif;border:none;cursor:pointer;letter-spacing:.03em}
 .naver-btn:hover{background:#029e4e}
-.naver-btn-n{font-size:17px;font-weight:900;line-height:1;font-family:serif}
+.naver-btn-n{font-size:18px;font-weight:900;line-height:1;font-family:serif}
 
 /* Infowindow */
 .kakao-iw{background:#0d0d18;border-radius:12px;padding:12px 14px;color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:12px;box-shadow:0 12px 40px rgba(0,0,0,.9);min-width:160px;border:1px solid rgba(201,168,76,.15);position:relative}
@@ -567,14 +560,14 @@ function render(){
       rests.forEach((r,i)=>{
         const naverWebUrl=`https://map.naver.com/p/search/${encodeURIComponent(r.name)}`;
         listHTML+=`<div class="rest-card anim-fadeUp" id="rest-card-${i}" style="animation-delay:${i*.04}s" onclick="focusMarker(${i})">
-          <div style="flex:1;padding:12px 14px;min-width:0">
-            <div style="font-size:14px;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)">${r.name}</div>
-            ${repMenu?`<div style="font-size:11px;color:var(--gold);font-weight:600;margin-bottom:3px">${repMenu}</div>`:''}
-            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-              ${r.addr?`<div style="font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px">📍 ${r.addr}</div>`:''}
-              <div style="font-size:11px;color:rgba(255,255,255,.45);font-weight:600;flex-shrink:0">📏 ${formatDist(r.distance)}</div>
+          <div style="flex:1;padding:18px 18px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:6px">
+            <div style="font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#ffffff">${r.name}</div>
+            ${repMenu?`<div style="font-size:12px;color:#c9a84c;font-weight:600">${repMenu}</div>`:''}
+            <div style="display:flex;gap:12px;align-items:center">
+              ${r.addr?`<div style="font-size:12px;color:#8885a0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px">📍 ${r.addr}</div>`:''}
+              <div style="font-size:12px;color:#aaa;font-weight:600;flex-shrink:0">📏 ${formatDist(r.distance)}</div>
             </div>
-            ${r.phone?`<div style="font-size:11px;color:var(--muted);margin-top:2px">📞 ${r.phone}</div>`:''}
+            ${r.phone?`<div style="font-size:12px;color:#8885a0">📞 ${r.phone}</div>`:''}
           </div>
           <a class="naver-btn" href="${naverWebUrl}" target="_blank" onclick="event.stopPropagation()">
             <span class="naver-btn-n">N</span>
