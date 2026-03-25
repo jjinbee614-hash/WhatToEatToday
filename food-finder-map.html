@@ -3,80 +3,132 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>오늘 뭐 먹지? 🍽️</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<title>오늘 뭐 먹지?</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2a202fc6da16c2ff08cc316ddd1ed0d5&libraries=services&autoload=false"></script>
 <style>
+:root{
+  --bg:#07070e;--surface:#0d0d18;--card:#111120;--card2:#181828;
+  --gold:#c9a84c;--gold2:#e8c96a;--gold-glow:rgba(201,168,76,.15);
+  --green:#03c75a;--text:#ede9e1;--muted:#5a5870;--border:rgba(255,255,255,.06);
+  --radius:18px;
+}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'Noto Sans KR',sans-serif;background:linear-gradient(160deg,#1a1117,#1e1520 30%,#151218);min-height:100vh;color:#fff;overflow-x:hidden}
-.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px;position:relative}
-.blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
-.blob-a{width:340px;height:340px;background:radial-gradient(circle,rgba(255,107,53,.18),transparent 70%);top:-60px;right:-80px;animation:floatA 8s ease-in-out infinite}
-.blob-b{width:260px;height:260px;background:radial-gradient(circle,rgba(255,195,0,.14),transparent 70%);bottom:40px;left:-60px;animation:floatB 10s ease-in-out infinite}
-.blob-c{width:200px;height:200px;background:radial-gradient(circle,rgba(255,87,87,.12),transparent 70%);top:40%;left:50%;animation:floatC 12s ease-in-out infinite}
-.container{width:100%;max-width:440px;position:relative;z-index:1}
-.progress{display:flex;gap:6px;justify-content:center;margin-bottom:28px}
-.progress-dot{height:5px;border-radius:3px;transition:all .4s cubic-bezier(.4,0,.2,1)}
-.btn-primary{width:100%;padding:16px 24px;border-radius:14px;border:none;background:linear-gradient(135deg,#FF6B35,#FF9F1C);color:#fff;font-size:17px;font-weight:800;cursor:pointer;font-family:'Noto Sans KR',sans-serif;box-shadow:0 8px 32px rgba(255,107,53,.35);transition:all .25s ease}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,107,53,.45)}
-.btn-ghost{width:100%;padding:14px 24px;border-radius:14px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);backdrop-filter:blur(10px);color:rgba(255,255,255,.7);font-size:15px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .25s ease}
-.btn-ghost:hover{border-color:rgba(255,255,255,.3);color:#fff}
-.option-btn{padding:14px 20px;border-radius:14px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);backdrop-filter:blur(10px);color:#fff;font-size:16px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .25s cubic-bezier(.4,0,.2,1);text-align:left;width:100%}
-.option-btn:hover{border-color:rgba(255,107,53,.5);background:rgba(255,255,255,.08);transform:translateX(4px)}
-.option-btn.selected{border-color:#FF6B35;background:linear-gradient(135deg,rgba(255,107,53,.25),rgba(255,159,28,.15))}
-.rank-cards{display:flex;flex-direction:column;gap:10px;margin:16px 0}
-.rank-card{border-radius:16px;border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);backdrop-filter:blur(8px);overflow:hidden;cursor:pointer;transition:all .25s ease}
-.rank-card:hover{border-color:rgba(255,107,53,.4);background:rgba(255,255,255,.06);transform:translateY(-1px)}
-.rank-card.active{border-color:#FF6B35;background:rgba(255,107,53,.08)}
-.rank-card-inner{display:flex;align-items:center;gap:14px;padding:14px 16px}
-.rank-badge{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0}
-.rank-1{background:linear-gradient(135deg,#FF6B35,#FF9F1C);color:#fff}
-.rank-2{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8)}
-.rank-3{background:rgba(255,255,255,.08);color:rgba(255,255,255,.5)}
-.rank-food-img{width:48px;height:48px;border-radius:12px;object-fit:cover;flex-shrink:0;background:rgba(255,255,255,.06)}
-.rank-info{flex:1;min-width:0}
-.rank-info .rname{font-size:16px;font-weight:800;margin-bottom:2px}
-.rank-info .rdesc{font-size:12px;color:rgba(255,255,255,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tab-row{display:flex;gap:6px;margin-bottom:10px}
-.tab-btn{flex:1;padding:9px 6px;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:rgba(255,255,255,.6);font-size:11px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .2s;text-align:center;line-height:1.4}
-.tab-btn.active{border-color:#FF6B35;background:rgba(255,107,53,.12);color:#FF9F1C}
-.tab-btn:hover{border-color:rgba(255,107,53,.4)}
-.restaurant-list{display:flex;flex-direction:column;gap:8px;margin-top:8px;max-height:300px;overflow-y:auto;padding-right:4px}
-.restaurant-list::-webkit-scrollbar{width:4px}
-.restaurant-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:2px}
-.rest-card{padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);transition:all .2s ease;display:flex;gap:10px;align-items:center}
-.rest-card:hover{background:rgba(255,107,53,.08);border-color:rgba(255,107,53,.25)}
-.rest-emoji{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.06);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px}
-.rest-info{flex:1;min-width:0}
-.rest-info .rname{font-size:13px;font-weight:700;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rest-info .rdetail{font-size:10px;color:rgba(255,255,255,.45);line-height:1.5}
-.naver-map-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:7px 9px;border-radius:10px;background:#03c75a;color:#fff;text-decoration:none;font-size:10px;font-weight:800;flex-shrink:0;transition:all .2s;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;border:none;cursor:pointer;min-width:44px}
-.naver-map-btn:hover{background:#02a84a;transform:scale(1.06);box-shadow:0 4px 14px rgba(3,199,90,.4)}
-.kakao-map-wrap{border-radius:16px;overflow:hidden;border:1.5px solid rgba(255,255,255,.1);position:relative;background:#1a1520;margin-bottom:8px;height:340px}
-.kakao-map-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#FF6B35,#FF9F1C);z-index:10;pointer-events:none}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* Background */
+.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.bg-orb{position:absolute;border-radius:50%;filter:blur(100px)}
+.bg-orb-1{width:600px;height:600px;background:radial-gradient(circle,rgba(20,8,40,.8),transparent 70%);top:-150px;right:-150px;animation:orb1 14s ease-in-out infinite}
+.bg-orb-2{width:500px;height:500px;background:radial-gradient(circle,rgba(5,20,15,.8),transparent 70%);bottom:-100px;left:-100px;animation:orb2 18s ease-in-out infinite}
+.bg-orb-3{width:350px;height:350px;background:radial-gradient(circle,rgba(201,168,76,.04),transparent 70%);top:35%;left:20%;animation:orb3 11s ease-in-out infinite}
+.bg-line{position:fixed;top:0;left:50%;width:1px;height:100%;background:linear-gradient(180deg,transparent,rgba(201,168,76,.06) 30%,rgba(201,168,76,.06) 70%,transparent);transform:translateX(-50%);pointer-events:none;z-index:0}
+
+.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;position:relative;z-index:2}
+.container{width:100%;max-width:400px}
+
+/* Progress */
+.progress-wrap{margin-bottom:36px}
+.progress-track{height:1px;background:var(--border);border-radius:1px;overflow:hidden;margin-bottom:12px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .6s cubic-bezier(.4,0,.2,1)}
+.progress-meta{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+
+/* Buttons */
+.btn-primary{width:100%;padding:16px 24px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 100%);color:#080600;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:.04em;transition:all .3s ease;position:relative;overflow:hidden}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(201,168,76,.25)}
+.btn-ghost{width:100%;padding:14px 24px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:14px;font-weight:400;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .25s ease}
+.btn-ghost:hover{border-color:rgba(255,255,255,.15);color:var(--text)}
+
+/* Options */
+.options-list{display:flex;flex-direction:column;gap:8px}
+.option-btn{width:100%;padding:15px 18px;border-radius:14px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;font-weight:400;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .22s ease;text-align:left;display:flex;align-items:center;gap:12px;position:relative;overflow:hidden}
+.option-btn .opt-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:all .22s ease}
+.option-btn:hover{border-color:rgba(201,168,76,.25);background:var(--card2);transform:translateX(3px)}
+.option-btn:hover .opt-dot{background:var(--gold)}
+.option-btn.selected{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.07)}
+.option-btn.selected .opt-dot{background:var(--gold);box-shadow:0 0 8px rgba(201,168,76,.6)}
+
+/* Rank Cards — full image style */
+.rank-cards{display:flex;flex-direction:column;gap:14px;margin:24px 0}
+.rank-card{border-radius:var(--radius);border:1px solid var(--border);background:var(--card);overflow:hidden;cursor:pointer;transition:all .35s cubic-bezier(.4,0,.2,1);position:relative}
+.rank-card:hover{transform:translateY(-4px);box-shadow:0 24px 64px rgba(0,0,0,.6),0 0 0 1px rgba(201,168,76,.2)}
+.rank-card-cover{position:relative;height:170px;overflow:hidden}
+.rank-card-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.rank-card:hover .rank-card-cover img{transform:scale(1.04)}
+.rank-card-cover-placeholder{width:100%;height:170px;background:linear-gradient(135deg,var(--card2),var(--card));display:flex;align-items:center;justify-content:center;font-size:56px}
+.rank-card-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1) 0%,rgba(7,7,14,.85) 100%)}
+.rank-card-badge{position:absolute;top:14px;left:14px;padding:5px 12px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.rank-card.rank-1 .rank-card-badge{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#060400}
+.rank-card.rank-2 .rank-card-badge{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);backdrop-filter:blur(8px)}
+.rank-card.rank-3 .rank-card-badge{background:rgba(255,255,255,.07);color:rgba(255,255,255,.4);backdrop-filter:blur(8px)}
+.rank-card-title{position:absolute;bottom:14px;left:16px;right:16px}
+.rank-card-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:-.01em;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.rank-card-body{padding:14px 16px}
+.rank-card-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px}
+.rank-card-footer{display:flex;align-items:center;justify-content:space-between}
+.rank-card-price{font-size:12px;color:var(--gold);font-weight:600;letter-spacing:.02em}
+.rank-card-cta{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;transition:all .2s}
+.rank-card:hover .rank-card-cta{color:var(--gold)}
+
+/* Tabs */
+.tab-row{display:flex;gap:6px;margin-bottom:12px}
+.tab-btn{flex:1;padding:10px 4px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:10px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .2s;text-align:center;line-height:1.6;letter-spacing:.02em}
+.tab-btn.active{border-color:rgba(201,168,76,.35);background:var(--gold-glow);color:var(--gold)}
+
+/* Map */
+.kakao-map-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);position:relative;background:var(--card);margin-bottom:12px;height:280px}
+.kakao-map-wrap::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:10;pointer-events:none}
 #kakao-map{width:100%;height:100%}
-.map-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#1a1520;z-index:5;gap:10px;pointer-events:none}
-/* Kakao custom infowindow */
-.kakao-iw{background:#1e1520;border-radius:12px;padding:12px 14px;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:12px;box-shadow:0 8px 24px rgba(0,0,0,.6);min-width:160px;border:1px solid rgba(255,255,255,.12);position:relative}
-.kakao-iw::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:#1e1520;border-bottom:none}
-.kakao-iw .iw-name{font-weight:800;font-size:13px;margin-bottom:4px;white-space:nowrap}
-.kakao-iw .iw-dist{color:#FF9F1C;font-size:11px;font-weight:700}
-.kakao-iw .iw-addr{color:rgba(255,255,255,.5);font-size:11px;margin-top:2px}
-.kakao-iw .iw-naver{display:inline-block;margin-top:6px;padding:4px 10px;background:#03c75a;border-radius:6px;color:#fff;text-decoration:none;font-size:11px;font-weight:800}
-@keyframes floatA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,20px) scale(1.08)}}
-@keyframes floatB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-25px) scale(1.12)}}
-@keyframes floatC{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-15px,30px) scale(.95)}}
-@keyframes slideIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-@keyframes scaleIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.map-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--card);z-index:5;gap:14px;pointer-events:none}
+.map-loading-ring{width:32px;height:32px;border:1.5px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .9s linear infinite}
+.map-loading-text{font-size:11px;color:var(--muted);letter-spacing:.06em}
+
+/* Restaurant Cards */
+.restaurant-list{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;padding-right:2px}
+.restaurant-list::-webkit-scrollbar{width:2px}
+.restaurant-list::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:2px}
+.rest-card{border-radius:14px;border:1px solid var(--border);background:var(--card);display:flex;overflow:hidden;cursor:pointer;transition:all .2s ease}
+.rest-card:hover{border-color:rgba(201,168,76,.2);background:var(--card2);transform:translateX(2px)}
+.rest-card-thumb{width:76px;height:76px;object-fit:cover;flex-shrink:0;display:block}
+.rest-card-thumb-placeholder{width:76px;height:76px;background:var(--card2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:26px}
+.rest-card-body{flex:1;padding:11px 12px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:3px}
+.rest-card-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rest-card-menu{font-size:10px;color:var(--gold);font-weight:600;letter-spacing:.02em}
+.rest-card-addr{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rest-card-dist{font-size:10px;color:rgba(255,255,255,.35);font-weight:500}
+.naver-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0 14px;background:var(--green);color:#fff;text-decoration:none;font-size:9px;font-weight:700;flex-shrink:0;transition:background .2s;font-family:'Noto Sans KR',sans-serif;border:none;cursor:pointer;letter-spacing:.03em}
+.naver-btn:hover{background:#029e4e}
+.naver-btn-n{font-size:17px;font-weight:900;line-height:1;font-family:serif}
+
+/* Infowindow */
+.kakao-iw{background:#0d0d18;border-radius:12px;padding:12px 14px;color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:12px;box-shadow:0 12px 40px rgba(0,0,0,.9);min-width:160px;border:1px solid rgba(201,168,76,.15);position:relative}
+.kakao-iw::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:#0d0d18;border-bottom:none}
+.kakao-iw .iw-name{font-weight:700;font-size:13px;margin-bottom:5px}
+.kakao-iw .iw-row{font-size:11px;color:var(--muted);margin-top:2px}
+.kakao-iw .iw-dist{color:var(--gold);font-size:11px;font-weight:600;margin-bottom:2px}
+
+/* Animations */
+@keyframes orb1{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,30px)}}
+@keyframes orb2{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-25px)}}
+@keyframes orb3{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,35px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleUp{from{opacity:0;transform:scale(.97) translateY(6px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.anim-scaleUp{animation:scaleUp .5s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
+.anim-fadeUp{animation:fadeUp .4s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
+.anim-slideUp{animation:slideUp .4s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
 </style>
 </head>
 <body>
+<div class="bg-canvas">
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+</div>
+<div class="bg-line"></div>
 <div class="app">
-  <div class="blob blob-a"></div><div class="blob blob-b"></div><div class="blob blob-c"></div>
   <div class="container" id="root"></div>
 </div>
 <script>
@@ -85,27 +137,32 @@ const QUESTIONS=[
     {label:"🔥 뭔가 자극적인 것",value:"spicy"},
     {label:"☁️ 따뜻하고 든든한 것",value:"warm"},
     {label:"✨ 가볍고 산뜻한 것",value:"light"},
-    {label:"💎 뭔가 특별한 것",value:"special"}]},
+    {label:"💎 뭔가 특별한 것",value:"special"},
+    {label:"🍺 한 잔 곁들이고 싶어",value:"drinks"}]},
   {id:"meal",emoji:"🕐",question:"지금 몇 끼를 먹으러 가나요?",options:[
     {label:"🌅 아침 / 브런치",value:"breakfast"},
     {label:"☀️ 점심",value:"lunch"},
+    {label:"🌆 이른 저녁 (4~6시)",value:"early_dinner"},
     {label:"🌙 저녁",value:"dinner"},
     {label:"🌃 야식 / 간식",value:"snack"}]},
   {id:"company",emoji:"🧑‍🤝‍🧑",question:"누구와 함께인가요?",options:[
     {label:"🙋 혼자",value:"solo"},
     {label:"💑 2인 (데이트/친구)",value:"couple"},
     {label:"👨‍👩‍👧 3~4명",value:"small"},
-    {label:"🎉 5명 이상",value:"large"}]},
+    {label:"🎉 5명 이상",value:"large"},
+    {label:"💼 비즈니스 미팅",value:"business"}]},
   {id:"cuisine",emoji:"🌍",question:"어떤 계열의 음식이 끌리나요?",options:[
     {label:"🇰🇷 한식",value:"korean"},
     {label:"🍜 아시안",value:"asian"},
+    {label:"🥘 중식 (짜장·짬뽕·마라)",value:"chinese"},
     {label:"🍕 양식 / 패스트푸드",value:"western"},
     {label:"🎲 아무거나!",value:"any_cuisine"}]},
   {id:"budget",emoji:"💰",question:"오늘 예산은 얼마나 되나요?",options:[
     {label:"💚 1만원 이하",value:"cheap"},
     {label:"💛 1~2만원",value:"mid"},
     {label:"🧡 2~4만원",value:"expensive"},
-    {label:"❤️ 4만원 이상",value:"flex"}]}
+    {label:"❤️ 4만원 이상",value:"flex"},
+    {label:"🎰 상관없어, 끌리는 곳으로",value:"any_budget"}]}
 ];
 
 const FOOD_DB={
@@ -339,7 +396,8 @@ function getTop3candidates(answers){
   function score(key){
     const f=FOOD_DB[key];let s=0;
     if(a.cuisine==="korean"&&f.cuisine==="korean")s+=10;
-    else if(a.cuisine==="asian"&&["japanese","chinese","vietnamese","thai"].includes(f.cuisine))s+=10;
+    else if(a.cuisine==="asian"&&["japanese","vietnamese","thai"].includes(f.cuisine))s+=10;
+    else if(a.cuisine==="chinese"&&f.cuisine==="chinese")s+=10;
     else if(a.cuisine==="western"&&["western","italian","cafe"].includes(f.cuisine))s+=10;
     else if(a.cuisine==="any_cuisine")s+=3;
     else s-=4;
@@ -347,21 +405,25 @@ function getTop3candidates(answers){
     const warmF=["sundubu","doenjang","gamjatang","galbitang","samgyetang","seolleongtang","kalguksu","gukbap","udon","ramen","pho","jjajang","curry_jp","budae"];
     const lightF=["salad","cafe","bakery","bingsu","kimbap","banh_mi","brunch","naengmyeon"];
     const specialF=["steak","sushi","sashimi","korean_bbq","risotto","bbq_ribs","dimsum","jokbal"];
+    const drinksF=["jeon","samgyeopsal","korean_bbq","gopchang","yanggochi","jokbal","bossam","chicken","dakgalbi"];
     if(a.mood==="spicy"){if(spicyF.includes(key))s+=8;else if(lightF.includes(key))s-=3}
     if(a.mood==="warm"){if(warmF.includes(key))s+=7;else if(lightF.includes(key))s-=2}
     if(a.mood==="light"){if(lightF.includes(key))s+=8;else if(spicyF.includes(key))s-=4}
     if(a.mood==="special"){if(specialF.includes(key))s+=8;else s-=1}
+    if(a.mood==="drinks"){if(drinksF.includes(key))s+=8}
     if(a.meal==="breakfast"){if(["brunch","cafe","bakery","salad"].includes(key))s+=7}
     if(a.meal==="snack"){if(["tteokbokki","kimbap","bingsu","bakery","chicken"].includes(key))s+=7}
-    if(a.meal==="dinner"){if(["steak","korean_bbq","samgyeopsal","sushi","sashimi","bossam","bbq_ribs","jokbal"].includes(key))s+=4}
+    if(a.meal==="dinner"||a.meal==="early_dinner"){if(["steak","korean_bbq","samgyeopsal","sushi","sashimi","bossam","bbq_ribs","jokbal"].includes(key))s+=4}
     if(a.company==="solo"){if(["ramen","udon","kalguksu","gukbap","jjajang","jjambbong","curry_jp","kimbap","bibimbap","katsu"].includes(key))s+=5}
     if(a.company==="couple"){if(["steak","sushi","pasta","risotto","brunch","pizza","samgyeopsal"].includes(key))s+=4}
     if(a.company==="large"){if(["korean_bbq","samgyeopsal","dakgalbi","malatang","yanggochi","chicken","budae","bossam"].includes(key))s+=5}
+    if(a.company==="business"){if(["steak","sushi","sashimi","risotto","galbitang","dimsum","pasta"].includes(key))s+=6}
     const p=f.price||10000;
     if(a.budget==="cheap"){if(p<=8000)s+=9;else if(p<=12000)s+=3;else s-=5}
     if(a.budget==="mid"){if(p>8000&&p<=18000)s+=7;else if(p<=8000)s+=3;else s-=3}
     if(a.budget==="expensive"){if(p>15000&&p<=35000)s+=7;else if(p<=15000)s-=2}
     if(a.budget==="flex"){if(p>=30000)s+=9;else if(p>=20000)s+=5;else s-=3}
+    if(a.budget==="any_budget")s+=2; // 예산 무관 → 모든 음식에 소폭 가산
     s+=Math.random()*2.5;
     return s;
   }
@@ -380,172 +442,191 @@ function render(){
   const root=document.getElementById("root"),s=state;
 
   if(s.screen==="intro"){
-    root.innerHTML=`<div style="text-align:center;animation:scaleIn .6s cubic-bezier(.16,1,.3,1) forwards;opacity:0">
-      <div style="font-size:64px;margin-bottom:8px;animation:bounce 2s ease-in-out infinite">🍽️</div>
-      <h1 style="font-size:28px;font-weight:900;letter-spacing:-.03em">오늘 뭐 먹지?</h1>
-      <p style="color:rgba(255,255,255,.5);font-size:14px;margin:4px 0 32px">5개 질문으로 오늘의 메뉴 TOP 3를 찾아드려요</p>
-      <button class="btn-primary" style="width:auto;padding:16px 48px;border-radius:16px;font-size:18px" onclick="startQuiz()">시작하기 →</button>
+    root.innerHTML=`<div class="anim-scaleUp" style="text-align:center;padding:20px 0">
+      <div style="font-size:11px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:28px">오늘의 식사 추천</div>
+      <div style="font-family:'Playfair Display',serif;font-size:52px;font-weight:900;line-height:1.1;margin-bottom:16px;background:linear-gradient(135deg,var(--text),rgba(237,233,225,.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent">오늘<br>뭐 먹지?</div>
+      <div style="width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 20px"></div>
+      <p style="color:var(--muted);font-size:13px;font-weight:300;line-height:1.7;margin-bottom:40px">5가지 질문으로 지금 이 순간<br>당신에게 딱 맞는 메뉴를 찾아드려요</p>
+      <button class="btn-primary" style="width:auto;padding:16px 52px;font-size:15px;letter-spacing:.06em" onclick="startQuiz()">시작하기</button>
     </div>`;return}
 
   if(s.screen==="quiz"){
     const q=QUESTIONS[s.currentQ];
-    let prog='<div class="progress">';
-    for(let i=0;i<QUESTIONS.length;i++)prog+=`<div class="progress-dot" style="width:${i<=s.currentQ?28:18}px;background:${i<s.currentQ?"#FF6B35":i===s.currentQ?"#FF9F1C":"rgba(255,255,255,.15)"}"></div>`;
-    prog+='</div>';
+    const pct=Math.round((s.currentQ/QUESTIONS.length)*100);
     let opts='';
-    q.options.forEach((o,i)=>{opts+=`<button class="option-btn" style="animation:fadeUp .4s cubic-bezier(.16,1,.3,1) ${i*.07}s forwards;opacity:0" onclick="selectOption(${s.currentQ},${i})">${o.label}</button>`});
-    root.innerHTML=`${prog}<div style="animation:slideIn .45s cubic-bezier(.16,1,.3,1) forwards;opacity:0;transform:translateY(20px)"><div style="font-size:52px;text-align:center;margin-bottom:8px;animation:bounce 2s ease-in-out infinite">${q.emoji}</div><h2 style="font-size:22px;font-weight:800;text-align:center;line-height:1.4;letter-spacing:-.02em;margin-bottom:24px">${q.question}</h2><div style="display:flex;flex-direction:column;gap:10px">${opts}</div></div>`;
+    q.options.forEach((o,i)=>{
+      opts+=`<button class="option-btn anim-fadeUp" style="animation-delay:${i*.06}s" onclick="selectOption(${s.currentQ},${i})">
+        <span class="opt-dot"></span>
+        <span>${o.label}</span>
+      </button>`;
+    });
+    root.innerHTML=`
+      <div class="progress-wrap anim-fadeUp">
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <div class="progress-meta"><span>${s.currentQ + 1} / ${QUESTIONS.length}</span><span>${pct}%</span></div>
+      </div>
+      <div class="anim-slideUp" style="margin-bottom:28px">
+        <div style="font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:16px">Question ${s.currentQ+1}</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;line-height:1.35;letter-spacing:-.01em">${q.question}</h2>
+      </div>
+      <div class="options-list">${opts}</div>`;
     return}
 
   if(s.screen==="result"){
     const recs=s.recommendations;
-    const rankClasses=["rank-1","rank-2","rank-3"];
+    const rankLabels=["1st Choice","2nd Choice","3rd Choice"];
     let cardsHTML='';
     recs.forEach((r,i)=>{
-      cardsHTML+=`<div class="rank-card ${i===0?'active':''}" onclick="selectRecAndFind(${i})" style="animation:fadeUp .4s cubic-bezier(.16,1,.3,1) ${i*.1}s forwards;opacity:0">
-        <div class="rank-card-inner">
-          <div class="rank-badge ${rankClasses[i]}">${i+1}</div>
-          <img class="rank-food-img" src="${foodImgUrl(r,'200x200')}" alt="${r.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,.06);display:none;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">${r.name.split(" ")[0]}</div>
-          <div class="rank-info">
-            <div class="rname">${r.name}</div>
-            <div class="rdesc">${r.desc}</div>
-            <div style="margin-top:3px;font-size:12px"><span style="color:#FF9F1C;font-weight:700">${priceTag(r.price)} ~${formatPrice(r.price)}</span><span style="color:rgba(255,255,255,.35);margin-left:6px">/1인 예상</span></div>
+      const imgSrc=`https://source.unsplash.com/featured/800x400/?${encodeURIComponent(r.img)},food`;
+      cardsHTML+=`
+        <div class="rank-card rank-${i+1} anim-fadeUp" style="animation-delay:${i*.12}s" onclick="selectRecAndFind(${i})">
+          <div class="rank-card-cover">
+            <img src="${imgSrc}" alt="${r.name}" onerror="this.parentNode.innerHTML='<div class=\\'rank-card-cover-placeholder\\'>${r.name.split(' ')[0]}</div>'" loading="lazy"/>
+            <div class="rank-card-overlay"></div>
+            <div class="rank-card-badge">${rankLabels[i]}</div>
+            <div class="rank-card-title">
+              <div class="rank-card-name">${r.name.replace(/^[^\s]+\s/,'')}</div>
+            </div>
           </div>
-          <div style="color:rgba(255,255,255,.3);font-size:18px;flex-shrink:0">›</div>
-        </div>
-      </div>`;
+          <div class="rank-card-body">
+            <div class="rank-card-desc">${r.desc}</div>
+            <div class="rank-card-footer">
+              <div class="rank-card-price">예상 ${priceTag(r.price)} ~${formatPrice(r.price)} / 1인</div>
+              <div class="rank-card-cta">주변 맛집 보기 →</div>
+            </div>
+          </div>
+        </div>`;
     });
-    root.innerHTML=`<div style="animation:scaleIn .6s cubic-bezier(.16,1,.3,1) forwards;opacity:0">
-      <div style="text-align:center;margin-bottom:20px">
-        <h2 style="font-size:24px;font-weight:900;margin-bottom:4px">오늘의 추천 TOP 3 🏆</h2>
-        <p style="color:rgba(255,255,255,.5);font-size:13px">마음에 드는 메뉴를 선택하면<br>주변 맛집 지도를 보여드려요</p>
+    root.innerHTML=`<div class="anim-scaleUp">
+      <div style="margin-bottom:24px">
+        <div style="font-size:11px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:10px">Today's Pick</div>
+        <div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700">오늘의 추천 메뉴</div>
       </div>
       <div class="rank-cards">${cardsHTML}</div>
-      <button class="btn-ghost" style="margin-top:8px" onclick="restart()">🔄 다시 테스트하기</button>
+      <button class="btn-ghost" style="margin-top:4px;font-size:13px" onclick="restart()">처음부터 다시하기</button>
     </div>`;return}
 
   if(s.screen==="locationPrompt"){
     const rec=s.recommendations[s.selectedRec];
-    root.innerHTML=`<div style="text-align:center;animation:slideIn .45s cubic-bezier(.16,1,.3,1) forwards;opacity:0;transform:translateY(20px)">
-      <div style="font-size:52px;margin-bottom:16px">${rec.name.split(" ")[0]}</div>
-      <h3 style="font-size:20px;font-weight:800;margin-bottom:6px">${rec.name}</h3>
-      <p style="color:rgba(255,255,255,.6);font-size:14px;margin-bottom:24px;line-height:1.5">주변 맛집을 찾기 위해<br>위치 정보를 허용해 주세요</p>
-      <button class="btn-primary" style="margin-bottom:10px" onclick="allowLocation()">📍 위치 허용하고 찾기</button>
-      <button class="btn-ghost" onclick="goBackToResult()">← TOP 3로 돌아가기</button>
+    const imgSrc=`https://source.unsplash.com/featured/400x200/?${encodeURIComponent(rec.img)},food`;
+    root.innerHTML=`<div class="anim-slideUp" style="text-align:center">
+      <div style="border-radius:16px;overflow:hidden;height:160px;margin-bottom:24px;position:relative">
+        <img src="${imgSrc}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'" loading="lazy"/>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(7,7,14,.8))"></div>
+        <div style="position:absolute;bottom:14px;left:0;right:0;font-family:'Playfair Display',serif;font-size:22px;font-weight:700">${rec.name.replace(/^[^\s]+\s/,'')}</div>
+      </div>
+      <p style="color:var(--muted);font-size:13px;font-weight:300;margin-bottom:28px;line-height:1.7">주변 맛집을 찾기 위해<br>위치 정보를 허용해 주세요</p>
+      <button class="btn-primary" style="margin-bottom:10px;font-size:14px" onclick="allowLocation()">내 위치로 맛집 찾기</button>
+      <button class="btn-ghost" style="font-size:13px" onclick="goBackToResult()">← 메뉴 선택으로 돌아가기</button>
     </div>`;return}
 
   if(s.screen==="finding"){
-    root.innerHTML=`<div style="text-align:center;animation:fadeUp .4s ease forwards">
-      <div style="font-size:48px;margin-bottom:16px;animation:spin 2s linear infinite">📍</div>
-      <h3 style="font-size:18px;font-weight:700;margin-bottom:8px">주변 맛집을 분석하는 중...</h3>
-      <p style="color:rgba(255,255,255,.5);font-size:13px;animation:pulse 1.5s ease-in-out infinite">1km 이내 식당을 확인하고 있어요</p>
+    root.innerHTML=`<div class="anim-fadeUp" style="text-align:center;padding:40px 0">
+      <div style="width:48px;height:48px;border:1.5px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 24px"></div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:10px">맛집을 분석하는 중</div>
+      <p style="color:var(--muted);font-size:12px;font-weight:300;letter-spacing:.04em;animation:pulse 2s ease-in-out infinite">주변 1.5km 내 식당을 확인하고 있어요</p>
     </div>`;return}
 
   if(s.screen==="noResult"){
-    root.innerHTML=`<div style="text-align:center;animation:slideIn .45s cubic-bezier(.16,1,.3,1) forwards;opacity:0">
-      <div style="font-size:52px;margin-bottom:16px">😅</div>
-      <h3 style="font-size:20px;font-weight:800;margin-bottom:8px">주변 1km에 맛집이 없어요</h3>
-      <p style="color:rgba(255,255,255,.6);font-size:14px;margin-bottom:24px;line-height:1.6">추천한 음식들을 취급하는 식당이<br>근처에 없는 것 같아요</p>
-      <button class="btn-primary" style="margin-bottom:10px" onclick="restart()">🔄 다시 테스트하기</button>
+    root.innerHTML=`<div class="anim-slideUp" style="text-align:center;padding:40px 0">
+      <div style="font-size:48px;margin-bottom:20px;opacity:.5">🍽️</div>
+      <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:12px">주변에 맛집이 없어요</div>
+      <p style="color:var(--muted);font-size:13px;font-weight:300;line-height:1.7;margin-bottom:28px">추천 메뉴를 판매하는 식당이<br>주변 1.5km 내에 없는 것 같아요</p>
+      <button class="btn-primary" onclick="restart()">다시 테스트하기</button>
     </div>`;return}
 
   if(s.screen==="locationError"){
-    root.innerHTML=`<div style="text-align:center;animation:slideIn .45s cubic-bezier(.16,1,.3,1) forwards;opacity:0">
-      <div style="font-size:52px;margin-bottom:16px">😢</div>
-      <h3 style="font-size:20px;font-weight:800;margin-bottom:8px">위치를 가져올 수 없어요</h3>
-      <p style="color:rgba(255,255,255,.6);font-size:14px;margin-bottom:24px;line-height:1.6">브라우저 설정에서 위치 접근을<br>허용했는지 확인해 주세요</p>
+    root.innerHTML=`<div class="anim-slideUp" style="text-align:center;padding:40px 0">
+      <div style="font-size:48px;margin-bottom:20px;opacity:.5">📍</div>
+      <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:12px">위치를 가져올 수 없어요</div>
+      <p style="color:var(--muted);font-size:13px;font-weight:300;line-height:1.7;margin-bottom:28px">브라우저 설정에서<br>위치 접근을 허용해 주세요</p>
       <button class="btn-primary" style="margin-bottom:10px" onclick="allowLocation()">다시 시도하기</button>
-      <button class="btn-ghost" onclick="goBackToResult()">← 결과로 돌아가기</button>
+      <button class="btn-ghost" onclick="goBackToResult()">← 돌아가기</button>
     </div>`;return}
 
   if(s.screen==="map"){
     const recs=s.recommendations,si=s.selectedRec,rec=recs[si],rests=s.restaurants;
-    const medals=["🥇","🥈","🥉"];
-    const foodEmoji=rec.name.split(" ")[0]||"🍽️";
+    const rankLabels=["1st","2nd","3rd"];
     const searchKw=rec.search&&rec.search[0]?rec.search[0]:rec.name.replace(/^[^\s]+\s/,'');
     const naverAppSrc=`https://map.naver.com/p/search/${encodeURIComponent(searchKw)}`;
+    const repMenu=(FOOD_MENU[rec.key]||{}).menu||"";
 
-    // Tabs
     let tabs='<div class="tab-row">';
     recs.forEach((r,i)=>{
       const short=r.name.replace(/^[^\s]+\s/,'');
-      tabs+=`<div class="tab-btn ${i===si?'active':''}" onclick="switchRec(${i})">${medals[i]}<br>${short}</div>`;
+      tabs+=`<div class="tab-btn ${i===si?'active':''}" onclick="switchRec(${i})">${rankLabels[i]}<br>${short}</div>`;
     });
     tabs+='</div>';
 
-    // Restaurant list
     let listHTML='';
     if(rests.length===0){
-      listHTML=`<div style="text-align:center;padding:20px;color:rgba(255,255,255,.4)">
-        <div style="font-size:28px;margin-bottom:6px">🔍</div>
-        <div style="font-size:13px">근처에 등록된 식당이 없어요</div>
-        <div style="font-size:11px;margin-top:4px">지도에서 직접 검색해 보세요</div>
+      listHTML=`<div style="text-align:center;padding:30px 0;color:var(--muted)">
+        <div style="font-size:32px;margin-bottom:12px;opacity:.4">🔍</div>
+        <div style="font-size:13px">등록된 식당이 없어요</div>
+        <div style="font-size:11px;margin-top:6px;opacity:.6">지도에서 직접 검색해 보세요</div>
       </div>`;
     }else{
-      const repMenu=(FOOD_MENU[rec.key]||{}).menu||rec.desc||"";
       rests.forEach((r,i)=>{
         const naverWebUrl=`https://map.naver.com/p/search/${encodeURIComponent(r.name)}`;
-        listHTML+=`<div class="rest-card" id="rest-card-${i}" style="animation:fadeUp .3s ${i*.04}s forwards;opacity:0" onclick="focusMarker(${i})">
-          <div class="rest-emoji">${foodEmoji}</div>
-          <div class="rest-info">
-            <div class="rname">${r.name}</div>
-            <div style="font-size:10px;color:#4ade80;font-weight:700;margin-bottom:2px">🍽️ ${repMenu}</div>
-            ${r.category?`<div class="rdetail" style="color:rgba(255,255,255,.4)">📂 ${r.category}</div>`:''}
-            ${r.addr?`<div class="rdetail">📍 ${r.addr}</div>`:''}
-            ${r.phone?`<div class="rdetail">📞 ${r.phone}</div>`:''}
-            <div class="rdetail" style="color:#FF9F1C;font-weight:700">📏 ${formatDist(r.distance)}</div>
+        listHTML+=`<div class="rest-card anim-fadeUp" id="rest-card-${i}" style="animation-delay:${i*.04}s" onclick="focusMarker(${i})">
+          <div class="rest-card-thumb-placeholder">${rec.name.split(' ')[0]||'🍽️'}</div>
+          <div class="rest-card-body">
+            <div class="rest-card-name">${r.name}</div>
+            ${repMenu?`<div class="rest-card-menu">${repMenu}</div>`:''}
+            ${r.addr?`<div class="rest-card-addr">📍 ${r.addr}</div>`:''}
+            ${r.phone?`<div class="rest-card-addr">📞 ${r.phone}</div>`:''}
+            <div class="rest-card-dist">📏 ${formatDist(r.distance)}</div>
           </div>
-          <a class="naver-map-btn" href="${naverWebUrl}" target="_blank" onclick="event.stopPropagation()">
-            <span style="font-size:16px;font-weight:900;line-height:1">N</span>
+          <a class="naver-btn" href="${naverWebUrl}" target="_blank" onclick="event.stopPropagation()">
+            <span class="naver-btn-n">N</span>
             <span>지도</span>
           </a>
         </div>`;
       });
     }
 
-    root.innerHTML=`<div style="animation:scaleIn .5s cubic-bezier(.16,1,.3,1) forwards;opacity:0">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <button onclick="goBackToResult()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(255,255,255,.7);cursor:pointer;font-size:13px;padding:7px 12px;font-family:'Noto Sans KR',sans-serif;font-weight:600">← 뒤로</button>
-        <div style="flex:1;font-size:14px;font-weight:800">${rec.name} 주변</div>
-        <a href="${naverAppSrc}" target="_blank"
-           style="display:flex;align-items:center;gap:5px;background:#03c75a;border-radius:10px;color:#fff;text-decoration:none;font-size:11px;font-weight:800;padding:7px 11px;white-space:nowrap;font-family:'Noto Sans KR',sans-serif">
-          <span style="font-size:14px;font-weight:900">N</span> 지도 앱 ↗
+    root.innerHTML=`<div class="anim-scaleUp">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <button onclick="goBackToResult()" style="padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:12px;font-family:'Noto Sans KR',sans-serif;transition:all .2s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">← 뒤로</button>
+        <div style="flex:1">
+          <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700">${rec.name.replace(/^[^\s]+\s/,'')} 주변</div>
+        </div>
+        <a href="${naverAppSrc}" target="_blank" style="display:flex;align-items:center;gap:5px;background:var(--green);border-radius:10px;color:#fff;text-decoration:none;font-size:11px;font-weight:700;padding:8px 12px;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;letter-spacing:.02em">
+          <span style="font-size:14px;font-weight:900;font-family:serif">N</span> 지도 앱
         </a>
       </div>
       ${tabs}
       <div class="kakao-map-wrap">
         <div class="map-loading" id="map-loading">
-          <div style="font-size:28px;animation:spin 1.5s linear infinite">🗺️</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.5);animation:pulse 1.5s ease-in-out infinite">지도 불러오는 중...</div>
+          <div class="map-loading-ring"></div>
+          <div class="map-loading-text">지도를 불러오는 중</div>
         </div>
         <div id="kakao-map"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <span style="font-size:12px;color:rgba(255,255,255,.45)">📋 주변 식당 ${rests.length}곳</span>
-        <span style="font-size:11px;color:rgba(255,255,255,.3)">N 버튼 → 네이버 지도</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:10px 0 8px">
+        <span style="font-size:11px;color:var(--muted);letter-spacing:.04em">주변 식당 ${rests.length}곳 발견</span>
+        <span style="font-size:10px;color:var(--muted);opacity:.6">N 버튼 → 네이버 지도</span>
       </div>
       <div class="restaurant-list">${listHTML}</div>
-      <div style="margin-top:10px;display:flex;gap:8px">
-        <button class="btn-ghost" style="flex:1;font-size:12px;padding:10px" onclick="restart()">🔄 처음부터</button>
-        <button class="btn-ghost" style="flex:1;font-size:12px;padding:10px" onclick="refreshSearch()">🔍 재검색</button>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn-ghost" style="flex:1;font-size:12px;padding:12px" onclick="restart()">처음부터</button>
+        <button class="btn-ghost" style="flex:1;font-size:12px;padding:12px" onclick="refreshSearch()">재검색</button>
       </div>
     </div>`;
 
     setTimeout(()=>{
-      // 카카오 SDK 로드 완료 확인 후 초기화
       function tryInit(attempt){
-        if(typeof kakao !== 'undefined' && kakao.maps){
-          kakao.maps.load(()=>initKakaoMap(s.location, rests));
-        } else if(attempt < 20){
-          setTimeout(()=>tryInit(attempt+1), 300);
-        } else {
+        if(typeof kakao!=='undefined'&&kakao.maps){
+          kakao.maps.load(()=>initKakaoMap(s.location,rests));
+        }else if(attempt<20){
+          setTimeout(()=>tryInit(attempt+1),300);
+        }else{
           const l=document.getElementById('map-loading');
-          if(l) l.innerHTML='<div style="font-size:28px;margin-bottom:8px">⚠️</div><div style="font-size:12px;color:rgba(255,255,255,.5)">지도를 불러올 수 없어요</div>';
+          if(l)l.innerHTML='<div style="color:var(--muted);font-size:12px">지도를 불러올 수 없어요</div>';
         }
       }
       tryInit(0);
-    }, 200);
+    },200);
   }
 }
 
