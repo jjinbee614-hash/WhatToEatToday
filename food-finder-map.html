@@ -569,17 +569,17 @@ function render(){
       rests.forEach((r,i)=>{
         const naverWebUrl=`https://map.naver.com/p/search/${encodeURIComponent(r.name)}`;
         listHTML+=`<div class="rest-card anim-fadeUp" id="rest-card-${i}" style="animation-delay:${i*.04}s" onclick="focusMarker(${i})">
-          <div style="width:44px;height:auto;min-height:72px;background:var(--card2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px">${rec.name.split(' ')[0]||'🍽️'}</div>
-          <div style="flex:1;padding:10px 12px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:3px">
-            <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)">${r.name}</div>
-            ${repMenu?`<div style="font-size:10px;color:var(--gold);font-weight:600">${repMenu}</div>`:''}
-            ${r.addr?`<div style="font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">📍 ${r.addr}</div>`:''}
-            ${r.phone?`<div style="font-size:10px;color:var(--muted)">📞 ${r.phone}</div>`:''}
-            <div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:500">📏 ${formatDist(r.distance)}</div>
+          <div class="rest-card-thumb-placeholder">${rec.name.split(' ')[0]||'🍽️'}</div>
+          <div class="rest-card-body">
+            <div class="rest-card-name">${r.name}</div>
+            ${repMenu?`<div class="rest-card-menu">${repMenu}</div>`:''}
+            ${r.addr?`<div class="rest-card-addr">📍 ${r.addr}</div>`:''}
+            ${r.phone?`<div class="rest-card-addr">📞 ${r.phone}</div>`:''}
+            <div class="rest-card-dist">📏 ${formatDist(r.distance)}</div>
           </div>
           <a class="naver-btn" href="${naverWebUrl}" target="_blank" onclick="event.stopPropagation()">
-            <span style="font-size:17px;font-weight:900;line-height:1;font-family:serif">N</span>
-            <span style="font-size:9px;font-weight:700;letter-spacing:.03em">지도</span>
+            <span class="naver-btn-n">N</span>
+            <span>지도</span>
           </a>
         </div>`;
       });
