@@ -386,47 +386,123 @@ async function verifyAndGetTop3(answers, lat, lng){
 function getTop3candidates(answers){
   const a={};answers.forEach(x=>a[x.questionId]=x.value);
   const all=Object.keys(FOOD_DB);
+
   function score(key){
-    const f=FOOD_DB[key];let s=0;
-    if(a.cuisine==="korean"&&f.cuisine==="korean")s+=10;
-    else if(a.cuisine==="asian"&&["japanese","vietnamese","thai"].includes(f.cuisine))s+=10;
-    else if(a.cuisine==="chinese"&&f.cuisine==="chinese")s+=10;
-    else if(a.cuisine==="western"&&["western","italian","cafe"].includes(f.cuisine))s+=10;
-    else if(a.cuisine==="any_cuisine")s+=3;
-    else s-=4;
-    const spicyF=["kimchi_jjigae","budae","dakgalbi","tteokbokki","fire_chicken","malatang","jjambbong","tom_yum"];
-    const warmF=["sundubu","doenjang","gamjatang","galbitang","samgyetang","seolleongtang","kalguksu","gukbap","udon","ramen","pho","jjajang","curry_jp","budae"];
-    const lightF=["salad","cafe","bakery","bingsu","kimbap","banh_mi","brunch","naengmyeon"];
-    const specialF=["steak","sushi","sashimi","korean_bbq","risotto","bbq_ribs","dimsum","jokbal"];
-    const drinksF=["jeon","samgyeopsal","korean_bbq","gopchang","yanggochi","jokbal","bossam","chicken","dakgalbi"];
-    if(a.mood==="spicy"){if(spicyF.includes(key))s+=8;else if(lightF.includes(key))s-=3}
-    if(a.mood==="warm"){if(warmF.includes(key))s+=7;else if(lightF.includes(key))s-=2}
-    if(a.mood==="light"){if(lightF.includes(key))s+=8;else if(spicyF.includes(key))s-=4}
-    if(a.mood==="special"){if(specialF.includes(key))s+=8;else s-=1}
-    if(a.mood==="drinks"){if(drinksF.includes(key))s+=8}
-    if(a.meal==="breakfast"){if(["brunch","cafe","bakery","salad"].includes(key))s+=7}
-    if(a.meal==="snack"){if(["tteokbokki","kimbap","bingsu","bakery","chicken"].includes(key))s+=7}
-    if(a.meal==="dinner"||a.meal==="early_dinner"){if(["steak","korean_bbq","samgyeopsal","sushi","sashimi","bossam","bbq_ribs","jokbal"].includes(key))s+=4}
-    if(a.company==="solo"){if(["ramen","udon","kalguksu","gukbap","jjajang","jjambbong","curry_jp","kimbap","bibimbap","katsu"].includes(key))s+=5}
-    if(a.company==="couple"){if(["steak","sushi","pasta","risotto","brunch","pizza","samgyeopsal"].includes(key))s+=4}
-    if(a.company==="large"){if(["korean_bbq","samgyeopsal","dakgalbi","malatang","yanggochi","chicken","budae","bossam"].includes(key))s+=5}
-    if(a.company==="business"){if(["steak","sushi","sashimi","risotto","galbitang","dimsum","pasta"].includes(key))s+=6}
+    const f=FOOD_DB[key]; let s=0;
+
+    // ── 1. 음식 계열 (가장 중요) ──
+    const cuisineMatch =
+      (a.cuisine==="korean" && f.cuisine==="korean") ||
+      (a.cuisine==="asian" && ["japanese","vietnamese","thai"].includes(f.cuisine)) ||
+      (a.cuisine==="chinese" && f.cuisine==="chinese") ||
+      (a.cuisine==="western" && ["western","italian","cafe"].includes(f.cuisine));
+    if(a.cuisine==="any_cuisine") s+=2;
+    else if(cuisineMatch) s+=15;
+    else s-=12; // 계열 불일치 강력 패널티
+
+    // ── 2. 기분/맛 ──
+    const spicyF=["kimchi_jjigae","budae","dakgalbi","tteokbokki","fire_chicken","malatang","jjambbong","tom_yum","jjambbong","yanggochi"];
+    const warmF=["sundubu","doenjang","gamjatang","galbitang","samgyetang","seolleongtang","kalguksu","gukbap","udon","ramen","pho","jjajang","curry_jp","budae","tteokguk"];
+    const lightF=["salad","cafe","bakery","bingsu","kimbap","banh_mi","brunch","naengmyeon","soba","sandwich"];
+    const specialF=["steak","sushi","sashimi","korean_bbq","risotto","bbq_ribs","dimsum","jokbal","galbitang","samgyetang"];
+    const drinksF=["jeon","samgyeopsal","korean_bbq","yanggochi","jokbal","bossam","chicken","dakgalbi","gopchang"];
+
+    if(a.mood==="spicy"){
+      if(spicyF.includes(key)) s+=10;
+      else if(specialF.includes(key)||warmF.includes(key)) s-=2;
+      else if(lightF.includes(key)) s-=6;
+    }
+    if(a.mood==="warm"){
+      if(warmF.includes(key)) s+=10;
+      else if(lightF.includes(key)) s-=5;
+    }
+    if(a.mood==="light"){
+      if(lightF.includes(key)) s+=10;
+      else if(spicyF.includes(key)) s-=8;
+      else if(warmF.includes(key)) s-=3;
+    }
+    if(a.mood==="special"){
+      if(specialF.includes(key)) s+=10;
+      else s-=3;
+    }
+    if(a.mood==="drinks"){
+      if(drinksF.includes(key)) s+=10;
+    }
+
+    // ── 3. 끼니 ──
+    if(a.meal==="breakfast"||a.meal==="brunch"){
+      if(["brunch","cafe","bakery","salad"].includes(key)) s+=8;
+      else if(["steak","korean_bbq","samgyeopsal","jokbal","gopchang"].includes(key)) s-=5;
+    }
+    if(a.meal==="snack"){
+      if(["tteokbokki","kimbap","bingsu","bakery","chicken","takoyaki"].includes(key)) s+=8;
+    }
+    if(a.meal==="dinner"||a.meal==="early_dinner"){
+      if(["steak","korean_bbq","samgyeopsal","sushi","sashimi","bossam","bbq_ribs","jokbal","galbitang"].includes(key)) s+=5;
+      if(["brunch","cafe","bakery","kimbap"].includes(key)) s-=3;
+    }
+    if(a.meal==="lunch"){
+      if(["bibimbap","kalguksu","gukbap","jjajang","jjambbong","bibimbap","curry_jp","katsu","udon","pho"].includes(key)) s+=4;
+    }
+
+    // ── 4. 인원 ──
+    if(a.company==="solo"){
+      if(["ramen","udon","kalguksu","gukbap","jjajang","jjambbong","curry_jp","kimbap","bibimbap","katsu","pho","naengmyeon"].includes(key)) s+=6;
+      if(["korean_bbq","budae","bossam","yanggochi"].includes(key)) s-=4;
+    }
+    if(a.company==="couple"){
+      if(["steak","sushi","pasta","risotto","brunch","pizza","samgyeopsal","dakgalbi"].includes(key)) s+=5;
+    }
+    if(a.company==="large"){
+      if(["korean_bbq","samgyeopsal","dakgalbi","malatang","yanggochi","chicken","budae","bossam"].includes(key)) s+=6;
+      if(["ramen","udon","gukbap","kimbap"].includes(key)) s-=3;
+    }
+    if(a.company==="business"){
+      if(["steak","sushi","sashimi","galbitang","dimsum","pasta","risotto"].includes(key)) s+=8;
+      else if(["tteokbokki","kimbap","ramen","ramyeon","bingsu"].includes(key)) s-=5;
+    }
+
+    // ── 5. 예산 (강력 적용) ──
     const p=f.price||10000;
-    if(a.budget==="cheap"){if(p<=8000)s+=9;else if(p<=12000)s+=3;else s-=5}
-    if(a.budget==="mid"){if(p>8000&&p<=18000)s+=7;else if(p<=8000)s+=3;else s-=3}
-    if(a.budget==="expensive"){if(p>15000&&p<=35000)s+=7;else if(p<=15000)s-=2}
-    if(a.budget==="flex"){if(p>=30000)s+=9;else if(p>=20000)s+=5;else s-=3}
-    if(a.budget==="any_budget")s+=2; // 예산 무관 → 모든 음식에 소폭 가산
-    s+=Math.random()*2.5;
-    return s;
+    if(a.budget==="cheap"){       // ~1만원
+      if(p<=8000) s+=12;
+      else if(p<=10000) s+=6;
+      else if(p<=15000) s-=4;
+      else s-=12;
+    }
+    if(a.budget==="mid"){         // 1~2만원
+      if(p>8000&&p<=18000) s+=12;
+      else if(p<=8000) s+=2;
+      else if(p<=25000) s-=4;
+      else s-=10;
+    }
+    if(a.budget==="expensive"){   // 2~4만원
+      if(p>15000&&p<=40000) s+=12;
+      else if(p<=15000) s-=6;
+      else s-=4;
+    }
+    if(a.budget==="flex"){        // 4만원+
+      if(p>=35000) s+=12;
+      else if(p>=20000) s+=6;
+      else s-=4;
+    }
+    if(a.budget==="any_budget") s+=0; // 예산 무관
+
+    return s; // 랜덤 제거 — 일관성 있는 결과
   }
+
   const scored=all.map(k=>({key:k,score:score(k),cuisine:FOOD_DB[k].cuisine})).sort((a,b)=>b.score-a.score);
-  // 다양한 cuisine 확보하면서 상위 9개 후보 반환
+
+  // 상위 15개에서 다양한 계열로 TOP3 선정
   const result=[];
-  const seen=new Set();
+  const usedCuisines=new Set();
   for(const s of scored){
-    if(result.length>=9)break;
-    result.push({...FOOD_DB[s.key],key:s.key});
+    if(result.length>=3) break;
+    // 같은 계열 중복 방지 (단, 결과가 부족하면 허용)
+    if(!usedCuisines.has(s.cuisine)||result.length===2){
+      result.push({...FOOD_DB[s.key],key:s.key});
+      usedCuisines.add(s.cuisine);
+    }
   }
   return result;
 }
