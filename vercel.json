@@ -1,5 +1,7 @@
 {
   "rewrites": [
-    { "source": "/api/kakao/search", "destination": "/api/kakao" }
+    { "source": "/api/kakao/search", "destination": "/api/kakao" },
+    { "source": "/eat", "destination": "/eat/index.html" },
+    { "source": "/eat/(.*)", "destination": "/eat/$1" }
   ]
 }
