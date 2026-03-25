@@ -635,6 +635,7 @@ function render(){
     }else{
       rests.forEach((r,i)=>{
         const naverWebUrl=`https://map.naver.com/p/search/${encodeURIComponent(r.name)}`;
+        const kakaoWebUrl=`https://map.kakao.com/?q=${encodeURIComponent(r.name)}`;
         const catShort = r.category ? r.category.split('>').pop().trim() : '';
         listHTML+=`<div class="rest-card anim-fadeUp" id="rest-card-${i}" style="animation-delay:${i*.04}s" onclick="focusMarker(${i})">
           <div style="flex:1;padding:10px 16px;min-width:0;display:flex;flex-direction:column;gap:3px">
@@ -646,10 +647,18 @@ function render(){
               <div style="font-size:11px;color:#c9a84c;font-weight:600">${formatDist(r.distance)}</div>
             </div>
           </div>
-          <a class="naver-btn" href="${naverWebUrl}" target="_blank" onclick="event.stopPropagation()">
-            <span class="naver-btn-n">N</span>
-            <span>지도</span>
-          </a>
+          <div style="display:flex;flex-direction:column;flex-shrink:0;border-radius:0 14px 14px 0;overflow:hidden">
+            <a href="${naverWebUrl}" target="_blank" onclick="event.stopPropagation()"
+               style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:0 14px;background:#03c75a;color:#fff;text-decoration:none;font-size:9px;font-weight:700;font-family:'Noto Sans KR',sans-serif;transition:background .2s;min-width:48px;border-bottom:1px solid rgba(255,255,255,.15)">
+              <span style="font-size:16px;font-weight:900;line-height:1;font-family:serif">N</span>
+              <span>지도</span>
+            </a>
+            <a href="${kakaoWebUrl}" target="_blank" onclick="event.stopPropagation()"
+               style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:0 14px;background:#fee500;color:#3c1e1e;text-decoration:none;font-size:9px;font-weight:700;font-family:'Noto Sans KR',sans-serif;transition:background .2s;min-width:48px">
+              <span style="font-size:16px;font-weight:900;line-height:1">K</span>
+              <span>지도</span>
+            </a>
+          </div>
         </div>`;
       });
     }
@@ -674,7 +683,7 @@ function render(){
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin:10px 0 8px">
         <span style="font-size:11px;color:var(--muted);letter-spacing:.04em">주변 식당 ${rests.length}곳 발견</span>
-        <span style="font-size:10px;color:var(--muted);opacity:.6">N 버튼 → 네이버 지도</span>
+        <span style="font-size:10px;color:var(--muted);opacity:.6">N=네이버 K=카카오 지도</span>
       </div>
       <div class="restaurant-list">${listHTML}</div>
       <div style="margin-top:12px;display:flex;gap:8px">
