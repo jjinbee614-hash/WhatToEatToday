@@ -269,7 +269,7 @@ const FOOD_MENU={
 };
 
 async function searchNearby(lat, lng, rec){
-  const radius = 1500; // 1.5km로 확장
+  const radius = 1500;
   const strictKw = (FOOD_MENU[rec.key] || {}).strict || rec.search || [];
 
   const seen = new Set();
@@ -278,12 +278,12 @@ async function searchNearby(lat, lng, rec){
   for(const kw of strictKw.slice(0, 5)){
     try{
       const qs = new URLSearchParams({
-        query: kw,
+        query: kw,       // 키워드만으로 검색 — 카카오가 알아서 관련 음식점 반환
         x: lng,
         y: lat,
         radius: radius,
         size: 15,
-        category_group_code: "FD6"
+        category_group_code: "FD6"  // 음식점 카테고리만
       });
       const res = await fetch(`/api/kakao/search?${qs}`);
       const data = await res.json();
@@ -296,19 +296,15 @@ async function searchNearby(lat, lng, rec){
         const dist = parseFloat(d.distance) || 0;
         if(dist > 1500) return;
 
-        const placeName = d.place_name || "";
-        const placeNameLower = placeName.toLowerCase();
-        const categoryLower = (d.category_name || "").toLowerCase();
-        const kwLower = kw.toLowerCase();
-
-        // 이름에 키워드 포함 OR 카카오 카테고리 세부 항목에 키워드 포함
-        const nameMatch = placeNameLower.includes(kwLower);
-        const catDetailMatch = categoryLower.split(">").pop().trim().includes(kwLower);
-        if(!nameMatch && !catDetailMatch) return;
+        // 마사지·스파 등 음식 무관 업종 제외
+        const catLower = (d.category_name || "").toLowerCase();
+        const nameLower = (d.place_name || "").toLowerCase();
+        const isNonFood = ["마사지","스파","안마","피부","네일","헬스","헬스케어","병원","약국","미용","숙박","주차"].some(w => nameLower.includes(w) || catLower.includes(w));
+        if(isNonFood) return;
 
         allResults.push({
           id: d.id,
-          name: placeName,
+          name: d.place_name,
           lat: parseFloat(d.y),
           lng: parseFloat(d.x),
           category: d.category_name || "",
@@ -322,7 +318,7 @@ async function searchNearby(lat, lng, rec){
   }
 
   allResults.sort((a, b) => a.distance - b.distance);
-  return allResults.slice(0, 15); // 최대 15개로 확장
+  return allResults.slice(0, 15);
 }
 
 // TOP3 선정 전 주변 식당 존재 여부 확인
