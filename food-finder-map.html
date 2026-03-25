@@ -218,54 +218,54 @@ function formatDist(m){return m<1000?Math.round(m)+'m':(m/1000).toFixed(1)+'km'}
 
 // ── 음식별 대표 메뉴 & 정밀 매칭 키워드 ──
 const FOOD_MENU={
-  kimchi_jjigae:{menu:"김치찌개·묵은지찌개·두루치기",strict:["김치찌개","김치 찌개","묵은지"]},
-  sundubu:{menu:"순두부찌개·해물순두부·고기순두부",strict:["순두부"]},
-  doenjang:{menu:"된장찌개·청국장·쌈밥정식",strict:["된장","청국장","쌈밥","한정식","백반"]},
-  budae:{menu:"부대찌개·존슨탕·부대전골",strict:["부대찌개","부대 찌개","존슨"]},
-  gamjatang:{menu:"감자탕·뼈해장국·등뼈찜",strict:["감자탕","뼈해장","등뼈"]},
-  galbitang:{menu:"갈비탕·갈비찜·한우갈비",strict:["갈비탕","갈비찜","한우"]},
+  kimchi_jjigae:{menu:"김치찌개·묵은지찌개·두루치기",strict:["김치찌개","묵은지찌개"]},
+  sundubu:{menu:"순두부찌개·해물순두부·고기순두부",strict:["순두부찌개","순두부"]},
+  doenjang:{menu:"된장찌개·청국장·쌈밥정식",strict:["된장찌개","청국장"]},
+  budae:{menu:"부대찌개·존슨탕·부대전골",strict:["부대찌개","부대전골"]},
+  gamjatang:{menu:"감자탕·뼈해장국·등뼈찜",strict:["감자탕","뼈해장국"]},
+  galbitang:{menu:"갈비탕·갈비찜·한우갈비",strict:["갈비탕","갈비찜"]},
   samgyetang:{menu:"삼계탕·닭백숙·닭한마리",strict:["삼계탕","닭백숙","닭한마리"]},
-  seolleongtang:{menu:"설렁탕·곰탕·사골국밥",strict:["설렁탕","곰탕","사골"]},
-  bibimbap:{menu:"비빔밥·돌솥비빔밥·한정식",strict:["비빔밥","돌솥","한정식","백반"]},
+  seolleongtang:{menu:"설렁탕·곰탕·사골국밥",strict:["설렁탕","곰탕"]},
+  bibimbap:{menu:"비빔밥·돌솥비빔밥·한정식",strict:["비빔밥","돌솥비빔밥"]},
   kalguksu:{menu:"칼국수·수제비·바지락칼국수",strict:["칼국수","수제비"]},
   naengmyeon:{menu:"물냉면·비빔냉면·평양냉면",strict:["냉면","평양냉면","함흥냉면"]},
-  korean_bbq:{menu:"한우구이·소고기구이·갈비",strict:["한우","소고기","갈비","정육"]},
-  samgyeopsal:{menu:"삼겹살·목살·항정살",strict:["삼겹살","삼겹 살","목살","항정살","돼지구이"]},
-  dakgalbi:{menu:"닭갈비·철판닭갈비·춘천닭갈비",strict:["닭갈비","춘천"]},
-  bossam:{menu:"보쌈·수육·족발보쌈",strict:["보쌈","수육","족발"]},
+  korean_bbq:{menu:"한우구이·소고기구이·갈비",strict:["한우구이","소고기구이","정육식당"]},
+  samgyeopsal:{menu:"삼겹살·목살·항정살",strict:["삼겹살","목살구이","항정살"]},
+  dakgalbi:{menu:"닭갈비·철판닭갈비·춘천닭갈비",strict:["닭갈비","춘천닭갈비"]},
+  bossam:{menu:"보쌈·수육·족발보쌈",strict:["보쌈","족발보쌈"]},
   jokbal:{menu:"족발·앞다리족발·족발보쌈",strict:["족발"]},
-  tteokbokki:{menu:"떡볶이·라볶이·즉석떡볶이",strict:["떡볶이","라볶이","분식"]},
-  fire_chicken:{menu:"불닭·매운닭갈비·화끈닭",strict:["불닭","매운닭"]},
+  tteokbokki:{menu:"떡볶이·라볶이·즉석떡볶이",strict:["떡볶이","라볶이","즉석떡볶이"]},
+  fire_chicken:{menu:"불닭·매운닭갈비·화끈닭",strict:["불닭"]},
   gukbap:{menu:"국밥·돼지국밥·뼈국밥",strict:["국밥","돼지국밥","뼈국밥"]},
-  chicken:{menu:"후라이드·양념치킨·간장치킨",strict:["치킨","후라이드","양념치킨","BBQ","bhc","교촌","굽네","네네"]},
-  kimbap:{menu:"김밥·충무김밥·참치김밥",strict:["김밥","분식"]},
-  jeon:{menu:"파전·해물파전·빈대떡",strict:["파전","해물전","빈대떡","전집","막걸리"]},
-  ramen:{menu:"라멘·돈코츠라멘·쇼유라멘",strict:["라멘","ramen","라면전문","돈코츠","쇼유"]},
-  sushi:{menu:"초밥·스시·오마카세",strict:["초밥","스시","sushi","오마카세","회전초밥"]},
-  sashimi:{menu:"회·모둠회·활어회",strict:["횟집","회","활어","사시미"]},
-  udon:{menu:"우동·가케우동·자루우동",strict:["우동","udon"]},
-  katsu:{menu:"돈카츠·히레카츠·로스카츠",strict:["돈카츠","돈까스","카츠","톤카츠"]},
-  curry_jp:{menu:"카레라이스·일본카레·치킨카레",strict:["카레","커리","curry"]},
-  jjajang:{menu:"짜장면·짜장밥·간짜장",strict:["짜장","중국집","중화요리","중화"]},
-  jjambbong:{menu:"짬뽕·짬뽕밥·해물짬뽕",strict:["짬뽕","중국집","중화"]},
-  malatang:{menu:"마라탕·마라샹궈·마라훠궈",strict:["마라탕","마라샹궈","마라 탕","마라"]},
-  yanggochi:{menu:"양꼬치·양갈비·신장꼬치",strict:["양꼬치","양고기"]},
-  dimsum:{menu:"딤섬·하카우·슈마이",strict:["딤섬","점심","딤섬전문"]},
-  pho:{menu:"쌀국수·소고기쌀국수·닭쌀국수",strict:["쌀국수","pho","베트남"]},
-  banh_mi:{menu:"반미·베트남샌드위치",strict:["반미","베트남"]},
-  pad_thai:{menu:"팟타이·태국볶음면",strict:["팟타이","태국","타이"]},
-  tom_yum:{menu:"똠양꿍·태국수프·코코넛수프",strict:["똠양","태국","타이"]},
-  pasta:{menu:"파스타·스파게티·까르보나라",strict:["파스타","pasta","이탈리안","스파게티"]},
-  pizza:{menu:"피자·화덕피자·나폴리피자",strict:["피자","pizza","화덕"]},
-  steak:{menu:"스테이크·립아이·안심스테이크",strict:["스테이크","steak","그릴","다이닝"]},
-  burger:{menu:"수제버거·클래식버거·스모크버거",strict:["버거","burger","햄버거","수제버거"]},
-  risotto:{menu:"리조또·트러플리조또·해산물리조또",strict:["리조또","risotto","이탈리안"]},
-  bbq_ribs:{menu:"바베큐립·풀드포크·스모크BBQ",strict:["BBQ","바베큐","립","ribs"]},
-  brunch:{menu:"에그베네딕트·팬케이크·브런치",strict:["브런치","brunch","카페","에그"]},
-  salad:{menu:"포케볼·그린샐러드·시저샐러드",strict:["포케","샐러드","salad","건강"]},
-  cafe:{menu:"아메리카노·카페라떼·브런치",strict:["카페","cafe","커피","coffee"]},
-  bakery:{menu:"크루아상·소금빵·스콘",strict:["베이커리","bakery","빵집","제과"]},
-  bingsu:{menu:"팥빙수·딸기빙수·눈꽃빙수",strict:["빙수","설빙","디저트"]}
+  chicken:{menu:"후라이드·양념치킨·간장치킨",strict:["치킨","후라이드치킨","양념치킨","BBQ치킨","bhc","교촌","굽네","네네치킨"]},
+  kimbap:{menu:"김밥·충무김밥·참치김밥",strict:["김밥천국","김밥"]},
+  jeon:{menu:"파전·해물파전·빈대떡",strict:["파전","해물파전","빈대떡"]},
+  ramen:{menu:"라멘·돈코츠라멘·쇼유라멘",strict:["라멘","돈코츠라멘","쇼유라멘","라멘전문"]},
+  sushi:{menu:"초밥·스시·오마카세",strict:["초밥","스시","오마카세","회전초밥"]},
+  sashimi:{menu:"회·모둠회·활어회",strict:["횟집","활어회","모둠회"]},
+  udon:{menu:"우동·가케우동·자루우동",strict:["우동"]},
+  katsu:{menu:"돈카츠·히레카츠·로스카츠",strict:["돈카츠","돈까스","카츠"]},
+  curry_jp:{menu:"카레라이스·일본카레·치킨카레",strict:["카레라이스","일본카레","curry"]},
+  jjajang:{menu:"짜장면·짜장밥·간짜장",strict:["짜장면","중국집","간짜장"]},
+  jjambbong:{menu:"짬뽕·짬뽕밥·해물짬뽕",strict:["짬뽕","해물짬뽕"]},
+  malatang:{menu:"마라탕·마라샹궈·마라훠궈",strict:["마라탕","마라샹궈"]},
+  yanggochi:{menu:"양꼬치·양갈비·신장꼬치",strict:["양꼬치","양갈비꼬치"]},
+  dimsum:{menu:"딤섬·하카우·슈마이",strict:["딤섬"]},
+  pho:{menu:"쌀국수·소고기쌀국수·닭쌀국수",strict:["쌀국수","포"]},
+  banh_mi:{menu:"반미·베트남샌드위치",strict:["반미"]},
+  pad_thai:{menu:"팟타이·태국볶음면",strict:["팟타이"]},
+  tom_yum:{menu:"똠양꿍·태국수프",strict:["똠양꿍","똠얌꿍"]},
+  pasta:{menu:"파스타·스파게티·까르보나라",strict:["파스타","스파게티","까르보나라"]},
+  pizza:{menu:"피자·화덕피자·나폴리피자",strict:["피자","화덕피자"]},
+  steak:{menu:"스테이크·립아이·안심스테이크",strict:["스테이크","steakhouse"]},
+  burger:{menu:"수제버거·클래식버거·스모크버거",strict:["수제버거","버거","햄버거"]},
+  risotto:{menu:"리조또·트러플리조또·해산물리조또",strict:["리조또"]},
+  bbq_ribs:{menu:"바베큐립·풀드포크·스모크BBQ",strict:["바베큐립","BBQ립","스모크BBQ"]},
+  brunch:{menu:"에그베네딕트·팬케이크·브런치",strict:["브런치","에그베네딕트"]},
+  salad:{menu:"포케볼·그린샐러드·시저샐러드",strict:["포케볼","포케","샐러드전문"]},
+  cafe:{menu:"아메리카노·카페라떼·브런치",strict:["카페","브런치카페"]},
+  bakery:{menu:"크루아상·소금빵·스콘",strict:["베이커리","빵집","소금빵"]},
+  bingsu:{menu:"팥빙수·딸기빙수·눈꽃빙수",strict:["빙수","설빙","눈꽃빙수"]}
 };
 
 async function searchNearby(lat, lng, rec){
@@ -278,11 +278,12 @@ async function searchNearby(lat, lng, rec){
   for(const kw of strictKw.slice(0, 4)){
     try{
       const qs = new URLSearchParams({
-        query: kw,
+        query: kw + " 음식점",   // ← "음식점" 붙여서 마사지 등 제외
         x: lng,
         y: lat,
         radius: radius,
-        size: 15
+        size: 15,
+        category_group_code: "FD6"  // ← 카카오 음식점 카테고리만
       });
       const res = await fetch(`/api/kakao/search?${qs}`);
       const data = await res.json();
@@ -295,10 +296,18 @@ async function searchNearby(lat, lng, rec){
         const dist = parseFloat(d.distance) || 0;
         if(dist > 1000) return;
 
-        const placeName = (d.place_name || "");
+        const placeName = d.place_name || "";
         const placeNameLower = placeName.toLowerCase();
+        const categoryName = (d.category_name || "").toLowerCase();
 
-        // ✅ 이름에 키워드가 포함된 경우만 허용 (엄격 필터)
+        // 음식점 카테고리인지 확인 (FD6=음식점, CE7=카페)
+        const isFoodCategory = categoryName.includes("음식점") || 
+                               categoryName.includes("카페") ||
+                               categoryName.includes("식당") ||
+                               categoryName.includes("푸드");
+        if(!isFoodCategory) return;
+
+        // 이름에 키워드 포함 여부 (엄격 필터)
         const kwLower = kw.toLowerCase();
         if(!placeNameLower.includes(kwLower)) return;
 
@@ -317,7 +326,6 @@ async function searchNearby(lat, lng, rec){
     }catch(e){ console.error("카카오 검색 오류:", e); }
   }
 
-  // 거리순 정렬, 중복 제거
   allResults.sort((a, b) => a.distance - b.distance);
   return allResults.slice(0, 10);
 }

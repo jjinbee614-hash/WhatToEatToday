@@ -11,17 +11,23 @@ class handler(BaseHTTPRequestHandler):
             parsed = urllib.parse.urlparse(self.path)
             params = urllib.parse.parse_qs(parsed.query)
 
-            query  = params.get("query",  [""])[0]
-            x      = params.get("x",      [""])[0]
-            y      = params.get("y",      [""])[0]
-            radius = params.get("radius", ["1000"])[0]
-            size   = params.get("size",   ["15"])[0]
+            query    = params.get("query",  [""])[0]
+            x        = params.get("x",      [""])[0]
+            y        = params.get("y",      [""])[0]
+            radius   = params.get("radius", ["1000"])[0]
+            size     = params.get("size",   ["15"])[0]
+            cat_code = params.get("category_group_code", ["FD6"])[0]  # 기본값 FD6=음식점
 
             api_url = "https://dapi.kakao.com/v2/local/search/keyword.json"
-            qs = urllib.parse.urlencode({
+            api_params = {
                 "query": query, "x": x, "y": y,
-                "radius": radius, "size": size, "sort": "distance"
-            })
+                "radius": radius, "size": size, "sort": "distance",
+                "category_group_code": cat_code
+            }
+            # 빈 값 제거
+            api_params = {k: v for k, v in api_params.items() if v}
+            qs = urllib.parse.urlencode(api_params)
+
             req = urllib.request.Request(
                 f"{api_url}?{qs}",
                 headers={"Authorization": f"KakaoAK {KAKAO_REST_API_KEY}"}
