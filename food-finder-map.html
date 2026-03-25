@@ -474,33 +474,31 @@ function render(){
 
   if(s.screen==="result"){
     const recs=s.recommendations;
-    const rankLabels=["1st Choice","2nd Choice","3rd Choice"];
+    const rankLabels=["1st","2nd","3rd"];
+    const rankColors=["linear-gradient(135deg,var(--gold),var(--gold2))","rgba(255,255,255,.1)","rgba(255,255,255,.06)"];
+    const rankTextColors=["#060400","rgba(255,255,255,.7)","rgba(255,255,255,.4)"];
     let cardsHTML='';
     recs.forEach((r,i)=>{
-      const imgSrc=`https://source.unsplash.com/featured/800x400/?${encodeURIComponent(r.img)},food`;
       cardsHTML+=`
-        <div class="rank-card rank-${i+1} anim-fadeUp" style="animation-delay:${i*.12}s" onclick="selectRecAndFind(${i})">
-          <div class="rank-card-cover">
-            <img src="${imgSrc}" alt="${r.name}" onerror="this.parentNode.innerHTML='<div class=\\'rank-card-cover-placeholder\\'>${r.name.split(' ')[0]}</div>'" loading="lazy"/>
-            <div class="rank-card-overlay"></div>
-            <div class="rank-card-badge">${rankLabels[i]}</div>
-            <div class="rank-card-title">
-              <div class="rank-card-name">${r.name.replace(/^[^\s]+\s/,'')}</div>
+        <div class="rank-card rank-${i+1} anim-fadeUp" style="animation-delay:${i*.1}s" onclick="selectRecAndFind(${i})">
+          <div style="display:flex;align-items:center;gap:14px;padding:16px">
+            <div style="padding:5px 11px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:${rankColors[i]};color:${rankTextColors[i]};flex-shrink:0">${rankLabels[i]}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:16px;font-weight:800;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.name.replace(/^[^\s]+\s/,'')}</div>
+              <div style="font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.desc}</div>
             </div>
-          </div>
-          <div class="rank-card-body">
-            <div class="rank-card-desc">${r.desc}</div>
-            <div class="rank-card-footer">
-              <div class="rank-card-price">예상 ${priceTag(r.price)} ~${formatPrice(r.price)} / 1인</div>
-              <div class="rank-card-cta">주변 맛집 보기 →</div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:12px;color:var(--gold);font-weight:600">~${formatPrice(r.price)}</div>
+              <div style="font-size:10px;color:var(--muted);margin-top:2px">/1인 예상</div>
             </div>
+            <div style="color:var(--muted);font-size:16px;flex-shrink:0">›</div>
           </div>
         </div>`;
     });
     root.innerHTML=`<div class="anim-scaleUp">
-      <div style="margin-bottom:24px">
-        <div style="font-size:11px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:10px">Today's Pick</div>
-        <div style="font-family:'Noto Sans KR',sans-serif;font-size:26px;font-weight:700">오늘의 추천 메뉴</div>
+      <div style="margin-bottom:20px">
+        <div style="font-size:11px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:8px">Today's Pick</div>
+        <div style="font-size:22px;font-weight:800">오늘의 추천 메뉴</div>
       </div>
       <div class="rank-cards">${cardsHTML}</div>
       <button class="btn-ghost" style="margin-top:4px;font-size:13px" onclick="restart()">처음부터 다시하기</button>
@@ -569,13 +567,14 @@ function render(){
       rests.forEach((r,i)=>{
         const naverWebUrl=`https://map.naver.com/p/search/${encodeURIComponent(r.name)}`;
         listHTML+=`<div class="rest-card anim-fadeUp" id="rest-card-${i}" style="animation-delay:${i*.04}s" onclick="focusMarker(${i})">
-          <div class="rest-card-thumb-placeholder">${rec.name.split(' ')[0]||'🍽️'}</div>
-          <div class="rest-card-body">
-            <div class="rest-card-name">${r.name}</div>
-            ${repMenu?`<div class="rest-card-menu">${repMenu}</div>`:''}
-            ${r.addr?`<div class="rest-card-addr">📍 ${r.addr}</div>`:''}
-            ${r.phone?`<div class="rest-card-addr">📞 ${r.phone}</div>`:''}
-            <div class="rest-card-dist">📏 ${formatDist(r.distance)}</div>
+          <div style="flex:1;padding:12px 14px;min-width:0">
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)">${r.name}</div>
+            ${repMenu?`<div style="font-size:11px;color:var(--gold);font-weight:600;margin-bottom:3px">${repMenu}</div>`:''}
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+              ${r.addr?`<div style="font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px">📍 ${r.addr}</div>`:''}
+              <div style="font-size:11px;color:rgba(255,255,255,.45);font-weight:600;flex-shrink:0">📏 ${formatDist(r.distance)}</div>
+            </div>
+            ${r.phone?`<div style="font-size:11px;color:var(--muted);margin-top:2px">📞 ${r.phone}</div>`:''}
           </div>
           <a class="naver-btn" href="${naverWebUrl}" target="_blank" onclick="event.stopPropagation()">
             <span class="naver-btn-n">N</span>
