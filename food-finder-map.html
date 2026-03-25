@@ -269,21 +269,21 @@ const FOOD_MENU={
 };
 
 async function searchNearby(lat, lng, rec){
-  const radius = 1000;
+  const radius = 1500; // 1.5km로 확장
   const strictKw = (FOOD_MENU[rec.key] || {}).strict || rec.search || [];
 
   const seen = new Set();
   let allResults = [];
 
-  for(const kw of strictKw.slice(0, 4)){
+  for(const kw of strictKw.slice(0, 5)){
     try{
       const qs = new URLSearchParams({
-        query: kw + " 음식점",   // ← "음식점" 붙여서 마사지 등 제외
+        query: kw,
         x: lng,
         y: lat,
         radius: radius,
         size: 15,
-        category_group_code: "FD6"  // ← 카카오 음식점 카테고리만
+        category_group_code: "FD6"
       });
       const res = await fetch(`/api/kakao/search?${qs}`);
       const data = await res.json();
@@ -294,22 +294,17 @@ async function searchNearby(lat, lng, rec){
         seen.add(d.id);
 
         const dist = parseFloat(d.distance) || 0;
-        if(dist > 1000) return;
+        if(dist > 1500) return;
 
         const placeName = d.place_name || "";
         const placeNameLower = placeName.toLowerCase();
-        const categoryName = (d.category_name || "").toLowerCase();
-
-        // 음식점 카테고리인지 확인 (FD6=음식점, CE7=카페)
-        const isFoodCategory = categoryName.includes("음식점") || 
-                               categoryName.includes("카페") ||
-                               categoryName.includes("식당") ||
-                               categoryName.includes("푸드");
-        if(!isFoodCategory) return;
-
-        // 이름에 키워드 포함 여부 (엄격 필터)
+        const categoryLower = (d.category_name || "").toLowerCase();
         const kwLower = kw.toLowerCase();
-        if(!placeNameLower.includes(kwLower)) return;
+
+        // 이름에 키워드 포함 OR 카카오 카테고리 세부 항목에 키워드 포함
+        const nameMatch = placeNameLower.includes(kwLower);
+        const catDetailMatch = categoryLower.split(">").pop().trim().includes(kwLower);
+        if(!nameMatch && !catDetailMatch) return;
 
         allResults.push({
           id: d.id,
@@ -327,7 +322,7 @@ async function searchNearby(lat, lng, rec){
   }
 
   allResults.sort((a, b) => a.distance - b.distance);
-  return allResults.slice(0, 10);
+  return allResults.slice(0, 15); // 최대 15개로 확장
 }
 
 // TOP3 선정 전 주변 식당 존재 여부 확인
@@ -677,17 +672,18 @@ function allowLocation(){
   }else setState({screen:"locationError"});
 }
 async function doSearch(lat,lng){
+  const selectedIdx = state.selectedRec; // 사용자가 선택한 순위 기억
   setState({screen:"finding",location:{lat,lng}});
-  // 위치 확인 후 TOP3 검증 — 주변에 없으면 해당 음식 제외
   const verified=await verifyAndGetTop3(state.answers,lat,lng);
   if(verified.length===0){
-    // 주변에 아무것도 없으면 안내
     setState({screen:"noResult"});
     return;
   }
   const recs=verified.map(v=>v.rec);
-  const firstRests=verified[0].rests;
-  setState({recommendations:recs,selectedRec:0,screen:"map",restaurants:firstRests,location:{lat,lng}});
+  // 선택한 순위가 verified 결과 안에 있으면 그걸 보여주고, 없으면 0번
+  const targetIdx = Math.min(selectedIdx, verified.length-1);
+  const targetRests = verified[targetIdx].rests;
+  setState({recommendations:recs, selectedRec:targetIdx, screen:"map", restaurants:targetRests, location:{lat,lng}});
 }
 async function switchRec(idx){
   const loc=state.location;if(!loc)return;
