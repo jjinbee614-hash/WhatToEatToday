@@ -84,10 +84,10 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .map-loading-text{font-size:11px;color:var(--muted);letter-spacing:.06em}
 
 /* Restaurant Cards */
-.restaurant-list{display:flex;flex-direction:column;gap:10px;max-height:400px;overflow-y:auto;padding-right:2px}
+.restaurant-list{display:flex;flex-direction:column;gap:12px;max-height:400px;overflow-y:auto;padding-right:2px;padding-bottom:4px}
 .restaurant-list::-webkit-scrollbar{width:2px}
 .restaurant-list::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:2px}
-.rest-card{border-radius:14px;border:1px solid rgba(255,255,255,.12);background:#2a2a3e;display:flex;cursor:pointer;transition:all .2s ease;min-height:80px}
+.rest-card{border-radius:14px;border:1px solid rgba(255,255,255,.12);background:#2a2a3e;display:flex;cursor:pointer;transition:all .2s ease}
 .rest-card:hover{border-color:rgba(201,168,76,.3);background:#32324a;transform:translateX(2px)}
 .naver-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0 16px;background:var(--green);color:#fff;text-decoration:none;font-size:9px;font-weight:700;flex-shrink:0;transition:background .2s;font-family:'Noto Sans KR',sans-serif;border:none;cursor:pointer;letter-spacing:.03em;border-radius:0 14px 14px 0}
 .naver-btn:hover{background:#029e4e}
@@ -561,11 +561,11 @@ function render(){
         const naverWebUrl=`https://map.naver.com/p/search/${encodeURIComponent(r.name)}`;
         const catShort = r.category ? r.category.split('>').pop().trim() : '';
         listHTML+=`<div class="rest-card anim-fadeUp" id="rest-card-${i}" style="animation-delay:${i*.04}s" onclick="focusMarker(${i})">
-          <div style="flex:1;padding:10px 16px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:2px">
-            <div style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#f0ede8">${r.name}</div>
-            ${catShort?`<div style="font-size:11px;color:#c9a84c;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${catShort}</div>`:''}
-            ${r.addr?`<div style="font-size:11px;color:#b0adc0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.addr}</div>`:''}
-            <div style="display:flex;gap:10px;align-items:center">
+          <div style="flex:1;padding:14px 16px 14px 16px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:2px;overflow:visible">
+            <div style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#f0ede8;line-height:1.6">${r.name}</div>
+            ${catShort?`<div style="font-size:11px;color:#c9a84c;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.6">${catShort}</div>`:''}
+            ${r.addr?`<div style="font-size:11px;color:#b0adc0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.6">${r.addr}</div>`:''}
+            <div style="display:flex;gap:10px;align-items:center;line-height:1.6">
               ${r.phone?`<div style="font-size:11px;color:#b0adc0">${r.phone}</div>`:''}
               <div style="font-size:11px;color:#c9a84c;font-weight:600">${formatDist(r.distance)}</div>
             </div>
