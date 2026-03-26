@@ -2,6 +2,6 @@
   "rewrites": [
     { "source": "/api/kakao/search", "destination": "/api/kakao" },
     { "source": "/eat", "destination": "/eat/index.html" },
-    { "source": "/eat/(.*)", "destination": "/eat/$1" }
+    { "source": "/wear", "destination": "/wear/index.html" }
   ]
 }

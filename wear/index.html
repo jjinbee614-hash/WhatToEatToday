@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>오늘 뭐 입지? — What2Today</title>
+<meta name="description" content="기온과 상황에 맞는 오늘의 코디를 추천해드려요."/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#07070e;--card:#111120;--card2:#181828;
+  --blue:#63b3ed;--blue2:#90cdf4;--blue-glow:rgba(99,179,237,.12);
+  --text:#ede9e1;--muted:#5a5870;--border:rgba(255,255,255,.07);
+  --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(110px)}
+.orb-1{width:550px;height:550px;background:radial-gradient(circle,rgba(10,20,50,.9),transparent 70%);top:-120px;right:-120px;animation:o1 14s ease-in-out infinite}
+.orb-2{width:450px;height:450px;background:radial-gradient(circle,rgba(5,15,30,.9),transparent 70%);bottom:-100px;left:-100px;animation:o2 18s ease-in-out infinite}
+.orb-3{width:300px;height:300px;background:radial-gradient(circle,rgba(99,179,237,.04),transparent 70%);top:35%;left:20%;animation:o3 11s ease-in-out infinite}
+.bg-line{position:fixed;top:0;left:50%;width:1px;height:100%;background:linear-gradient(180deg,transparent,rgba(99,179,237,.05) 30%,rgba(99,179,237,.05) 70%,transparent);transform:translateX(-50%);pointer-events:none;z-index:0}
+
+.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px 90px;position:relative;z-index:2}
+.container{width:100%;max-width:400px}
+
+/* Progress */
+.progress-wrap{margin-bottom:32px}
+.progress-track{height:1px;background:var(--border);border-radius:1px;overflow:hidden;margin-top:10px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));transition:width .6s cubic-bezier(.4,0,.2,1)}
+.progress-meta{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+
+/* Buttons */
+.btn-primary{width:100%;padding:16px 24px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#050a14;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:.04em;transition:all .3s ease}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(99,179,237,.25)}
+.btn-ghost{width:100%;padding:14px 24px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:14px;font-weight:400;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .25s ease}
+.btn-ghost:hover{border-color:rgba(255,255,255,.15);color:var(--text)}
+
+/* Options */
+.options-list{display:flex;flex-direction:column;gap:8px}
+.option-btn{width:100%;padding:15px 18px;border-radius:14px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;font-weight:400;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .22s ease;text-align:left;display:flex;align-items:center;gap:12px;position:relative}
+.opt-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:all .22s ease}
+.option-btn:hover{border-color:rgba(99,179,237,.25);background:var(--card2);transform:translateX(3px)}
+.option-btn:hover .opt-dot{background:var(--blue)}
+.option-btn.selected{border-color:rgba(99,179,237,.4);background:rgba(99,179,237,.07)}
+.option-btn.selected .opt-dot{background:var(--blue);box-shadow:0 0 8px rgba(99,179,237,.6)}
+
+/* Weather Card */
+.weather-card{border-radius:var(--radius);border:1px solid rgba(99,179,237,.2);background:var(--card);padding:20px;margin-bottom:20px;display:flex;align-items:center;gap:16px}
+.weather-icon{font-size:40px;line-height:1}
+.weather-temp{font-size:32px;font-weight:900;color:var(--blue);line-height:1}
+.weather-desc{font-size:12px;color:var(--muted);margin-top:4px}
+.weather-loading{text-align:center;padding:20px;color:var(--muted);font-size:13px}
+
+/* Result Cards */
+.outfit-cards{display:flex;flex-direction:column;gap:14px;margin:20px 0}
+.outfit-card{border-radius:var(--radius);border:1px solid var(--border);background:var(--card);overflow:hidden;transition:all .3s ease;cursor:pointer}
+.outfit-card:hover{border-color:rgba(99,179,237,.25);transform:translateY(-2px);box-shadow:0 16px 48px rgba(0,0,0,.4)}
+.outfit-card-header{padding:16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.outfit-rank{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.rank-1{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#050a14}
+.rank-2{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
+.rank-3{background:rgba(255,255,255,.06);color:rgba(255,255,255,.4)}
+.outfit-name{font-size:16px;font-weight:800;flex:1}
+.outfit-body{padding:16px}
+.outfit-items{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.outfit-item{background:rgba(99,179,237,.1);border:1px solid rgba(99,179,237,.2);color:var(--blue);font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px}
+.outfit-tip{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px}
+.outfit-shop{display:flex;gap:8px}
+.shop-btn{flex:1;padding:10px;border-radius:10px;text-decoration:none;font-size:12px;font-weight:700;text-align:center;transition:all .2s;font-family:'Noto Sans KR',sans-serif}
+.shop-musinsa{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);color:#fff}
+.shop-musinsa:hover{background:rgba(255,255,255,.1)}
+.shop-29cm{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff}
+.shop-29cm:hover{background:rgba(255,255,255,.15)}
+
+/* Tabs */
+.tab-row{display:flex;gap:6px;margin-bottom:12px}
+.tab-btn{flex:1;padding:9px 4px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:10px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .2s;text-align:center;line-height:1.6}
+.tab-btn.active{border-color:rgba(99,179,237,.35);background:var(--blue-glow);color:var(--blue)}
+
+/* Kakao AdFit */
+.ad-wrap{position:fixed;bottom:0;left:0;right:0;z-index:999;display:flex;justify-content:center;align-items:center;background:rgba(7,7,14,.97);padding:8px 0;border-top:1px solid rgba(255,255,255,.07)}
+
+@keyframes o1{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,25px)}}
+@keyframes o2{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,-20px)}}
+@keyframes o3{0%,100%{transform:translate(0,0)}50%{transform:translate(-15px,30px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleUp{from{opacity:0;transform:scale(.97) translateY(6px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.anim-scaleUp{animation:scaleUp .5s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
+.anim-fadeUp{animation:fadeUp .4s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
+.anim-slideUp{animation:slideUp .4s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
+</style>
+</head>
+<body>
+<div class="bg-canvas">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+<div class="bg-line"></div>
+<div class="app">
+  <div class="container" id="root"></div>
+</div>
+
+<!-- 카카오 애드핏 -->
+<div class="ad-wrap">
+  <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-w1b5n8JUEWiLvW95" data-ad-width="320" data-ad-height="50"></ins>
+  <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+</div>
+
+<script>
+// ── 기온별 옷차림 DB ──
+const TEMP_DB=[
+  {
+    min:28,max:999,
+    label:"28°C 이상",desc:"한여름! 최대한 가볍게",icon:"☀️",
+    items:{상의:["민소매","반팔 티셔츠","크롭탑"],하의:["반바지","숏팬츠","미니스커트"],아우터:[],기타:["선글라스","샌들"]}
+  },
+  {
+    min:23,max:27,
+    label:"23~27°C",desc:"더운 날씨, 가볍게",icon:"🌤️",
+    items:{상의:["반팔 티셔츠","얇은 셔츠","반팔 블라우스"],하의:["반바지","면바지","얇은 슬랙스"],아우터:[],기타:["스니커즈"]}
+  },
+  {
+    min:20,max:22,
+    label:"20~22°C",desc:"활동하기 좋은 날씨",icon:"🌥️",
+    items:{상의:["긴팔 티셔츠","얇은 셔츠","긴팔 블라우스"],하의:["면바지","청바지","7부바지"],아우터:["얇은 가디건"],기타:["운동화"]}
+  },
+  {
+    min:17,max:19,
+    label:"17~19°C",desc:"밤엔 쌀쌀해요",icon:"⛅",
+    items:{상의:["맨투맨","후드티","얇은 니트"],하의:["청바지","슬랙스","면바지"],아우터:["가디건","바람막이"],기타:["운동화","로퍼"]}
+  },
+  {
+    min:12,max:16,
+    label:"12~16°C",desc:"겉옷 필수!",icon:"🌬️",
+    items:{상의:["니트","기모 맨투맨","두꺼운 셔츠"],하의:["청바지","두꺼운 슬랙스","스타킹"],아우터:["자켓","가디건","야상"],기타:["부츠","로퍼"]}
+  },
+  {
+    min:9,max:11,
+    label:"9~11°C",desc:"트렌치코트의 계절",icon:"🌧️",
+    items:{상의:["니트","두꺼운 맨투맨","기모티"],하의:["청바지","두꺼운 슬랙스","스타킹"],아우터:["트렌치코트","자켓","야상"],기타:["부츠","앵클부츠"]}
+  },
+  {
+    min:5,max:8,
+    label:"5~8°C",desc:"두꺼운 외투 필수",icon:"🌨️",
+    items:{상의:["히트텍","두꺼운 니트","기모 내의"],하의:["두꺼운 청바지","레깅스","기모바지"],아우터:["코트","가죽자켓","패딩"],기타:["부츠","머플러"]}
+  },
+  {
+    min:-99,max:4,
+    label:"4°C 이하",desc:"완전무장! 최대한 따뜻하게",icon:"❄️",
+    items:{상의:["히트텍","두꺼운 니트","내복"],하의:["기모바지","두꺼운 레깅스","내복 하의"],아우터:["롱패딩","두꺼운 코트","목도리+장갑"],기타:["방한부츠","귀마개","핫팩"]}
+  }
+];
+
+function getTempDB(temp){
+  return TEMP_DB.find(t=>temp>=t.min&&temp<=t.max)||TEMP_DB[TEMP_DB.length-1];
+}
+
+// ── 질문 ──
+const QUESTIONS=[
+  {id:"gender",emoji:"👤",question:"어떤 스타일을 주로 입으시나요?",options:[
+    {label:"👔 남성 스타일",value:"male"},
+    {label:"👗 여성 스타일",value:"female"},
+    {label:"🧢 젠더리스 / 유니섹스",value:"unisex"}]},
+  {id:"occasion",emoji:"📍",question:"오늘 어디 가시나요?",options:[
+    {label:"💼 출근 / 비즈니스",value:"work"},
+    {label:"💑 데이트",value:"date"},
+    {label:"🛍️ 캐주얼 외출",value:"casual"},
+    {label:"🏋️ 운동 / 액티비티",value:"sport"},
+    {label:"🏠 집에서 편하게",value:"home"}]},
+  {id:"style",emoji:"✨",question:"선호하는 스타일은?",options:[
+    {label:"🖤 미니멀 / 베이직",value:"minimal"},
+    {label:"😎 스트릿 / 캐주얼",value:"street"},
+    {label:"💎 포멀 / 클래식",value:"formal"},
+    {label:"🌿 내추럴 / 빈티지",value:"natural"},
+    {label:"🎨 트렌디 / 유니크",value:"trendy"}]},
+  {id:"color",emoji:"🎨",question:"오늘 선호하는 색감은?",options:[
+    {label:"⬛ 무채색 (블랙·화이트·그레이)",value:"achromatic"},
+    {label:"🤎 어스톤 (베이지·브라운·카키)",value:"earth"},
+    {label:"🔵 쿨톤 (네이비·블루·그린)",value:"cool"},
+    {label:"🌸 웜톤 (레드·핑크·오렌지)",value:"warm"},
+    {label:"🎲 상관없어, 추천해줘",value:"any"}]},
+  {id:"priority",emoji:"⚡",question:"오늘 가장 중요한 건?",options:[
+    {label:"😎 스타일리쉬하게 보이고 싶어",value:"style"},
+    {label:"😌 편안하고 활동하기 쉽게",value:"comfort"},
+    {label:"🌡️ 날씨에 맞게 따뜻/시원하게",value:"weather"},
+    {label:"⚡ 빠르게 입고 나가야 해",value:"quick"}]}
+];
+
+// ── 코디 추천 로직 ──
+function getOutfits(answers, tempData){
+  const a={};answers.forEach(x=>a[x.questionId]=x.value);
+  const {상의,하의,아우터,기타}=tempData.items;
+
+  // 스타일별 코디 생성
+  const outfits=[];
+
+  function buildOutfit(name, top, bottom, outer, tip, searchKw){
+    const items=[];
+    if(top) items.push(top);
+    if(bottom) items.push(bottom);
+    if(outer) items.push(outer);
+    기타.slice(0,1).forEach(i=>items.push(i));
+    outfits.push({name, items, tip, searchKw});
+  }
+
+  // 상황별 우선 코디
+  if(a.occasion==="work"||a.occasion==="date"){
+    // 포멀/세미포멀 먼저
+    buildOutfit(
+      a.occasion==="work"?"오피스 룩":"데이트 룩",
+      상의.find(i=>i.includes("셔츠")||i.includes("니트")||i.includes("블라우스"))||상의[0],
+      하의.find(i=>i.includes("슬랙스")||i.includes("면바지"))||하의[0],
+      아우터[0]||null,
+      a.occasion==="work"?"깔끔한 오피스 무드. 단정한 컬러로 맞춰보세요.":"깔끔하면서도 세련된 무드로 연출해보세요.",
+      a.occasion==="work"?"오피스룩 코디":"데이트룩 코디"
+    );
+    buildOutfit(
+      "캐주얼 세미포멀",
+      상의.find(i=>i.includes("니트")||i.includes("맨투맨")||i.includes("긴팔"))||상의[1]||상의[0],
+      하의.find(i=>i.includes("청바지")||i.includes("면바지"))||하의[0],
+      아우터[0]||null,
+      "포멀과 캐주얼의 중간. 어디서나 무난하게 어울려요.",
+      "세미포멀 코디"
+    );
+    buildOutfit(
+      "포인트 스타일",
+      상의[0],
+      하의[1]||하의[0],
+      아우터[1]||아우터[0]||null,
+      "포인트 아이템 하나로 전체 스타일을 살려보세요.",
+      "포인트 코디"
+    );
+  } else if(a.occasion==="sport"){
+    buildOutfit("스포츠 룩","기능성 티셔츠","트레이닝 바지",null,"활동성을 최우선으로! 편한 운동화와 함께.","스포츠 코디");
+    buildOutfit("애슬레저 룩","크롭 맨투맨","레깅스",아우터[0]||null,"운동+일상 모두 OK! 트렌디한 애슬레저 스타일.","애슬레저 코디");
+    buildOutfit("캐주얼 스포티",상의[0],하의[0],null,"편하고 활동적인 데일리 스타일.","스포티 코디");
+  } else if(a.occasion==="home"){
+    buildOutfit("홈 편안 룩","기모 맨투맨","트레이닝 바지",null,"집에서도 편하고 예쁘게!","홈웨어 코디");
+    buildOutfit("캐주얼 홈웨어",상의[0],하의[0],null,"가벼운 외출도 가능한 편안한 스타일.","홈웨어");
+    buildOutfit("포근 룩","니트","편한 바지",아우터[0]||null,"포근하고 따뜻하게!","포근한 코디");
+  } else {
+    // casual
+    buildOutfit(
+      "데일리 베이직",
+      상의[0],하의[0],아우터[0]||null,
+      "가장 무난하고 깔끔한 데일리 스타일.",
+      "데일리 코디"
+    );
+    buildOutfit(
+      "캐주얼 스트릿",
+      상의[1]||상의[0],하의[1]||하의[0],아우터[1]||아우터[0]||null,
+      "편하면서도 트렌디한 스트릿 무드.",
+      "캐주얼 스트릿 코디"
+    );
+    buildOutfit(
+      "포인트 룩",
+      상의[0],하의[0],아우터[0]||null,
+      "아우터 하나로 전체 스타일을 완성해보세요.",
+      "포인트 코디"
+    );
+  }
+
+  // 색감 팁 추가
+  const colorTip={
+    achromatic:"무채색 배색으로 미니멀하게. 블랙+화이트 조합 추천!",
+    earth:"어스톤으로 자연스럽게. 베이지+카키 조합이 잘 어울려요.",
+    cool:"쿨톤 컬러로 시원하게. 네이비+화이트 조합 추천!",
+    warm:"웜톤으로 화사하게. 레드나 오렌지 포인트를 줘보세요.",
+    any:"오늘 기분에 따라 자유롭게!"
+  };
+
+  return outfits.slice(0,3).map((o,i)=>({
+    ...o,
+    colorTip: colorTip[a.color]||"",
+    rank: i+1
+  }));
+}
+
+// ── State ──
+let state={
+  screen:"intro",
+  currentQ:0,
+  answers:[],
+  weather:null,
+  outfits:[],
+  selectedOutfit:0
+};
+function setState(u){Object.assign(state,u);render()}
+
+// ── 날씨 가져오기 ──
+async function getWeather(){
+  return new Promise((resolve)=>{
+    if(!navigator.geolocation){resolve(null);return}
+    navigator.geolocation.getCurrentPosition(async pos=>{
+      try{
+        const {latitude:lat,longitude:lon}=pos.coords;
+        // Open-Meteo API (무료, 키 불필요)
+        const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&timezone=auto`;
+        const res=await fetch(url);
+        const data=await res.json();
+        const temp=Math.round(data.current.temperature_2m);
+        const code=data.current.weathercode;
+        let icon="🌤️";
+        if(code===0)icon="☀️";
+        else if(code<=3)icon="⛅";
+        else if(code<=49)icon="🌫️";
+        else if(code<=69)icon="🌧️";
+        else if(code<=79)icon="❄️";
+        else if(code<=99)icon="⛈️";
+        resolve({temp,icon,tempData:getTempDB(temp)});
+      }catch{resolve(null)}
+    },()=>resolve(null),{timeout:8000});
+  });
+}
+
+function getWeatherIcon(temp){
+  if(temp>=28)return"☀️";
+  if(temp>=23)return"🌤️";
+  if(temp>=17)return"⛅";
+  if(temp>=12)return"🌬️";
+  if(temp>=5)return"🌨️";
+  return"❄️";
+}
+
+// ── Render ──
+function render(){
+  const root=document.getElementById("root"),s=state;
+
+  if(s.screen==="intro"){
+    root.innerHTML=`<div class="anim-scaleUp" style="text-align:center;padding:20px 0">
+      <div style="font-size:11px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:28px">오늘의 코디 추천</div>
+      <div style="font-size:52px;font-weight:900;line-height:1.1;margin-bottom:16px;background:linear-gradient(135deg,var(--text),rgba(237,233,225,.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent">오늘<br>뭐 입지?</div>
+      <div style="width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);margin:0 auto 20px"></div>
+      <p style="color:var(--muted);font-size:13px;font-weight:300;line-height:1.7;margin-bottom:16px">기온 + 상황에 맞는<br>오늘의 코디를 추천해드려요</p>
+      <div id="weather-preview" style="margin-bottom:32px">
+        <div style="font-size:12px;color:var(--muted);animation:pulse 1.5s ease-in-out infinite">날씨 확인 중...</div>
+      </div>
+      <button class="btn-primary" style="width:auto;padding:16px 52px;font-size:15px;letter-spacing:.06em" onclick="startQuiz()">스타일 테스트 시작</button>
+      <div style="margin-top:12px">
+        <a href="/" style="font-size:12px;color:var(--muted);text-decoration:none">← What2Today 홈으로</a>
+      </div>
+    </div>`;
+
+    // 날씨 미리 가져오기
+    getWeather().then(w=>{
+      if(!w)return;
+      state.weather=w;
+      const el=document.getElementById('weather-preview');
+      if(el){
+        el.innerHTML=`<div style="display:inline-flex;align-items:center;gap:10px;background:var(--card);border:1px solid rgba(99,179,237,.2);border-radius:14px;padding:12px 20px">
+          <span style="font-size:28px">${w.icon}</span>
+          <div style="text-align:left">
+            <div style="font-size:22px;font-weight:900;color:var(--blue)">${w.temp}°C</div>
+            <div style="font-size:11px;color:var(--muted)">${w.tempData.label} · ${w.tempData.desc}</div>
+          </div>
+        </div>`;
+      }
+    });
+    return}
+
+  if(s.screen==="quiz"){
+    const q=QUESTIONS[s.currentQ];
+    const pct=Math.round((s.currentQ/QUESTIONS.length)*100);
+    let opts='';
+    q.options.forEach((o,i)=>{
+      opts+=`<button class="option-btn anim-fadeUp" style="animation-delay:${i*.06}s" onclick="selectOption(${s.currentQ},${i})">
+        <span class="opt-dot"></span>
+        <span>${o.label}</span>
+      </button>`;
+    });
+    root.innerHTML=`
+      <div class="progress-wrap anim-fadeUp">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          ${s.currentQ>0
+            ?`<button onclick="goBackQuiz()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;font-family:'Noto Sans KR',sans-serif;padding:0;display:flex;align-items:center;gap:4px">← 이전</button>`
+            :`<div></div>`
+          }
+          <div class="progress-meta" style="margin-bottom:0"><span>${s.currentQ+1} / ${QUESTIONS.length}</span><span>${pct}%</span></div>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      </div>
+      ${s.weather?`<div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;padding:10px 14px;background:var(--card);border-radius:12px;border:1px solid rgba(99,179,237,.15)">
+        <span style="font-size:20px">${s.weather.icon}</span>
+        <span style="font-size:14px;font-weight:700;color:var(--blue)">${s.weather.temp}°C</span>
+        <span style="font-size:11px;color:var(--muted)">${s.weather.tempData.desc}</span>
+      </div>`:''}
+      <div class="anim-slideUp" style="margin-bottom:28px">
+        <div style="font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:16px">Question ${s.currentQ+1}</div>
+        <h2 style="font-size:24px;font-weight:700;line-height:1.35;letter-spacing:-.01em">${q.question}</h2>
+      </div>
+      <div class="options-list">${opts}</div>`;
+    return}
+
+  if(s.screen==="loading"){
+    root.innerHTML=`<div class="anim-fadeUp" style="text-align:center;padding:40px 0">
+      <div style="width:48px;height:48px;border:1.5px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 24px"></div>
+      <div style="font-size:20px;font-weight:700;margin-bottom:10px">코디를 추천하는 중</div>
+      <p style="color:var(--muted);font-size:12px;font-weight:300;animation:pulse 2s ease-in-out infinite">기온과 스타일을 분석하고 있어요</p>
+    </div>`;return}
+
+  if(s.screen==="result"){
+    const outfits=s.outfits;
+    const si=s.selectedOutfit;
+    const w=s.weather;
+    const rankLabels=["1st","2nd","3rd"];
+    const rankColors=["linear-gradient(135deg,var(--blue),var(--blue2))","rgba(255,255,255,.1)","rgba(255,255,255,.06)"];
+    const rankTextColors=["#050a14","rgba(255,255,255,.7)","rgba(255,255,255,.4)"];
+
+    // 탭
+    let tabs='<div class="tab-row">';
+    outfits.forEach((o,i)=>{
+      tabs+=`<div class="tab-btn ${i===si?'active':''}" onclick="selectOutfit(${i})">${rankLabels[i]}<br>${o.name}</div>`;
+    });
+    tabs+='</div>';
+
+    const o=outfits[si];
+    const musinsaUrl=`https://www.musinsa.com/search/goods?q=${encodeURIComponent(o.searchKw)}`;
+    const cm29Url=`https://www.29cm.co.kr/search?keyword=${encodeURIComponent(o.searchKw)}`;
+
+    root.innerHTML=`<div class="anim-scaleUp">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <button onclick="restart()" style="padding:7px 12px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:12px;font-family:'Noto Sans KR',sans-serif">← 다시하기</button>
+        <div style="font-size:14px;font-weight:700">오늘의 코디 추천</div>
+        <a href="/" style="font-size:11px;color:var(--muted);text-decoration:none">홈</a>
+      </div>
+
+      ${w?`<div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--card);border-radius:14px;border:1px solid rgba(99,179,237,.15);margin-bottom:14px">
+        <span style="font-size:24px">${w.icon}</span>
+        <div>
+          <span style="font-size:18px;font-weight:900;color:var(--blue)">${w.temp}°C</span>
+          <span style="font-size:12px;color:var(--muted);margin-left:8px">${w.tempData.label} · ${w.tempData.desc}</span>
+        </div>
+      </div>`:''}
+
+      ${tabs}
+
+      <div class="outfit-card anim-fadeUp">
+        <div class="outfit-card-header">
+          <span class="outfit-rank rank-${si+1}">${rankLabels[si]}</span>
+          <span class="outfit-name">${o.name}</span>
+        </div>
+        <div class="outfit-body">
+          <div class="outfit-items">
+            ${o.items.map(item=>`<span class="outfit-item">${item}</span>`).join('')}
+          </div>
+          <div class="outfit-tip">${o.tip}</div>
+          ${o.colorTip?`<div style="font-size:11px;color:var(--muted);margin-bottom:12px;padding:8px 12px;background:rgba(99,179,237,.06);border-radius:8px;border-left:2px solid var(--blue)">🎨 ${o.colorTip}</div>`:''}
+          <div class="outfit-shop">
+            <a href="${musinsaUrl}" target="_blank" class="shop-btn shop-musinsa">무신사에서 보기</a>
+            <a href="${cm29Url}" target="_blank" class="shop-btn shop-29cm">29CM에서 보기</a>
+          </div>
+        </div>
+      </div>
+
+      ${w?`<div style="margin-top:12px;padding:12px 16px;background:var(--card);border-radius:14px;border:1px solid var(--border)">
+        <div style="font-size:11px;color:var(--muted);font-weight:600;margin-bottom:8px;letter-spacing:.06em;text-transform:uppercase">기온별 전체 아이템</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px">
+          ${Object.entries(w.tempData.items).flatMap(([cat,items])=>items.map(item=>`<span style="font-size:10px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted);padding:3px 8px;border-radius:20px">${item}</span>`)).join('')}
+        </div>
+      </div>`:''}
+
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button class="btn-ghost" style="font-size:12px;padding:12px" onclick="restart()">🔄 다시 테스트</button>
+        <a href="/" style="flex:1;display:flex;align-items:center;justify-content:center;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-family:'Noto Sans KR',sans-serif;text-decoration:none;padding:12px">🏠 홈으로</a>
+      </div>
+    </div>`;
+    return}
+}
+
+// ── Actions ──
+function startQuiz(){
+  // 날씨 없으면 다시 시도
+  if(!state.weather){
+    getWeather().then(w=>setState({weather:w,screen:"quiz",currentQ:0,answers:[]}));
+    setState({screen:"quiz",currentQ:0,answers:[]});
+  } else {
+    setState({screen:"quiz",currentQ:0,answers:[]});
+  }
+}
+
+function goBackQuiz(){
+  if(state.currentQ===0){setState({screen:"intro"});return;}
+  const na=state.answers.slice(0,-1);
+  setState({answers:na,currentQ:state.currentQ-1});
+}
+
+function selectOption(qIdx,optIdx){
+  const q=QUESTIONS[qIdx],opt=q.options[optIdx];
+  document.querySelectorAll(".option-btn")[optIdx].classList.add("selected");
+  setTimeout(()=>{
+    const na=[...state.answers,{questionId:q.id,value:opt.value}];
+    if(qIdx<QUESTIONS.length-1){
+      setState({answers:na,currentQ:qIdx+1});
+    } else {
+      setState({answers:na,screen:"loading"});
+      setTimeout(()=>{
+        const tempData=state.weather?state.weather.tempData:getTempDB(15);
+        const outfits=getOutfits(na,tempData);
+        setState({outfits,selectedOutfit:0,screen:"result"});
+      },1200);
+    }
+  },350);
+}
+
+function selectOutfit(idx){setState({selectedOutfit:idx})}
+function restart(){setState({screen:"intro",currentQ:0,answers:[],outfits:[],selectedOutfit:0})}
+
+render();
+</script>
+</body>
+</html>

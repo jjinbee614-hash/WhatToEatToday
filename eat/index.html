@@ -531,8 +531,14 @@ function render(){
     });
     root.innerHTML=`
       <div class="progress-wrap anim-fadeUp">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          ${s.currentQ>0
+            ? `<button onclick="goBackQuiz()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;font-family:'Noto Sans KR',sans-serif;padding:0;display:flex;align-items:center;gap:4px">← 이전</button>`
+            : `<div></div>`
+          }
+          <div class="progress-meta" style="margin-bottom:0"><span>${s.currentQ + 1} / ${QUESTIONS.length}</span><span>${pct}%</span></div>
+        </div>
         <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
-        <div class="progress-meta"><span>${s.currentQ + 1} / ${QUESTIONS.length}</span><span>${pct}%</span></div>
       </div>
       <div class="anim-slideUp" style="margin-bottom:28px">
         <div style="font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:16px">Question ${s.currentQ+1}</div>
@@ -799,6 +805,11 @@ function focusMarker(idx){
 }
 
 function startQuiz(){setState({screen:"quiz",currentQ:0,answers:[]})}
+function goBackQuiz(){
+  if(state.currentQ===0){setState({screen:"intro"});return;}
+  const na=state.answers.slice(0,-1);
+  setState({answers:na,currentQ:state.currentQ-1});
+}
 function selectOption(qIdx,optIdx){
   const q=QUESTIONS[qIdx],opt=q.options[optIdx];
   document.querySelectorAll(".option-btn")[optIdx].classList.add("selected");
