@@ -185,9 +185,10 @@ const QUESTIONS=[
     {label:"🎲 상관없어, 추천해줘",value:"any"}]},
   {id:"priority",emoji:"⚡",question:"오늘 가장 중요한 건?",options:[
     {label:"😎 스타일리쉬하게 보이고 싶어",value:"style"},
-    {label:"😌 편안하고 활동하기 쉽게",value:"comfort"},
-    {label:"🌡️ 날씨에 맞게 따뜻/시원하게",value:"weather"},
-    {label:"⚡ 빠르게 입고 나가야 해",value:"quick"}]}
+    {label:"🌿 편안하고 자연스럽게",value:"comfort"},
+    {label:"💼 단정하고 깔끔하게",value:"neat"},
+    {label:"🔥 오늘 좀 튀고 싶어",value:"unique"},
+    {label:"⚡ 빠르게 결정하고 싶어",value:"quick"}]}
 ];
 
 // ── 성별 쇼핑 URL 생성 ──
@@ -220,26 +221,27 @@ function getOutfits(answers, tempData){
   const style=a.style||'minimal';
   const occasion=a.occasion||'casual';
   const color=a.color||'any';
+  const priority=a.priority||'style';
 
   // 스타일 우선순위로 상의/하의 선택
   function pickTop(){
-    if(style==='formal'||occasion==='work')
+    if(style==='formal'||occasion==='work'||priority==='neat')
       return 상의.find(i=>i.includes('셔츠')||i.includes('니트')||i.includes('블라우스'))||상의[0];
-    if(style==='street')
+    if(style==='street'||priority==='unique')
       return 상의.find(i=>i.includes('맨투맨')||i.includes('후드')||i.includes('반팔'))||상의[0];
-    if(style==='natural')
+    if(style==='natural'||priority==='comfort')
       return 상의.find(i=>i.includes('셔츠')||i.includes('긴팔'))||상의[0];
     return 상의[0];
   }
   function pickBottom(prefer){
-    if(prefer==='formal') return 하의.find(i=>i.includes('슬랙스'))||하의[0];
-    if(prefer==='casual') return 하의.find(i=>i.includes('청바지')||i.includes('면바지'))||하의[0];
+    if(prefer==='formal'||priority==='neat') return 하의.find(i=>i.includes('슬랙스'))||하의[0];
+    if(prefer==='casual'||priority==='comfort') return 하의.find(i=>i.includes('청바지')||i.includes('면바지'))||하의[0];
     return 하의[0];
   }
   function pickOuter(prefer){
     if(!아우터.length) return null;
-    if(prefer==='formal') return 아우터.find(i=>i.includes('코트')||i.includes('트렌치'))||아우터[0];
-    if(prefer==='casual') return 아우터.find(i=>i.includes('가디건')||i.includes('자켓'))||아우터[0];
+    if(prefer==='formal'||priority==='neat') return 아우터.find(i=>i.includes('코트')||i.includes('트렌치'))||아우터[0];
+    if(prefer==='casual'||priority==='comfort') return 아우터.find(i=>i.includes('가디건')||i.includes('자켓'))||아우터[0];
     return 아우터[0];
   }
 
@@ -254,11 +256,23 @@ function getOutfits(answers, tempData){
 
   const outfits=[];
 
-  // 1순위: 상황+스타일 최우선 코디
-  if(occasion==='work'){
-    outfits.push({name:'오피스 룩',
+  // 1순위: priority 반영한 코디
+  if(priority==='neat'||occasion==='work'){
+    outfits.push({name:'단정 클린 룩',
       items:[pickTop(),pickBottom('formal'),pickOuter('formal')].filter(Boolean).concat(기타.slice(0,1)),
-      tip:'단정하고 깔끔한 오피스 무드. 컬러는 무채색이나 어스톤 위주로!'});
+      tip:'깔끔하고 단정한 인상! 컬러는 무채색이나 어스톤으로 통일해보세요.'});
+  } else if(priority==='unique'){
+    outfits.push({name:'포인트 유니크 룩',
+      items:[상의[1]||상의[0], 하의[0], 아우터[1]||아우터[0]||null].filter(Boolean).concat(기타.slice(0,1)),
+      tip:'오늘만큼은 눈에 띄게! 포인트 컬러나 아이템 하나로 개성을 표현해보세요.'});
+  } else if(priority==='comfort'){
+    outfits.push({name:'편안한 데일리 룩',
+      items:[상의.find(i=>i.includes('맨투맨')||i.includes('니트')||i.includes('긴팔'))||상의[0], 하의.find(i=>i.includes('면바지')||i.includes('청바지'))||하의[0], 아우터.find(i=>i.includes('가디건'))||아우터[0]||null].filter(Boolean),
+      tip:'편안함이 최우선! 움직임이 자유로운 소재와 핏을 선택하세요.'});
+  } else if(priority==='quick'){
+    outfits.push({name:'5분 완성 룩',
+      items:[상의[0], 하의[0], 아우터[0]||null].filter(Boolean),
+      tip:'빠르게 결정! 기본 아이템으로 무난하게. 신발 하나로 포인트를 줘보세요.'});
   } else if(occasion==='date'){
     outfits.push({name:'데이트 룩',
       items:[pickTop(),pickBottom('casual'),아우터[0]||null].filter(Boolean).concat(기타.slice(0,1)),
@@ -272,7 +286,6 @@ function getOutfits(answers, tempData){
       items:['기모 맨투맨','트레이닝 바지','두꺼운 양말'],
       tip:'집에서도 포근하고 예쁘게! 편안함이 포인트.'});
   } else {
-    // casual
     outfits.push({name:'데일리 캐주얼',
       items:[pickTop(),pickBottom('casual'),pickOuter('casual')].filter(Boolean).concat(기타.slice(0,1)),
       tip:'어디서나 무난하게 어울리는 데일리 스타일!'});
