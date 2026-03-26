@@ -438,6 +438,7 @@ function render(){
     const outfits=s.outfits, si=s.selectedOutfit, w=s.weather;
     const rankLabels=["1st","2nd","3rd"];
     const o=outfits[si];
+    const gf = o.gender==='male' ? 'M' : o.gender==='female' ? 'F' : '';
     const gKw=o.gender==='male'?' 남성':o.gender==='female'?' 여성':'';
 
     let tabs='<div class="tab-row">';
@@ -450,7 +451,7 @@ function render(){
       <div class="item-row">
         <span class="item-name">${item}</span>
         <div class="item-btns">
-          <a class="shop-m" href="https://www.musinsa.com/search/goods?q=${encodeURIComponent(item+gKw)}" target="_blank">무신사</a>
+          <a class="shop-m" href="https://www.musinsa.com/snap/main/recommend?${gf?`gf=${gf}&`:''}keyword=${encodeURIComponent(item)}" target="_blank">무신사 코디</a>
           <a class="shop-c" href="https://www.29cm.co.kr/search?keyword=${encodeURIComponent(item+gKw)}" target="_blank">29CM</a>
         </div>
       </div>`).join('');
