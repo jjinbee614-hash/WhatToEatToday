@@ -8,80 +8,78 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --bg:#07070e;--card:#111120;--card2:#181828;
-  --blue:#63b3ed;--blue2:#90cdf4;--blue-glow:rgba(99,179,237,.12);
-  --text:#ede9e1;--muted:#5a5870;--border:rgba(255,255,255,.07);
+  --bg:#f0f6ff;
+  --bg2:#e8f2ff;
+  --card:#ffffff;
+  --card2:#f5f9ff;
+  --blue:#4a9edd;
+  --blue2:#6db8f0;
+  --blue-dark:#2d7fc0;
+  --blue-light:#ddeeff;
+  --text:#1a2a3a;
+  --muted:#7a9ab5;
+  --border:#d0e4f5;
   --radius:18px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 
-.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
-.orb{position:absolute;border-radius:50%;filter:blur(110px)}
-.orb-1{width:550px;height:550px;background:radial-gradient(circle,rgba(10,20,50,.9),transparent 70%);top:-120px;right:-120px;animation:o1 14s ease-in-out infinite}
-.orb-2{width:450px;height:450px;background:radial-gradient(circle,rgba(5,15,30,.9),transparent 70%);bottom:-100px;left:-100px;animation:o2 18s ease-in-out infinite}
-.orb-3{width:300px;height:300px;background:radial-gradient(circle,rgba(99,179,237,.04),transparent 70%);top:35%;left:20%;animation:o3 11s ease-in-out infinite}
-.bg-line{position:fixed;top:0;left:50%;width:1px;height:100%;background:linear-gradient(180deg,transparent,rgba(99,179,237,.05) 30%,rgba(99,179,237,.05) 70%,transparent);transform:translateX(-50%);pointer-events:none;z-index:0}
+/* Background */
+.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(80px)}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(173,216,255,.6),transparent 70%);top:-100px;right:-100px;animation:o1 14s ease-in-out infinite}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(200,230,255,.5),transparent 70%);bottom:-80px;left:-80px;animation:o2 18s ease-in-out infinite}
+.orb-3{width:300px;height:300px;background:radial-gradient(circle,rgba(255,255,255,.8),transparent 70%);top:40%;left:25%;animation:o3 11s ease-in-out infinite}
 
-.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px 90px;position:relative;z-index:2}
+.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px 100px;position:relative;z-index:2}
 .container{width:100%;max-width:400px}
 
 /* Progress */
-.progress-wrap{margin-bottom:32px}
-.progress-track{height:1px;background:var(--border);border-radius:1px;overflow:hidden;margin-top:10px}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));transition:width .6s cubic-bezier(.4,0,.2,1)}
-.progress-meta{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.progress-wrap{margin-bottom:28px}
+.progress-track{height:3px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));transition:width .6s cubic-bezier(.4,0,.2,1);border-radius:3px}
+.progress-meta{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
 
 /* Buttons */
-.btn-primary{width:100%;padding:16px 24px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#050a14;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:.04em;transition:all .3s ease}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(99,179,237,.25)}
-.btn-ghost{width:100%;padding:14px 24px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:14px;font-weight:400;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .25s ease}
-.btn-ghost:hover{border-color:rgba(255,255,255,.15);color:var(--text)}
+.btn-primary{width:100%;padding:16px 24px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:.04em;transition:all .3s ease;box-shadow:0 4px 20px rgba(74,158,221,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(74,158,221,.4)}
+.btn-ghost{width:100%;padding:14px 24px;border-radius:14px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:14px;font-weight:500;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .25s ease}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
 
 /* Options */
 .options-list{display:flex;flex-direction:column;gap:8px}
-.option-btn{width:100%;padding:15px 18px;border-radius:14px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;font-weight:400;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .22s ease;text-align:left;display:flex;align-items:center;gap:12px;position:relative}
-.opt-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:all .22s ease}
-.option-btn:hover{border-color:rgba(99,179,237,.25);background:var(--card2);transform:translateX(3px)}
+.option-btn{width:100%;padding:15px 18px;border-radius:14px;border:1.5px solid var(--border);background:#fff;color:var(--text);font-size:14px;font-weight:500;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .22s ease;text-align:left;display:flex;align-items:center;gap:12px;box-shadow:0 1px 4px rgba(74,158,221,.06)}
+.opt-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0;transition:all .22s ease}
+.option-btn:hover{border-color:var(--blue);background:var(--blue-light);transform:translateX(3px)}
 .option-btn:hover .opt-dot{background:var(--blue)}
-.option-btn.selected{border-color:rgba(99,179,237,.4);background:rgba(99,179,237,.07)}
-.option-btn.selected .opt-dot{background:var(--blue);box-shadow:0 0 8px rgba(99,179,237,.6)}
+.option-btn.selected{border-color:var(--blue);background:var(--blue-light)}
+.option-btn.selected .opt-dot{background:var(--blue);box-shadow:0 0 0 3px rgba(74,158,221,.2)}
 
-/* Weather Card */
-.weather-card{border-radius:var(--radius);border:1px solid rgba(99,179,237,.2);background:var(--card);padding:20px;margin-bottom:20px;display:flex;align-items:center;gap:16px}
-.weather-icon{font-size:40px;line-height:1}
-.weather-temp{font-size:32px;font-weight:900;color:var(--blue);line-height:1}
-.weather-desc{font-size:12px;color:var(--muted);margin-top:4px}
-.weather-loading{text-align:center;padding:20px;color:var(--muted);font-size:13px}
-
-/* Result Cards */
-.outfit-cards{display:flex;flex-direction:column;gap:14px;margin:20px 0}
-.outfit-card{border-radius:var(--radius);border:1px solid var(--border);background:var(--card);overflow:hidden;transition:all .3s ease;cursor:pointer}
-.outfit-card:hover{border-color:rgba(99,179,237,.25);transform:translateY(-2px);box-shadow:0 16px 48px rgba(0,0,0,.4)}
-.outfit-card-header{padding:16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
-.outfit-rank{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.rank-1{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#050a14}
-.rank-2{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
-.rank-3{background:rgba(255,255,255,.06);color:rgba(255,255,255,.4)}
-.outfit-name{font-size:16px;font-weight:800;flex:1}
-.outfit-body{padding:16px}
-.outfit-items{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-.outfit-item{background:rgba(99,179,237,.1);border:1px solid rgba(99,179,237,.2);color:var(--blue);font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px}
-.outfit-tip{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px}
-.outfit-shop{display:flex;gap:8px}
-.shop-btn{flex:1;padding:10px;border-radius:10px;text-decoration:none;font-size:12px;font-weight:700;text-align:center;transition:all .2s;font-family:'Noto Sans KR',sans-serif}
-.shop-musinsa{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);color:#fff}
-.shop-musinsa:hover{background:rgba(255,255,255,.1)}
-.shop-29cm{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff}
-.shop-29cm:hover{background:rgba(255,255,255,.15)}
+/* Outfit Card */
+.outfit-card{border-radius:var(--radius);border:1.5px solid var(--border);background:#fff;overflow:hidden;box-shadow:0 4px 24px rgba(74,158,221,.08)}
+.outfit-card-header{padding:16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);background:var(--bg2)}
+.outfit-rank{padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.rank-1{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff}
+.rank-2{background:rgba(74,158,221,.12);color:var(--blue)}
+.rank-3{background:var(--border);color:var(--muted)}
+.outfit-name{font-size:16px;font-weight:800;flex:1;color:var(--text)}
 
 /* Tabs */
 .tab-row{display:flex;gap:6px;margin-bottom:12px}
-.tab-btn{flex:1;padding:9px 4px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:10px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .2s;text-align:center;line-height:1.6}
-.tab-btn.active{border-color:rgba(99,179,237,.35);background:var(--blue-glow);color:var(--blue)}
+.tab-btn{flex:1;padding:9px 4px;border-radius:12px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:10px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .2s;text-align:center;line-height:1.6}
+.tab-btn.active{border-color:var(--blue);background:var(--blue-light);color:var(--blue-dark)}
 
-/* Kakao AdFit */
-.ad-wrap{position:fixed;bottom:0;left:0;right:0;z-index:999;display:flex;justify-content:center;align-items:center;background:rgba(7,7,14,.97);padding:8px 0;border-top:1px solid rgba(255,255,255,.07)}
+/* Item row */
+.item-row{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg2);border-radius:12px;border:1px solid var(--border);margin-bottom:8px}
+.item-name{font-size:13px;font-weight:600;color:var(--text);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item-btns{display:flex;gap:5px;flex-shrink:0}
+.shop-m{padding:6px 10px;border-radius:8px;background:var(--blue);color:#fff;text-decoration:none;font-size:10px;font-weight:700;font-family:'Noto Sans KR',sans-serif;white-space:nowrap;transition:background .2s}
+.shop-m:hover{background:var(--blue-dark)}
+.shop-c{padding:6px 10px;border-radius:8px;background:#fff;border:1.5px solid var(--blue);color:var(--blue);text-decoration:none;font-size:10px;font-weight:700;font-family:'Noto Sans KR',sans-serif;white-space:nowrap;transition:all .2s}
+.shop-c:hover{background:var(--blue-light)}
+
+/* Ad */
+.ad-wrap{position:fixed;bottom:0;left:0;right:0;z-index:999;display:flex;justify-content:center;align-items:center;background:rgba(240,246,255,.97);padding:8px 0;border-top:1px solid var(--border)}
 
 @keyframes o1{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,25px)}}
 @keyframes o2{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,-20px)}}
@@ -90,7 +88,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 @keyframes scaleUp{from{opacity:0;transform:scale(.97) translateY(6px)}to{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .anim-scaleUp{animation:scaleUp .5s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
 .anim-fadeUp{animation:fadeUp .4s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
 .anim-slideUp{animation:slideUp .4s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
@@ -102,7 +100,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
 </div>
-<div class="bg-line"></div>
 <div class="app">
   <div class="container" id="root"></div>
 </div>
@@ -369,29 +366,27 @@ function render(){
 
   if(s.screen==="intro"){
     root.innerHTML=`<div class="anim-scaleUp" style="text-align:center;padding:20px 0">
-      <div style="font-size:11px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:28px">오늘의 코디 추천</div>
-      <div style="font-size:52px;font-weight:900;line-height:1.1;margin-bottom:16px;background:linear-gradient(135deg,var(--text),rgba(237,233,225,.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent">오늘<br>뭐 입지?</div>
-      <div style="width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);margin:0 auto 20px"></div>
-      <p style="color:var(--muted);font-size:13px;font-weight:300;line-height:1.7;margin-bottom:16px">기온 + 상황에 맞는<br>오늘의 코디를 추천해드려요</p>
+      <div style="font-size:11px;letter-spacing:.18em;color:var(--blue);text-transform:uppercase;margin-bottom:24px;font-weight:600">오늘의 코디 추천</div>
+      <div style="font-size:52px;font-weight:900;line-height:1.1;margin-bottom:16px;color:var(--text)">오늘<br>뭐 입지?</div>
+      <div style="width:40px;height:3px;background:linear-gradient(90deg,var(--blue),var(--blue2));margin:0 auto 20px;border-radius:3px"></div>
+      <p style="color:var(--muted);font-size:13px;font-weight:400;line-height:1.7;margin-bottom:20px">기온 + 상황에 맞는<br>오늘의 코디를 추천해드려요</p>
       <div id="weather-preview" style="margin-bottom:32px">
         <div style="font-size:12px;color:var(--muted);animation:pulse 1.5s ease-in-out infinite">날씨 확인 중...</div>
       </div>
       <button class="btn-primary" style="width:auto;padding:16px 52px;font-size:15px;letter-spacing:.06em" onclick="startQuiz()">스타일 테스트 시작</button>
-      <div style="margin-top:12px">
+      <div style="margin-top:14px">
         <a href="/" style="font-size:12px;color:var(--muted);text-decoration:none">← What2Today 홈으로</a>
       </div>
     </div>`;
-
-    // 날씨 미리 가져오기
     getWeather().then(w=>{
       if(!w)return;
       state.weather=w;
       const el=document.getElementById('weather-preview');
       if(el){
-        el.innerHTML=`<div style="display:inline-flex;align-items:center;gap:10px;background:var(--card);border:1px solid rgba(99,179,237,.2);border-radius:14px;padding:12px 20px">
-          <span style="font-size:28px">${w.icon}</span>
+        el.innerHTML=`<div style="display:inline-flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:14px 22px;box-shadow:0 4px 16px rgba(74,158,221,.1)">
+          <span style="font-size:32px">${w.icon}</span>
           <div style="text-align:left">
-            <div style="font-size:22px;font-weight:900;color:var(--blue)">${w.temp}°C</div>
+            <div style="font-size:24px;font-weight:900;color:var(--blue)">${w.temp}°C</div>
             <div style="font-size:11px;color:var(--muted)">${w.tempData.label} · ${w.desc||w.tempData.desc}</div>
           </div>
         </div>`;
@@ -413,105 +408,87 @@ function render(){
       <div class="progress-wrap anim-fadeUp">
         <div style="display:flex;align-items:center;justify-content:space-between">
           ${s.currentQ>0
-            ?`<button onclick="goBackQuiz()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;font-family:'Noto Sans KR',sans-serif;padding:0;display:flex;align-items:center;gap:4px">← 이전</button>`
+            ?`<button onclick="goBackQuiz()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;font-family:'Noto Sans KR',sans-serif;padding:0;font-weight:500">← 이전</button>`
             :`<div></div>`
           }
-          <div class="progress-meta" style="margin-bottom:0"><span>${s.currentQ+1} / ${QUESTIONS.length}</span><span>${pct}%</span></div>
+          <div class="progress-meta"><span>${s.currentQ+1} / ${QUESTIONS.length}</span><span>${pct}%</span></div>
         </div>
         <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
       </div>
-      ${s.weather?`<div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;padding:10px 14px;background:var(--card);border-radius:12px;border:1px solid rgba(99,179,237,.15)">
+      ${s.weather?`<div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;padding:10px 14px;background:#fff;border-radius:12px;border:1.5px solid var(--border);box-shadow:0 2px 8px rgba(74,158,221,.08)">
         <span style="font-size:20px">${s.weather.icon}</span>
         <span style="font-size:14px;font-weight:700;color:var(--blue)">${s.weather.temp}°C</span>
         <span style="font-size:11px;color:var(--muted)">${s.weather.tempData.desc}</span>
       </div>`:''}
-      <div class="anim-slideUp" style="margin-bottom:28px">
-        <div style="font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:16px">Question ${s.currentQ+1}</div>
-        <h2 style="font-size:24px;font-weight:700;line-height:1.35;letter-spacing:-.01em">${q.question}</h2>
+      <div class="anim-slideUp" style="margin-bottom:24px">
+        <div style="font-size:11px;letter-spacing:.12em;color:var(--blue);text-transform:uppercase;margin-bottom:14px;font-weight:600">Question ${s.currentQ+1}</div>
+        <h2 style="font-size:22px;font-weight:800;line-height:1.4;color:var(--text)">${q.question}</h2>
       </div>
       <div class="options-list">${opts}</div>`;
     return}
 
   if(s.screen==="loading"){
     root.innerHTML=`<div class="anim-fadeUp" style="text-align:center;padding:40px 0">
-      <div style="width:48px;height:48px;border:1.5px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 24px"></div>
-      <div style="font-size:20px;font-weight:700;margin-bottom:10px">코디를 추천하는 중</div>
-      <p style="color:var(--muted);font-size:12px;font-weight:300;animation:pulse 2s ease-in-out infinite">기온과 스타일을 분석하고 있어요</p>
+      <div style="width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 24px"></div>
+      <div style="font-size:20px;font-weight:800;margin-bottom:10px;color:var(--text)">코디를 추천하는 중</div>
+      <p style="color:var(--muted);font-size:13px;animation:pulse 2s ease-in-out infinite">기온과 스타일을 분석하고 있어요</p>
     </div>`;return}
 
   if(s.screen==="result"){
-    const outfits=s.outfits;
-    const si=s.selectedOutfit;
-    const w=s.weather;
+    const outfits=s.outfits, si=s.selectedOutfit, w=s.weather;
     const rankLabels=["1st","2nd","3rd"];
-    const rankColors=["linear-gradient(135deg,var(--blue),var(--blue2))","rgba(255,255,255,.1)","rgba(255,255,255,.06)"];
-    const rankTextColors=["#050a14","rgba(255,255,255,.7)","rgba(255,255,255,.4)"];
+    const o=outfits[si];
+    const gKw=o.gender==='male'?' 남성':o.gender==='female'?' 여성':'';
 
-    // 탭
     let tabs='<div class="tab-row">';
-    outfits.forEach((o,i)=>{
-      tabs+=`<div class="tab-btn ${i===si?'active':''}" onclick="selectOutfit(${i})">${rankLabels[i]}<br>${o.name}</div>`;
+    outfits.forEach((ot,i)=>{
+      tabs+=`<div class="tab-btn ${i===si?'active':''}" onclick="selectOutfit(${i})">${rankLabels[i]}<br>${ot.name}</div>`;
     });
     tabs+='</div>';
 
-    const o=outfits[si];
-    const gender=o.gender||'unisex';
-
-    // 아이템별 쇼핑 버튼
     const itemsHTML=o.items.map(item=>`
-      <div style="margin-bottom:10px;padding:10px 12px;background:var(--card2);border-radius:12px;border:1px solid var(--border)">
-        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px">${item}</div>
-        <div style="display:flex;gap:6px">
-          <a href="https://www.musinsa.com/search/goods?q=${encodeURIComponent(item+(gender==='male'?' 남성':gender==='female'?' 여성':''))}" target="_blank"
-             style="flex:1;padding:7px 0;background:#000;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;text-decoration:none;font-size:11px;font-weight:700;text-align:center;font-family:'Noto Sans KR',sans-serif">
-            무신사
-          </a>
-          <a href="https://www.29cm.co.kr/search?keyword=${encodeURIComponent(item+(gender==='male'?' 남성':gender==='female'?' 여성':''))}" target="_blank"
-             style="flex:1;padding:7px 0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;text-decoration:none;font-size:11px;font-weight:700;text-align:center;font-family:'Noto Sans KR',sans-serif">
-            29CM
-          </a>
+      <div class="item-row">
+        <span class="item-name">${item}</span>
+        <div class="item-btns">
+          <a class="shop-m" href="https://www.musinsa.com/search/goods?q=${encodeURIComponent(item+gKw)}" target="_blank">무신사</a>
+          <a class="shop-c" href="https://www.29cm.co.kr/search?keyword=${encodeURIComponent(item+gKw)}" target="_blank">29CM</a>
         </div>
       </div>`).join('');
 
     root.innerHTML=`<div class="anim-scaleUp">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-        <button onclick="restart()" style="padding:7px 12px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:12px;font-family:'Noto Sans KR',sans-serif">← 다시하기</button>
-        <div style="font-size:14px;font-weight:700">오늘의 코디 추천</div>
-        <a href="/" style="font-size:11px;color:var(--muted);text-decoration:none">홈</a>
+        <button onclick="restart()" style="padding:7px 12px;border-radius:10px;border:1.5px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;font-size:12px;font-family:'Noto Sans KR',sans-serif;font-weight:500">← 다시하기</button>
+        <div style="font-size:14px;font-weight:800;color:var(--text)">오늘의 코디 추천</div>
+        <a href="/" style="font-size:12px;color:var(--muted);text-decoration:none;font-weight:500">홈 →</a>
       </div>
-
-      ${w?`<div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--card);border-radius:14px;border:1px solid rgba(99,179,237,.15);margin-bottom:14px">
+      ${w?`<div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:#fff;border-radius:14px;border:1.5px solid var(--border);margin-bottom:14px;box-shadow:0 2px 12px rgba(74,158,221,.08)">
         <span style="font-size:24px">${w.icon}</span>
         <div style="flex:1">
           <span style="font-size:18px;font-weight:900;color:var(--blue)">${w.temp}°C</span>
           <span style="font-size:12px;color:var(--muted);margin-left:8px">${w.tempData.label}</span>
-          ${w.feelsLike!==w.temp?`<div style="font-size:11px;color:var(--muted);margin-top:2px">체감 ${w.feelsLike}°C · ${w.desc}</div>`:`<div style="font-size:11px;color:var(--muted);margin-top:2px">${w.desc}</div>`}
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">${w.feelsLike!==w.temp?`체감 ${w.feelsLike}°C · `:''}${w.desc}</div>
         </div>
       </div>`:''}
-
       ${tabs}
-
       <div class="outfit-card anim-fadeUp">
         <div class="outfit-card-header">
           <span class="outfit-rank rank-${si+1}">${rankLabels[si]}</span>
           <span class="outfit-name">${o.name}</span>
         </div>
-        <div class="outfit-body">
-          <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6">${o.tip}</div>
-          ${o.colorTip?`<div style="font-size:11px;color:var(--blue);margin-bottom:12px;padding:8px 12px;background:rgba(99,179,237,.06);border-radius:8px;border-left:2px solid var(--blue)">🎨 ${o.colorTip}</div>`:''}
-          <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">추천 아이템</div>
+        <div style="padding:16px">
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px">${o.tip}</div>
+          ${o.colorTip?`<div style="font-size:11px;color:var(--blue-dark);margin-bottom:12px;padding:8px 12px;background:var(--blue-light);border-radius:10px;border-left:3px solid var(--blue)">🎨 ${o.colorTip}</div>`:''}
+          <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">추천 아이템</div>
           ${itemsHTML}
         </div>
       </div>
-
-      <div style="margin-top:10px;display:flex;gap:8px">
-        <button class="btn-ghost" style="font-size:12px;padding:12px" onclick="restart()">🔄 다시 테스트</button>
-        <a href="/" style="flex:1;display:flex;align-items:center;justify-content:center;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-family:'Noto Sans KR',sans-serif;text-decoration:none;padding:12px">🏠 홈으로</a>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button onclick="restart()" style="flex:1;padding:13px;border-radius:14px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif">🔄 다시 테스트</button>
+        <a href="/" style="flex:1;padding:13px;border-radius:14px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:13px;font-weight:600;text-decoration:none;text-align:center;font-family:'Noto Sans KR',sans-serif;display:flex;align-items:center;justify-content:center">🏠 홈으로</a>
       </div>
     </div>`;
     return}
 }
-
 // ── Actions ──
 function startQuiz(){
   // 날씨 없으면 다시 시도
