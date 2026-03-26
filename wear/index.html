@@ -193,94 +193,123 @@ const QUESTIONS=[
     {label:"⚡ 빠르게 입고 나가야 해",value:"quick"}]}
 ];
 
+// ── 성별 쇼핑 URL 생성 ──
+function shopUrl(site, keyword, gender){
+  const genderKw = gender==='male'?' 남성' : gender==='female'?' 여성' : '';
+  const q = encodeURIComponent(keyword + genderKw);
+  if(site==='musinsa'){
+    const cat = gender==='male'?'002':'001'; // 무신사 남/여 카테고리
+    return `https://www.musinsa.com/search/goods?q=${q}&gender=${gender==='male'?'male':'female'}`;
+  }
+  return `https://www.29cm.co.kr/search?keyword=${q}`;
+}
+
+// ── 아이템별 쇼핑 버튼 생성 ──
+function renderItemShop(item, gender){
+  const q=encodeURIComponent(item+(gender==='male'?' 남성':gender==='female'?' 여성':''));
+  const mUrl=`https://www.musinsa.com/search/goods?q=${q}`;
+  const cUrl=`https://www.29cm.co.kr/search?keyword=${q}`;
+  return `<div style="display:flex;gap:4px;margin-top:4px">
+    <a href="${mUrl}" target="_blank" style="flex:1;padding:5px 0;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#fff;text-decoration:none;font-size:10px;font-weight:700;text-align:center;font-family:'Noto Sans KR',sans-serif">무신사</a>
+    <a href="${cUrl}" target="_blank" style="flex:1;padding:5px 0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#fff;text-decoration:none;font-size:10px;font-weight:700;text-align:center;font-family:'Noto Sans KR',sans-serif">29CM</a>
+  </div>`;
+}
+
 // ── 코디 추천 로직 ──
 function getOutfits(answers, tempData){
   const a={};answers.forEach(x=>a[x.questionId]=x.value);
   const {상의,하의,아우터,기타}=tempData.items;
+  const gender=a.gender||'unisex';
+  const style=a.style||'minimal';
+  const occasion=a.occasion||'casual';
+  const color=a.color||'any';
 
-  // 스타일별 코디 생성
+  // 스타일 우선순위로 상의/하의 선택
+  function pickTop(){
+    if(style==='formal'||occasion==='work')
+      return 상의.find(i=>i.includes('셔츠')||i.includes('니트')||i.includes('블라우스'))||상의[0];
+    if(style==='street')
+      return 상의.find(i=>i.includes('맨투맨')||i.includes('후드')||i.includes('반팔'))||상의[0];
+    if(style==='natural')
+      return 상의.find(i=>i.includes('셔츠')||i.includes('긴팔'))||상의[0];
+    return 상의[0];
+  }
+  function pickBottom(prefer){
+    if(prefer==='formal') return 하의.find(i=>i.includes('슬랙스'))||하의[0];
+    if(prefer==='casual') return 하의.find(i=>i.includes('청바지')||i.includes('면바지'))||하의[0];
+    return 하의[0];
+  }
+  function pickOuter(prefer){
+    if(!아우터.length) return null;
+    if(prefer==='formal') return 아우터.find(i=>i.includes('코트')||i.includes('트렌치'))||아우터[0];
+    if(prefer==='casual') return 아우터.find(i=>i.includes('가디건')||i.includes('자켓'))||아우터[0];
+    return 아우터[0];
+  }
+
+  const colorTips={
+    achromatic:'블랙·화이트·그레이 조합으로 미니멀하게!',
+    earth:'베이지·카키·브라운 어스톤으로 자연스럽게!',
+    cool:'네이비·블루·그린 쿨톤으로 시원하게!',
+    warm:'레드·핑크·오렌지 웜톤으로 화사하게!',
+    any:'오늘 기분에 맞는 컬러로 자유롭게!'
+  };
+  const colorTip=colorTips[color]||'';
+
   const outfits=[];
 
-  function buildOutfit(name, top, bottom, outer, tip, searchKw){
-    const items=[];
-    if(top) items.push(top);
-    if(bottom) items.push(bottom);
-    if(outer) items.push(outer);
-    기타.slice(0,1).forEach(i=>items.push(i));
-    outfits.push({name, items, tip, searchKw});
-  }
-
-  // 상황별 우선 코디
-  if(a.occasion==="work"||a.occasion==="date"){
-    // 포멀/세미포멀 먼저
-    buildOutfit(
-      a.occasion==="work"?"오피스 룩":"데이트 룩",
-      상의.find(i=>i.includes("셔츠")||i.includes("니트")||i.includes("블라우스"))||상의[0],
-      하의.find(i=>i.includes("슬랙스")||i.includes("면바지"))||하의[0],
-      아우터[0]||null,
-      a.occasion==="work"?"깔끔한 오피스 무드. 단정한 컬러로 맞춰보세요.":"깔끔하면서도 세련된 무드로 연출해보세요.",
-      a.occasion==="work"?"오피스룩 코디":"데이트룩 코디"
-    );
-    buildOutfit(
-      "캐주얼 세미포멀",
-      상의.find(i=>i.includes("니트")||i.includes("맨투맨")||i.includes("긴팔"))||상의[1]||상의[0],
-      하의.find(i=>i.includes("청바지")||i.includes("면바지"))||하의[0],
-      아우터[0]||null,
-      "포멀과 캐주얼의 중간. 어디서나 무난하게 어울려요.",
-      "세미포멀 코디"
-    );
-    buildOutfit(
-      "포인트 스타일",
-      상의[0],
-      하의[1]||하의[0],
-      아우터[1]||아우터[0]||null,
-      "포인트 아이템 하나로 전체 스타일을 살려보세요.",
-      "포인트 코디"
-    );
-  } else if(a.occasion==="sport"){
-    buildOutfit("스포츠 룩","기능성 티셔츠","트레이닝 바지",null,"활동성을 최우선으로! 편한 운동화와 함께.","스포츠 코디");
-    buildOutfit("애슬레저 룩","크롭 맨투맨","레깅스",아우터[0]||null,"운동+일상 모두 OK! 트렌디한 애슬레저 스타일.","애슬레저 코디");
-    buildOutfit("캐주얼 스포티",상의[0],하의[0],null,"편하고 활동적인 데일리 스타일.","스포티 코디");
-  } else if(a.occasion==="home"){
-    buildOutfit("홈 편안 룩","기모 맨투맨","트레이닝 바지",null,"집에서도 편하고 예쁘게!","홈웨어 코디");
-    buildOutfit("캐주얼 홈웨어",상의[0],하의[0],null,"가벼운 외출도 가능한 편안한 스타일.","홈웨어");
-    buildOutfit("포근 룩","니트","편한 바지",아우터[0]||null,"포근하고 따뜻하게!","포근한 코디");
+  // 1순위: 상황+스타일 최우선 코디
+  if(occasion==='work'){
+    outfits.push({name:'오피스 룩',
+      items:[pickTop(),pickBottom('formal'),pickOuter('formal')].filter(Boolean).concat(기타.slice(0,1)),
+      tip:'단정하고 깔끔한 오피스 무드. 컬러는 무채색이나 어스톤 위주로!'});
+  } else if(occasion==='date'){
+    outfits.push({name:'데이트 룩',
+      items:[pickTop(),pickBottom('casual'),아우터[0]||null].filter(Boolean).concat(기타.slice(0,1)),
+      tip:'세련되면서도 자연스러운 데이트 무드. 포인트 아이템 하나를 추가해보세요!'});
+  } else if(occasion==='sport'){
+    outfits.push({name:'스포츠 룩',
+      items:['기능성 티셔츠','트레이닝 바지'].concat(기타.slice(0,1)),
+      tip:'활동성 최우선! 땀 흡수 잘 되는 소재를 선택하세요.'});
+  } else if(occasion==='home'){
+    outfits.push({name:'편안한 홈웨어',
+      items:['기모 맨투맨','트레이닝 바지','두꺼운 양말'],
+      tip:'집에서도 포근하고 예쁘게! 편안함이 포인트.'});
   } else {
     // casual
-    buildOutfit(
-      "데일리 베이직",
-      상의[0],하의[0],아우터[0]||null,
-      "가장 무난하고 깔끔한 데일리 스타일.",
-      "데일리 코디"
-    );
-    buildOutfit(
-      "캐주얼 스트릿",
-      상의[1]||상의[0],하의[1]||하의[0],아우터[1]||아우터[0]||null,
-      "편하면서도 트렌디한 스트릿 무드.",
-      "캐주얼 스트릿 코디"
-    );
-    buildOutfit(
-      "포인트 룩",
-      상의[0],하의[0],아우터[0]||null,
-      "아우터 하나로 전체 스타일을 완성해보세요.",
-      "포인트 코디"
-    );
+    outfits.push({name:'데일리 캐주얼',
+      items:[pickTop(),pickBottom('casual'),pickOuter('casual')].filter(Boolean).concat(기타.slice(0,1)),
+      tip:'어디서나 무난하게 어울리는 데일리 스타일!'});
   }
 
-  // 색감 팁 추가
-  const colorTip={
-    achromatic:"무채색 배색으로 미니멀하게. 블랙+화이트 조합 추천!",
-    earth:"어스톤으로 자연스럽게. 베이지+카키 조합이 잘 어울려요.",
-    cool:"쿨톤 컬러로 시원하게. 네이비+화이트 조합 추천!",
-    warm:"웜톤으로 화사하게. 레드나 오렌지 포인트를 줘보세요.",
-    any:"오늘 기분에 따라 자유롭게!"
-  };
+  // 2순위: 스타일 기반 코디
+  if(style==='minimal'){
+    outfits.push({name:'미니멀 베이직',
+      items:[상의.find(i=>i.includes('긴팔')||i.includes('셔츠'))||상의[0], 하의.find(i=>i.includes('슬랙스')||i.includes('면바지'))||하의[0], 아우터[0]||null].filter(Boolean),
+      tip:'군더더기 없는 깔끔한 미니멀 스타일. 컬러는 하나로 통일!'});
+  } else if(style==='street'){
+    outfits.push({name:'스트릿 캐주얼',
+      items:[상의.find(i=>i.includes('맨투맨')||i.includes('후드'))||상의[0], 하의.find(i=>i.includes('청바지'))||하의[0], 아우터.find(i=>i.includes('자켓')||i.includes('야상'))||아우터[0]||null].filter(Boolean),
+      tip:'트렌디하고 힙한 스트릿 무드. 오버핏으로 연출하면 더 좋아요!'});
+  } else if(style==='formal'){
+    outfits.push({name:'클래식 포멀',
+      items:[상의.find(i=>i.includes('셔츠')||i.includes('블라우스'))||상의[0], 하의.find(i=>i.includes('슬랙스'))||하의[0], 아우터.find(i=>i.includes('코트')||i.includes('자켓'))||아우터[0]||null].filter(Boolean),
+      tip:'단정하고 격식 있는 클래식 포멀. 깔끔한 컬러 매칭이 핵심!'});
+  } else if(style==='natural'){
+    outfits.push({name:'내추럴 빈티지',
+      items:[상의.find(i=>i.includes('셔츠'))||상의[0], 하의[0], 아우터.find(i=>i.includes('가디건'))||아우터[0]||null].filter(Boolean),
+      tip:'편안하고 자연스러운 내추럴 무드. 어스톤 컬러가 잘 어울려요!'});
+  } else {
+    outfits.push({name:'트렌디 믹스',
+      items:[상의[1]||상의[0], 하의[1]||하의[0], 아우터[1]||아우터[0]||null].filter(Boolean),
+      tip:'트렌드를 살린 유니크한 믹스 스타일. 나만의 감각을 표현해보세요!'});
+  }
 
-  return outfits.slice(0,3).map((o,i)=>({
-    ...o,
-    colorTip: colorTip[a.color]||"",
-    rank: i+1
-  }));
+  // 3순위: 기온 최적화 코디
+  outfits.push({name:'날씨 최적 코디',
+    items:[...상의.slice(0,1),...하의.slice(0,1),...아우터.slice(0,1),...기타.slice(0,1)].filter(Boolean),
+    tip:`${tempData.label} 날씨에 맞춘 최적의 코디! ${tempData.desc}`});
+
+  return outfits.slice(0,3).map((o,i)=>({...o,colorTip,gender,rank:i+1}));
 }
 
 // ── State ──
@@ -294,7 +323,7 @@ let state={
 };
 function setState(u){Object.assign(state,u);render()}
 
-// ── 날씨 가져오기 ──
+// ── 날씨 가져오기 (캐시 방지) ──
 async function getWeather(){
   return new Promise((resolve)=>{
     if(!navigator.geolocation){resolve(null);return}
@@ -302,10 +331,13 @@ async function getWeather(){
       try{
         const {latitude:lat,longitude:lon}=pos.coords;
         const apiKey='1611b673069eff5c2e8c98ce5ae05ddd';
-        const url=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=kr`;
-        const res=await fetch(url);
+        const ts=Date.now(); // 캐시 방지
+        const url=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=kr&_t=${ts}`;
+        const res=await fetch(url,{cache:'no-store'});
         const data=await res.json();
-        const temp=Math.round(data.main.temp);
+        if(data.cod!==200){resolve(null);return}
+        const temp=Math.round(data.main.feels_like); // 체감온도 사용
+        const actual=Math.round(data.main.temp);
         const code=data.weather[0].id;
         let icon='🌤️';
         if(code===800)icon='☀️';
@@ -316,9 +348,9 @@ async function getWeather(){
         else if(code>=300&&code<400)icon='🌦️';
         else if(code>=200&&code<300)icon='⛈️';
         const desc=data.weather[0].description;
-        resolve({temp,icon,desc,tempData:getTempDB(temp)});
+        resolve({temp:actual,feelsLike:temp,icon,desc,tempData:getTempDB(actual)});
       }catch(e){console.error('날씨 오류:',e);resolve(null)}
-    },()=>resolve(null),{timeout:10000,enableHighAccuracy:true});
+    },()=>resolve(null),{timeout:10000,enableHighAccuracy:true,maximumAge:0});
   });
 }
 
@@ -423,8 +455,23 @@ function render(){
     tabs+='</div>';
 
     const o=outfits[si];
-    const musinsaUrl=`https://www.musinsa.com/search/goods?q=${encodeURIComponent(o.searchKw)}`;
-    const cm29Url=`https://www.29cm.co.kr/search?keyword=${encodeURIComponent(o.searchKw)}`;
+    const gender=o.gender||'unisex';
+
+    // 아이템별 쇼핑 버튼
+    const itemsHTML=o.items.map(item=>`
+      <div style="margin-bottom:10px;padding:10px 12px;background:var(--card2);border-radius:12px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px">${item}</div>
+        <div style="display:flex;gap:6px">
+          <a href="https://www.musinsa.com/search/goods?q=${encodeURIComponent(item+(gender==='male'?' 남성':gender==='female'?' 여성':''))}" target="_blank"
+             style="flex:1;padding:7px 0;background:#000;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;text-decoration:none;font-size:11px;font-weight:700;text-align:center;font-family:'Noto Sans KR',sans-serif">
+            무신사
+          </a>
+          <a href="https://www.29cm.co.kr/search?keyword=${encodeURIComponent(item+(gender==='male'?' 남성':gender==='female'?' 여성':''))}" target="_blank"
+             style="flex:1;padding:7px 0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;text-decoration:none;font-size:11px;font-weight:700;text-align:center;font-family:'Noto Sans KR',sans-serif">
+            29CM
+          </a>
+        </div>
+      </div>`).join('');
 
     root.innerHTML=`<div class="anim-scaleUp">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
@@ -435,9 +482,10 @@ function render(){
 
       ${w?`<div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--card);border-radius:14px;border:1px solid rgba(99,179,237,.15);margin-bottom:14px">
         <span style="font-size:24px">${w.icon}</span>
-        <div>
+        <div style="flex:1">
           <span style="font-size:18px;font-weight:900;color:var(--blue)">${w.temp}°C</span>
-          <span style="font-size:12px;color:var(--muted);margin-left:8px">${w.tempData.label} · ${w.tempData.desc}</span>
+          <span style="font-size:12px;color:var(--muted);margin-left:8px">${w.tempData.label}</span>
+          ${w.feelsLike!==w.temp?`<div style="font-size:11px;color:var(--muted);margin-top:2px">체감 ${w.feelsLike}°C · ${w.desc}</div>`:`<div style="font-size:11px;color:var(--muted);margin-top:2px">${w.desc}</div>`}
         </div>
       </div>`:''}
 
@@ -449,24 +497,12 @@ function render(){
           <span class="outfit-name">${o.name}</span>
         </div>
         <div class="outfit-body">
-          <div class="outfit-items">
-            ${o.items.map(item=>`<span class="outfit-item">${item}</span>`).join('')}
-          </div>
-          <div class="outfit-tip">${o.tip}</div>
-          ${o.colorTip?`<div style="font-size:11px;color:var(--muted);margin-bottom:12px;padding:8px 12px;background:rgba(99,179,237,.06);border-radius:8px;border-left:2px solid var(--blue)">🎨 ${o.colorTip}</div>`:''}
-          <div class="outfit-shop">
-            <a href="${musinsaUrl}" target="_blank" class="shop-btn shop-musinsa">무신사에서 보기</a>
-            <a href="${cm29Url}" target="_blank" class="shop-btn shop-29cm">29CM에서 보기</a>
-          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6">${o.tip}</div>
+          ${o.colorTip?`<div style="font-size:11px;color:var(--blue);margin-bottom:12px;padding:8px 12px;background:rgba(99,179,237,.06);border-radius:8px;border-left:2px solid var(--blue)">🎨 ${o.colorTip}</div>`:''}
+          <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">추천 아이템</div>
+          ${itemsHTML}
         </div>
       </div>
-
-      ${w?`<div style="margin-top:12px;padding:12px 16px;background:var(--card);border-radius:14px;border:1px solid var(--border)">
-        <div style="font-size:11px;color:var(--muted);font-weight:600;margin-bottom:8px;letter-spacing:.06em;text-transform:uppercase">기온별 전체 아이템</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px">
-          ${Object.entries(w.tempData.items).flatMap(([cat,items])=>items.map(item=>`<span style="font-size:10px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted);padding:3px 8px;border-radius:20px">${item}</span>`)).join('')}
-        </div>
-      </div>`:''}
 
       <div style="margin-top:10px;display:flex;gap:8px">
         <button class="btn-ghost" style="font-size:12px;padding:12px" onclick="restart()">🔄 다시 테스트</button>
