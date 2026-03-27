@@ -31,7 +31,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(200,230,255,.5),transparent 70%);bottom:-80px;left:-80px;animation:o2 18s ease-in-out infinite}
 .orb-3{width:300px;height:300px;background:radial-gradient(circle,rgba(255,255,255,.8),transparent 70%);top:40%;left:25%;animation:o3 11s ease-in-out infinite}
 
-.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px 100px;position:relative;z-index:2}
+.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px 380px;position:relative;z-index:2}
 .container{width:100%;max-width:400px}
 
 /* Progress */
@@ -75,8 +75,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .item-btns{display:flex;gap:5px;flex-shrink:0}
 .shop-m{padding:6px 10px;border-radius:8px;background:var(--blue);color:#fff;text-decoration:none;font-size:10px;font-weight:700;font-family:'Noto Sans KR',sans-serif;white-space:nowrap;transition:background .2s}
 .shop-m:hover{background:var(--blue-dark)}
-.shop-c{padding:6px 10px;border-radius:8px;background:#fff;border:1.5px solid var(--blue);color:var(--blue);text-decoration:none;font-size:10px;font-weight:700;font-family:'Noto Sans KR',sans-serif;white-space:nowrap;transition:all .2s}
-.shop-c:hover{background:var(--blue-light)}
+.shop-c{padding:6px 10px;border-radius:8px;background:#fff;border:1.5px solid #e5393e;color:#e5393e;text-decoration:none;font-size:10px;font-weight:700;font-family:'Noto Sans KR',sans-serif;white-space:nowrap;transition:all .2s}
+.shop-c:hover{background:#fff5f5}
 
 /* Ad */
 .ad-wrap{position:fixed;bottom:0;left:0;right:0;z-index:999;display:flex;justify-content:center;align-items:center;background:rgba(240,246,255,.97);padding:8px 0;border-top:1px solid var(--border)}
@@ -102,6 +102,11 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 </div>
 <div class="app">
   <div class="container" id="root"></div>
+</div>
+
+<!-- 쿠팡 파트너스 다이나믹 배너 -->
+<div style="display:flex;justify-content:center;align-items:center;padding:12px 16px 4px;background:var(--bg)">
+  <iframe src="https://ads-partners.coupang.com/widgets.html?id=975826&template=carousel&trackingCode=AF6033415&subId=&width=300&height=250&tsource=" width="300" height="250" frameborder="0" scrolling="no" referrerpolicy="unsafe-url" browsingtopics></iframe>
 </div>
 
 <!-- 카카오 애드핏 -->
@@ -465,7 +470,7 @@ function render(){
         <span class="item-name">${item}</span>
         <div class="item-btns">
           <a class="shop-m" href="https://www.musinsa.com/snap/main/recommend?${gf?`gf=${gf}&`:''}keyword=${encodeURIComponent(item)}" target="_blank">무신사 코디</a>
-          <a class="shop-c" href="https://www.29cm.co.kr/search?keyword=${encodeURIComponent(item+gKw)}" target="_blank">29CM</a>
+          <a class="shop-c" href="https://www.coupang.com/np/search?q=${encodeURIComponent(item+gKw)}" target="_blank">쿠팡</a>
         </div>
       </div>`).join('');
 
