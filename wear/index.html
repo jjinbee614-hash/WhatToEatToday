@@ -191,29 +191,22 @@ const QUESTIONS=[
     {label:"⚡ 빠르게 결정하고 싶어",value:"quick"}]}
 ];
 
-// ── 성별 쇼핑 URL 생성 ──
-function shopUrl(site, keyword, gender){
-  const genderKw = gender==='male'?' 남성' : gender==='female'?' 여성' : '';
-  const q = encodeURIComponent(keyword + genderKw);
-  if(site==='musinsa'){
-    const cat = gender==='male'?'002':'001'; // 무신사 남/여 카테고리
-    return `https://www.musinsa.com/search/goods?q=${q}&gender=${gender==='male'?'male':'female'}`;
-  }
-  return `https://www.29cm.co.kr/search?keyword=${q}`;
+// ── 컬러 접두사 생성 ──
+function colorPrefix(color, style){
+  const c={
+    achromatic:['블랙','화이트','그레이','차콜'],
+    earth:['베이지','카키','브라운','크림'],
+    cool:['네이비','블루','그린','인디고'],
+    warm:['버건디','레드','코랄','오렌지'],
+    any:['']
+  };
+  const colors = c[color]||[''];
+  // 스타일에 따라 색 선택
+  const idx = style==='minimal'?0 : style==='natural'?1 : style==='formal'?2 : style==='street'?3 : 0;
+  return colors[idx%colors.length] ? colors[idx%colors.length]+' ' : '';
 }
 
-// ── 아이템별 쇼핑 버튼 생성 ──
-function renderItemShop(item, gender){
-  const q=encodeURIComponent(item+(gender==='male'?' 남성':gender==='female'?' 여성':''));
-  const mUrl=`https://www.musinsa.com/search/goods?q=${q}`;
-  const cUrl=`https://www.29cm.co.kr/search?keyword=${q}`;
-  return `<div style="display:flex;gap:4px;margin-top:4px">
-    <a href="${mUrl}" target="_blank" style="flex:1;padding:5px 0;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#fff;text-decoration:none;font-size:10px;font-weight:700;text-align:center;font-family:'Noto Sans KR',sans-serif">무신사</a>
-    <a href="${cUrl}" target="_blank" style="flex:1;padding:5px 0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#fff;text-decoration:none;font-size:10px;font-weight:700;text-align:center;font-family:'Noto Sans KR',sans-serif">29CM</a>
-  </div>`;
-}
-
-// ── 코디 추천 로직 ──
+// ── 코디 추천 로직 (1순위: 용도 → 2순위: 날씨 → 3순위: 스타일+컬러) ──
 function getOutfits(answers, tempData){
   const a={};answers.forEach(x=>a[x.questionId]=x.value);
   const {상의,하의,아우터,기타}=tempData.items;
@@ -223,101 +216,122 @@ function getOutfits(answers, tempData){
   const color=a.color||'any';
   const priority=a.priority||'style';
 
-  // 스타일 우선순위로 상의/하의 선택
-  function pickTop(){
-    if(style==='formal'||occasion==='work'||priority==='neat')
-      return 상의.find(i=>i.includes('셔츠')||i.includes('니트')||i.includes('블라우스'))||상의[0];
-    if(style==='street'||priority==='unique')
-      return 상의.find(i=>i.includes('맨투맨')||i.includes('후드')||i.includes('반팔'))||상의[0];
-    if(style==='natural'||priority==='comfort')
-      return 상의.find(i=>i.includes('셔츠')||i.includes('긴팔'))||상의[0];
-    return 상의[0];
-  }
-  function pickBottom(prefer){
-    if(prefer==='formal'||priority==='neat') return 하의.find(i=>i.includes('슬랙스'))||하의[0];
-    if(prefer==='casual'||priority==='comfort') return 하의.find(i=>i.includes('청바지')||i.includes('면바지'))||하의[0];
-    return 하의[0];
-  }
-  function pickOuter(prefer){
-    if(!아우터.length) return null;
-    if(prefer==='formal'||priority==='neat') return 아우터.find(i=>i.includes('코트')||i.includes('트렌치'))||아우터[0];
-    if(prefer==='casual'||priority==='comfort') return 아우터.find(i=>i.includes('가디건')||i.includes('자켓'))||아우터[0];
-    return 아우터[0];
-  }
+  // 컬러 접두사
+  const cp=colorPrefix(color, style);
+  const cp2=colorPrefix(color==='any'?'achromatic':color==='achromatic'?'earth':'achromatic', style); // 2번째 코디용
 
   const colorTips={
-    achromatic:'블랙·화이트·그레이 조합으로 미니멀하게!',
+    achromatic:'블랙·화이트·그레이 무채색 조합으로 세련되게!',
     earth:'베이지·카키·브라운 어스톤으로 자연스럽게!',
-    cool:'네이비·블루·그린 쿨톤으로 시원하게!',
-    warm:'레드·핑크·오렌지 웜톤으로 화사하게!',
+    cool:'네이비·블루·그린 쿨톤으로 시원하고 깔끔하게!',
+    warm:'버건디·코랄·오렌지 웜톤으로 화사하게!',
     any:'오늘 기분에 맞는 컬러로 자유롭게!'
   };
   const colorTip=colorTips[color]||'';
 
   const outfits=[];
 
-  // 1순위: priority 반영한 코디
-  if(priority==='neat'||occasion==='work'){
-    outfits.push({name:'단정 클린 룩',
-      items:[pickTop(),pickBottom('formal'),pickOuter('formal')].filter(Boolean).concat(기타.slice(0,1)),
-      tip:'깔끔하고 단정한 인상! 컬러는 무채색이나 어스톤으로 통일해보세요.'});
-  } else if(priority==='unique'){
-    outfits.push({name:'포인트 유니크 룩',
-      items:[상의[1]||상의[0], 하의[0], 아우터[1]||아우터[0]||null].filter(Boolean).concat(기타.slice(0,1)),
-      tip:'오늘만큼은 눈에 띄게! 포인트 컬러나 아이템 하나로 개성을 표현해보세요.'});
-  } else if(priority==='comfort'){
-    outfits.push({name:'편안한 데일리 룩',
-      items:[상의.find(i=>i.includes('맨투맨')||i.includes('니트')||i.includes('긴팔'))||상의[0], 하의.find(i=>i.includes('면바지')||i.includes('청바지'))||하의[0], 아우터.find(i=>i.includes('가디건'))||아우터[0]||null].filter(Boolean),
-      tip:'편안함이 최우선! 움직임이 자유로운 소재와 핏을 선택하세요.'});
-  } else if(priority==='quick'){
-    outfits.push({name:'5분 완성 룩',
-      items:[상의[0], 하의[0], 아우터[0]||null].filter(Boolean),
-      tip:'빠르게 결정! 기본 아이템으로 무난하게. 신발 하나로 포인트를 줘보세요.'});
+  // ══ 1순위: 용도(occasion) 최우선 ══
+  if(occasion==='sport'){
+    // 운동 → 날씨 무관하게 기능성 위주
+    const sportTop = tempData.min>=20 ? `${cp}기능성 반팔 티셔츠` : tempData.min>=12 ? `${cp}기능성 긴팔 티셔츠` : `${cp}기능성 티셔츠`;
+    const sportBottom = gender==='female' ? `${cp}레깅스` : `${cp}트레이닝 바지`;
+    const sportOuter = tempData.min<17 ? (tempData.min<9 ? `${cp}기능성 패딩` : `${cp}바람막이`) : null;
+    outfits.push({
+      name:'스포츠 퍼포먼스 룩',
+      items:[sportTop, sportBottom, sportOuter, `운동화`].filter(Boolean),
+      tip:`운동·액티비티에 최적화! 땀 흡수와 통기성이 좋은 기능성 소재를 선택하세요. ${tempData.min<12?'기온이 낮으니 워밍업 후 겉옷을 벗는 레이어드를 추천해요.':''}`
+    });
+    // 운동 2번째: 애슬레저 (일상+운동 겸용)
+    const athTop = tempData.min>=20 ? `${cp}크롭 맨투맨` : `${cp}맨투맨`;
+    outfits.push({
+      name:'애슬레저 룩',
+      items:[athTop, `${cp}레깅스`, tempData.min<17?`${cp}바람막이`:null, `스니커즈`].filter(Boolean),
+      tip:'운동과 일상을 동시에! 카페나 편의점 들르기에도 OK.'
+    });
+
+  } else if(occasion==='work'){
+    const workTop = style==='formal' ? `${cp}셔츠` : `${cp}니트`;
+    const workBottom = `${cp}슬랙스`;
+    const workOuter = 아우터.length ? (tempData.min<17 ? `${cp}트렌치코트` : null) : null;
+    outfits.push({
+      name:'오피스 프로페셔널 룩',
+      items:[workTop, workBottom, workOuter, `로퍼`].filter(Boolean),
+      tip:'신뢰감 있는 오피스 무드! 깔끔한 핏과 단정한 컬러로 전문적인 인상을 줘요.'
+    });
+    outfits.push({
+      name:'스마트 캐주얼 룩',
+      items:[`${cp}니트`, `${cp}슬랙스`, tempData.min<17?`${cp}자켓`:null, `로퍼`].filter(Boolean),
+      tip:'포멀하지 않아도 단정하게. 니트+슬랙스 조합은 실패 없는 오피스룩!'
+    });
+
   } else if(occasion==='date'){
-    outfits.push({name:'데이트 룩',
-      items:[pickTop(),pickBottom('casual'),아우터[0]||null].filter(Boolean).concat(기타.slice(0,1)),
-      tip:'세련되면서도 자연스러운 데이트 무드. 포인트 아이템 하나를 추가해보세요!'});
-  } else if(occasion==='sport'){
-    outfits.push({name:'스포츠 룩',
-      items:['기능성 티셔츠','트레이닝 바지'].concat(기타.slice(0,1)),
-      tip:'활동성 최우선! 땀 흡수 잘 되는 소재를 선택하세요.'});
+    const dateTop = style==='trendy' ? `${cp}크롭 니트` : style==='street' ? `${cp}맨투맨` : `${cp}셔츠`;
+    const dateBottom = gender==='female' ? `${cp}미니스커트` : `${cp}슬랙스`;
+    const dateOuter = 아우터.length ? (tempData.min<20 ? `${cp}${아우터[0]}` : null) : null;
+    outfits.push({
+      name:'데이트 무드 룩',
+      items:[dateTop, dateBottom, dateOuter].filter(Boolean).concat([`${기타[0]||'스니커즈'}`]),
+      tip:'설레는 데이트 무드! 포인트 아이템 하나로 기억에 남는 스타일을 만들어요.'
+    });
+    outfits.push({
+      name:'로맨틱 캐주얼 룩',
+      items:[`${cp}블라우스`||`${cp}니트`, `${cp}청바지`, tempData.min<17?`${cp}가디건`:null].filter(Boolean),
+      tip:'편안하면서도 사랑스럽게. 여유 있는 핏이 더 자연스럽고 매력적이에요.'
+    });
+
   } else if(occasion==='home'){
-    outfits.push({name:'편안한 홈웨어',
-      items:['기모 맨투맨','트레이닝 바지','두꺼운 양말'],
-      tip:'집에서도 포근하고 예쁘게! 편안함이 포인트.'});
+    outfits.push({
+      name:'포근한 홈웨어 룩',
+      items:[`${cp}기모 맨투맨`, `${cp}트레이닝 바지`, '두꺼운 양말'],
+      tip:'집에서 편안하게! 부드럽고 포근한 소재가 핵심이에요.'
+    });
+    outfits.push({
+      name:'캐주얼 홈 룩',
+      items:[`${cp}맨투맨`, `${cp}면바지`, '슬리퍼'],
+      tip:'가벼운 외출도 가능한 편안한 홈 스타일!'
+    });
+
   } else {
-    outfits.push({name:'데일리 캐주얼',
-      items:[pickTop(),pickBottom('casual'),pickOuter('casual')].filter(Boolean).concat(기타.slice(0,1)),
-      tip:'어디서나 무난하게 어울리는 데일리 스타일!'});
+    // casual
+    const casualTop = style==='street' ? `${cp}맨투맨` : style==='minimal' ? `${cp}긴팔 티셔츠` : `${cp}${상의[0]}`;
+    const casualBottom = style==='formal' ? `${cp}슬랙스` : `${cp}청바지`;
+    const casualOuter = 아우터.length ? `${cp}${아우터[0]}` : null;
+    outfits.push({
+      name:'데일리 캐주얼 룩',
+      items:[casualTop, casualBottom, casualOuter].filter(Boolean).concat([`${기타[0]||'스니커즈'}`]),
+      tip:'어디서나 무난하게! 기본에 충실한 데일리 스타일.'
+    });
+    outfits.push({
+      name:style==='street'?'스트릿 무드 룩':style==='minimal'?'클린 미니멀 룩':'내추럴 캐주얼 룩',
+      items:[`${cp2}${상의[1]||상의[0]}`, `${cp2}${하의[1]||하의[0]}`, 아우터[1]?`${cp2}${아우터[1]}`:null].filter(Boolean),
+      tip:style==='street'?'힙하고 트렌디한 스트릿 무드!':style==='minimal'?'군더더기 없는 깔끔한 미니멀!':'편안하고 자연스러운 내추럴 무드!'
+    });
   }
 
-  // 2순위: 스타일 기반 코디
-  if(style==='minimal'){
-    outfits.push({name:'미니멀 베이직',
-      items:[상의.find(i=>i.includes('긴팔')||i.includes('셔츠'))||상의[0], 하의.find(i=>i.includes('슬랙스')||i.includes('면바지'))||하의[0], 아우터[0]||null].filter(Boolean),
-      tip:'군더더기 없는 깔끔한 미니멀 스타일. 컬러는 하나로 통일!'});
-  } else if(style==='street'){
-    outfits.push({name:'스트릿 캐주얼',
-      items:[상의.find(i=>i.includes('맨투맨')||i.includes('후드'))||상의[0], 하의.find(i=>i.includes('청바지'))||하의[0], 아우터.find(i=>i.includes('자켓')||i.includes('야상'))||아우터[0]||null].filter(Boolean),
-      tip:'트렌디하고 힙한 스트릿 무드. 오버핏으로 연출하면 더 좋아요!'});
-  } else if(style==='formal'){
-    outfits.push({name:'클래식 포멀',
-      items:[상의.find(i=>i.includes('셔츠')||i.includes('블라우스'))||상의[0], 하의.find(i=>i.includes('슬랙스'))||하의[0], 아우터.find(i=>i.includes('코트')||i.includes('자켓'))||아우터[0]||null].filter(Boolean),
-      tip:'단정하고 격식 있는 클래식 포멀. 깔끔한 컬러 매칭이 핵심!'});
-  } else if(style==='natural'){
-    outfits.push({name:'내추럴 빈티지',
-      items:[상의.find(i=>i.includes('셔츠'))||상의[0], 하의[0], 아우터.find(i=>i.includes('가디건'))||아우터[0]||null].filter(Boolean),
-      tip:'편안하고 자연스러운 내추럴 무드. 어스톤 컬러가 잘 어울려요!'});
+  // ══ 2순위: 날씨 최적화 (priority 반영) ══
+  const weatherItems=[];
+  // 상의: priority에 따라 색상 입힌 날씨 아이템
+  if(priority==='neat'||priority==='style'){
+    weatherItems.push(`${cp}${상의.find(i=>i.includes('셔츠')||i.includes('니트'))||상의[0]}`);
+  } else if(priority==='comfort'){
+    weatherItems.push(`${cp}${상의.find(i=>i.includes('맨투맨')||i.includes('티셔츠'))||상의[0]}`);
   } else {
-    outfits.push({name:'트렌디 믹스',
-      items:[상의[1]||상의[0], 하의[1]||하의[0], 아우터[1]||아우터[0]||null].filter(Boolean),
-      tip:'트렌드를 살린 유니크한 믹스 스타일. 나만의 감각을 표현해보세요!'});
+    weatherItems.push(`${cp}${상의[0]}`);
   }
+  // 하의
+  if(priority==='neat') weatherItems.push(`${cp}${하의.find(i=>i.includes('슬랙스'))||하의[0]}`);
+  else weatherItems.push(`${cp}${하의[0]}`);
+  // 아우터
+  if(아우터.length) weatherItems.push(`${cp}${아우터[0]}`);
+  // 기타
+  if(기타.length) weatherItems.push(기타[0]);
 
-  // 3순위: 기온 최적화 코디
-  outfits.push({name:'날씨 최적 코디',
-    items:[...상의.slice(0,1),...하의.slice(0,1),...아우터.slice(0,1),...기타.slice(0,1)].filter(Boolean),
-    tip:`${tempData.label} 날씨에 맞춘 최적의 코디! ${tempData.desc}`});
+  outfits.push({
+    name:`${tempData.label} 날씨 최적 코디`,
+    items:weatherItems.filter(Boolean),
+    tip:`${tempData.desc} ${priority==='neat'?'단정하게!':priority==='comfort'?'편안하게!':priority==='unique'?'개성 있게!':'스타일리쉬하게!'} ${colorTip}`
+  });
 
   return outfits.slice(0,3).map((o,i)=>({...o,colorTip,gender,rank:i+1}));
 }
@@ -465,7 +479,7 @@ function render(){
         <span class="item-name">${item}</span>
         <div class="item-btns">
           <a class="shop-m" href="https://www.musinsa.com/snap/main/recommend?${gf?`gf=${gf}&`:''}keyword=${encodeURIComponent(item)}" target="_blank">무신사 코디</a>
-          <a class="shop-c" href="https://www.coupang.com/np/search?q=${encodeURIComponent(item+gKw)}&trackingCode=AF6033415" target="_blank">쿠팡</a>
+          <a class="shop-c" href="https://www.coupang.com/np/search?q=${encodeURIComponent(item+gKw)}" target="_blank">쿠팡</a>
         </div>
       </div>`).join('');
 
