@@ -191,75 +191,202 @@ const QUESTIONS=[
     {label:"⚡ 빠르게 결정하고 싶어",value:"quick"}]}
 ];
 
-// ── 컬러 접두사 생성 ──
-function colorPrefix(color, style){
-  const c={
-    achromatic:['블랙','화이트','그레이','차콜'],
-    earth:['베이지','카키','브라운','크림'],
-    cool:['네이비','블루','그린','인디고'],
-    warm:['버건디','레드','코랄','오렌지'],
-    any:['']
-  };
-  const colors = c[color]||[''];
-  const idx = style==='minimal'?0 : style==='natural'?1 : style==='formal'?2 : style==='street'?3 : 0;
-  return colors[idx%colors.length] ? colors[idx%colors.length]+' ' : '';
+// ── 컬러 매치 데이터 (이미지 기반) ──
+// 각 색상의 최고 매칭 파트너 (상의 기준 → 하의/아우터 추천)
+const COLOR_MATCH={
+  '버건디':   {best:['아이보리','네이비','블랙'],good:['베이지','카멜']},
+  '네이비':   {best:['베이지','화이트','소라'],good:['올리브그린','그린']},
+  '미드그레이':{best:['블랙','네이비','화이트'],good:['핑크','다크그레이']},
+  '포레스트그린':{best:['라이트그레이','소라','아이보리'],good:['연옐로우','블랙']},
+  '화이트':   {best:['올리브','네이비','블랙'],good:['소라','오렌지']},
+  '소라':     {best:['화이트','다크그레이','그레이'],good:['네이비','버건디']},
+  '브라운':   {best:['아이보리','베이지','네이비'],good:['블랙','핑크']},
+  '차콜':     {best:['올리브','아이보리','그레이'],good:['블랙','옐로우']},
+  '딥블루':   {best:['화이트','아이보리','베이지'],good:['그레이','옐로우']},
+  '레드':     {best:['네이비','화이트','베이지'],good:['블랙','그린']},
+  '베이지':   {best:['네이비','소라','블랙'],good:['브라운','레드']},
+  '핑크':     {best:['네이비','그레이','아이보리'],good:['브라운','그린']},
+  '아이보리': {best:['네이비','소라','올리브'],good:['블랙','연옐로우']},
+  '카키':     {best:['화이트','네이비','블랙'],good:['브라운','레드']},
+  '크림':     {best:['블랙','네이비','그린'],good:['브라운','옐로우']},
+  '블랙':     {best:['화이트','슬레이트블루','올리브'],good:['그레이','옐로우']},
+  '코랄':     {best:['화이트','슬레이트블루','그레이'],good:['올리브','오렌지']},
+  '테라코타': {best:['아이보리','올리브','네이비'],good:['브라운','레드']},
+  '그레이':   {best:['블랙','네이비','브라운'],good:['화이트','핑크']},
+};
+
+// 색상 hex 코드 매핑 (시각화용)
+const COLOR_HEX={
+  '화이트':'#FFFFFF','아이보리':'#FFFFF0','크림':'#FFFDD0','오프화이트':'#FAF9F6',
+  '블랙':'#1a1a1a','차콜':'#36454F','다크그레이':'#4a4a4a','그레이':'#808080',
+  '라이트그레이':'#C0C0C0','미드그레이':'#808080','슬레이트블루':'#6A7FA5',
+  '네이비':'#1B2A4A','딥블루':'#00008B','소라':'#87CEEB','스카이블루':'#87CEEB',
+  '블루':'#4169E1','인디고':'#4B0082',
+  '올리브':'#556B2F','올리브그린':'#556B2F','카키':'#8B864E','포레스트그린':'#228B22',
+  '그린':'#2E8B57','세이지그린':'#9DC183','민트':'#98FF98',
+  '베이지':'#D2B48C','카멜':'#C19A6B','브라운':'#8B4513','모카':'#6F4E37',
+  '테라코타':'#C66B3D','코랄':'#FF7F7F','레드':'#CC3333','버건디':'#800020',
+  '핑크':'#FFB6C1','오렌지':'#FF8C00','옐로우':'#FFD700','머스타드':'#E1AD01',
+};
+
+// ── 컬러 조합 시스템 (이미지 데이터 기반) ──
+const COLOR_COMBOS={
+  achromatic:{
+    combos:[
+      {top:'화이트',   bottom:'블랙',    outer:'그레이',   score:'찰떡'},
+      {top:'블랙',     bottom:'그레이',  outer:'차콜',     score:'찰떡'},
+      {top:'라이트그레이',bottom:'블랙', outer:'블랙',     score:'찰떡'},
+      {top:'오프화이트',bottom:'차콜',   outer:'그레이',   score:'찰떡'},
+    ]
+  },
+  earth:{
+    combos:[
+      {top:'크림',     bottom:'카키',    outer:'베이지',   score:'찰떡'},
+      {top:'베이지',   bottom:'브라운',  outer:'카멜',     score:'찰떡'},
+      {top:'아이보리', bottom:'카키',    outer:'모카',     score:'찰떡'},
+      {top:'카멜',     bottom:'블랙',    outer:'베이지',   score:'찰떡'},
+    ]
+  },
+  cool:{
+    combos:[
+      {top:'화이트',   bottom:'네이비',  outer:'딥블루',   score:'찰떡'},
+      {top:'소라',     bottom:'화이트',  outer:'네이비',   score:'찰떡'},
+      {top:'아이보리', bottom:'네이비',  outer:'포레스트그린',score:'무난'},
+      {top:'화이트',   bottom:'딥블루',  outer:'그레이',   score:'찰떡'},
+    ]
+  },
+  warm:{
+    combos:[
+      {top:'버건디',   bottom:'아이보리',outer:'카멜',     score:'찰떡'},
+      {top:'코랄',     bottom:'화이트',  outer:'그레이',   score:'찰떡'},
+      {top:'테라코타', bottom:'아이보리',outer:'올리브',   score:'찰떡'},
+      {top:'레드',     bottom:'베이지',  outer:'블랙',     score:'찰떡'},
+    ]
+  },
+  any:{
+    combos:[
+      {top:'화이트',   bottom:'블랙',    outer:'그레이',   score:'찰떡'},
+      {top:'베이지',   bottom:'네이비',  outer:'카멜',     score:'찰떡'},
+      {top:'아이보리', bottom:'카키',    outer:'브라운',   score:'찰떡'},
+      {top:'크림',     bottom:'블랙',    outer:'베이지',   score:'찰떡'},
+    ]
+  }
+};
+
+function getCombo(color, style){
+  const combos=(COLOR_COMBOS[color]||COLOR_COMBOS.any).combos;
+  const idx=style==='minimal'?0:style==='natural'?1:style==='formal'?2:style==='street'?3:0;
+  return combos[idx%combos.length];
 }
 
-// ── 디테일 아이템명 생성 (컬러 + 핏 + 소재 + 아이템) ──
-function detailItem(baseItem, color, style, gender, priority){
-  const c={
-    achromatic:['블랙','화이트','그레이','차콜','오프화이트'],
-    earth:['베이지','카키','브라운','크림','샌드'],
-    cool:['네이비','블루','스카이블루','그린','인디고'],
-    warm:['버건디','와인','코랄','테라코타','머스타드'],
-    any:['']
-  };
-  const colors = c[color]||[''];
-  // 아이템별로 다른 컬러 배분
-  const hash = baseItem.length % colors.length;
-  const col = colors[hash] ? colors[hash]+' ' : '';
+// ── 컬러 조합 카드 HTML 생성 ──
+function renderColorCard(combo, gender){
+  const topHex   = COLOR_HEX[combo.top]   || '#ccc';
+  const botHex   = COLOR_HEX[combo.bottom]|| '#ccc';
+  const outHex   = COLOR_HEX[combo.outer] || '#ccc';
+  const isBright = (hex)=>{ try{ const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16); return(r*299+g*587+b*114)/1000>150; }catch{return true;} };
 
-  // 핏 수식어
+  // 색상별 베스트 매칭 파트너
+  const topMatch = COLOR_MATCH[combo.top];
+  const matchList = topMatch ? topMatch.best.slice(0,3) : [];
+
+  return `
+    <div style="margin-top:16px;padding:16px;background:#fff;border-radius:16px;border:1.5px solid var(--border);box-shadow:0 2px 12px rgba(74,158,221,.08)">
+      <div style="font-size:10px;font-weight:700;color:var(--blue);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">추천 컬러 조합</div>
+
+      <!-- 메인 조합 시각화 -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <!-- 상의 -->
+        <div style="text-align:center;flex:1">
+          <div style="width:100%;height:52px;border-radius:10px;background:${topHex};border:1px solid rgba(0,0,0,.1);margin-bottom:5px;position:relative">
+            <div style="position:absolute;bottom:4px;left:0;right:0;font-size:9px;font-weight:700;color:${isBright(topHex)?'#333':'#fff'};text-align:center">${combo.top}</div>
+          </div>
+          <div style="font-size:9px;color:var(--muted);font-weight:600">상의</div>
+        </div>
+        <div style="font-size:16px;color:var(--muted)">+</div>
+        <!-- 하의 -->
+        <div style="text-align:center;flex:1">
+          <div style="width:100%;height:52px;border-radius:10px;background:${botHex};border:1px solid rgba(0,0,0,.1);margin-bottom:5px;position:relative">
+            <div style="position:absolute;bottom:4px;left:0;right:0;font-size:9px;font-weight:700;color:${isBright(botHex)?'#333':'#fff'};text-align:center">${combo.bottom}</div>
+          </div>
+          <div style="font-size:9px;color:var(--muted);font-weight:600">하의</div>
+        </div>
+        <div style="font-size:16px;color:var(--muted)">+</div>
+        <!-- 아우터 -->
+        <div style="text-align:center;flex:1">
+          <div style="width:100%;height:52px;border-radius:10px;background:${outHex};border:1px solid rgba(0,0,0,.1);margin-bottom:5px;position:relative">
+            <div style="position:absolute;bottom:4px;left:0;right:0;font-size:9px;font-weight:700;color:${isBright(outHex)?'#333':'#fff'};text-align:center">${combo.outer}</div>
+          </div>
+          <div style="font-size:9px;color:var(--muted);font-weight:600">아우터</div>
+        </div>
+      </div>
+
+      <!-- 등급 표시 -->
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:12px;padding:8px 10px;background:var(--bg2);border-radius:10px">
+        <span style="font-size:14px">${combo.score==='찰떡'?'💕':'👍'}</span>
+        <span style="font-size:12px;font-weight:700;color:var(--blue)">${combo.score} 조합!</span>
+        <span style="font-size:11px;color:var(--muted)">${combo.top} × ${combo.bottom} × ${combo.outer}</span>
+      </div>
+
+      <!-- 상의 색상별 잘 어울리는 하의 색상 -->
+      ${matchList.length ? `
+      <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.06em;margin-bottom:8px">${combo.top} 상의에 어울리는 하의 컬러</div>
+      <div style="display:flex;gap:8px">
+        ${matchList.map(c=>{
+          const h=COLOR_HEX[c]||'#ccc';
+          const bright=isBright(h);
+          return `<div style="flex:1;text-align:center">
+            <div style="height:36px;border-radius:8px;background:${h};border:1px solid rgba(0,0,0,.08);margin-bottom:4px"></div>
+            <div style="font-size:9px;color:var(--muted);font-weight:600">${c}</div>
+          </div>`;
+        }).join('')}
+      </div>` : ''}
+    </div>`;
+}
+
+// ── 디테일 아이템명 생성 (지정색 + 핏 + 아이템) ──
+function detailItem(baseItem, col, style, gender){
+  // 핏 수식어 (아이템별)
   const fitMap={
-    '니트':        style==='street'?'오버핏 ':style==='minimal'?'슬림핏 ':'크롭 ',
-    '맨투맨':      style==='street'?'오버핏 ':style==='minimal'?'베이직 ':'루즈핏 ',
-    '후드티':      style==='street'?'빅사이즈 ':'루즈핏 ',
-    '셔츠':        style==='formal'?'레귤러핏 ':style==='street'?'오버핏 ':'루즈핏 ',
-    '블라우스':    gender==='female'?'플로럴 ':'',
-    '티셔츠':      style==='street'?'오버핏 ':'베이직 ',
-    '긴팔 티셔츠': style==='minimal'?'슬림핏 ':'베이직 ',
-    '슬랙스':      style==='formal'?'테이퍼드 ':style==='street'?'와이드 ':'슬림 ',
-    '청바지':      style==='street'?'와이드 ':style==='minimal'?'슬림 ':'스트레이트 ',
-    '면바지':      '와이드 ',
-    '트레이닝 바지':'조거 ',
-    '레깅스':      '하이웨이스트 ',
-    '자켓':        style==='formal'?'테일러드 ':style==='street'?'오버핏 ':'크롭 ',
-    '가디건':      '루즈핏 ',
-    '트렌치코트':  '더블브레스티드 ',
-    '코트':        style==='minimal'?'롱 ':'미디 ',
-    '야상':        '오버핏 ',
-    '패딩':        tempData_=>tempData_&&tempData_.min<5?'롱 ':'숏 ',
-    '바람막이':    '집업 ',
+    '니트':         style==='street'?'오버핏':style==='minimal'?'슬림핏':style==='natural'?'루즈핏':'크롭',
+    '맨투맨':       style==='street'?'오버핏':style==='minimal'?'베이직':'루즈핏',
+    '후드티':       style==='street'?'빅사이즈':'루즈핏',
+    '셔츠':         style==='formal'?'레귤러핏':style==='street'?'오버핏':'루즈핏',
+    '블라우스':     gender==='female'?'플로럴':'',
+    '티셔츠':       style==='street'?'오버핏':'베이직',
+    '긴팔 티셔츠':  style==='minimal'?'슬림핏':'베이직',
+    '반팔 티셔츠':  style==='street'?'오버핏':'베이직',
+    '슬랙스':       style==='formal'?'테이퍼드':style==='street'?'와이드':'슬림',
+    '청바지':       style==='street'?'와이드':style==='minimal'?'슬림':'스트레이트',
+    '면바지':       '와이드',
+    '트레이닝 바지':'조거',
+    '레깅스':       '하이웨이스트',
+    '자켓':         style==='formal'?'테일러드':style==='street'?'오버핏':'크롭',
+    '가디건':       '루즈핏',
+    '트렌치코트':   '더블브레스티드',
+    '코트':         style==='minimal'?'롱':'미디',
+    '야상':         '오버핏',
+    '패딩':         '숏',
+    '롱패딩':       '롱',
+    '바람막이':     '집업',
+    '기모 맨투맨':  '루즈핏',
+    '기모티':       '베이직',
   };
 
-  // 아이템 키 찾기
-  let fit = '';
+  // 신발/액세서리 → 컬러+아이템만
+  const noFit=['운동화','로퍼','부츠','앵클부츠','샌들','슬리퍼','양말','머플러','선글라스','귀마개','핫팩','스니커즈'];
+  if(noFit.some(n=>baseItem.includes(n))) return col ? `${col} ${baseItem}` : baseItem;
+
+  // 기능성 아이템 → 컬러만
+  if(baseItem.includes('기능성')||baseItem.includes('히트텍')||baseItem.includes('내복')) return col ? `${col} ${baseItem}` : baseItem;
+
+  // 핏 찾기
+  let fit='';
   for(const key of Object.keys(fitMap)){
-    if(baseItem.includes(key)){
-      const val = fitMap[key];
-      fit = typeof val === 'function' ? '' : val;
-      break;
-    }
+    if(baseItem.includes(key)){ fit=fitMap[key]; break; }
   }
 
-  // "기능성" 이미 붙어있는 경우 컬러만
-  if(baseItem.includes('기능성')) return col+baseItem;
-
-  // 운동화/부츠 같은 신발/액세서리는 컬러만
-  const noFitItems=['운동화','로퍼','부츠','앵클부츠','샌들','슬리퍼','양말','머플러','선글라스','귀마개','핫팩'];
-  if(noFitItems.some(n=>baseItem.includes(n))) return col+baseItem;
-
-  return col+fit+baseItem;
+  return [col, fit, baseItem].filter(Boolean).join(' ');
 }
 
 // ── 코디 추천 로직 (1순위: 용도 → 2순위: 날씨 → 3순위: 스타일+컬러) ──
@@ -272,8 +399,156 @@ function getOutfits(answers, tempData){
   const color=a.color||'any';
   const priority=a.priority||'style';
 
-  // 디테일 아이템 헬퍼 (색상+핏 자동 적용)
-  const di=(item)=>detailItem(item, color, style, gender, priority);
+  // 컬러 조합 가져오기
+  const combo=getCombo(color, style);
+  const tc=combo.top;    // 상의 컬러
+  const bc=combo.bottom; // 하의 컬러
+  const oc=combo.outer;  // 아우터 컬러
+
+  // 각 포지션별 디테일 아이템 생성
+  const dTop=(item)=>detailItem(item, tc, style, gender);
+  const dBot=(item)=>detailItem(item, bc, style, gender);
+  const dOut=(item)=>detailItem(item, oc, style, gender);
+  const dAcc=(item)=>item; // 액세서리는 색 지정 없이
+
+  const colorTips={
+    achromatic:`${tc} 상의 + ${bc} 하의 + ${oc} 아우터로 세련된 무채색 조합!`,
+    earth:`${tc} 상의 + ${bc} 하의 + ${oc} 아우터로 따뜻한 어스톤 조합!`,
+    cool:`${tc} 상의 + ${bc} 하의 + ${oc} 아우터로 시원한 쿨톤 조합!`,
+    warm:`${tc} 상의 + ${bc} 하의 + ${oc} 아우터로 화사한 웜톤 조합!`,
+    any:`${tc} 상의 + ${bc} 하의 + ${oc} 아우터 조합을 추천해요!`
+  };
+  const colorTip=colorTips[color]||'';
+
+  const outfits=[];
+
+  // ══ 1순위: 용도(occasion) 최우선 ══
+  if(occasion==='sport'){
+    const sportTop = tempData.min>=20
+      ? detailItem('기능성 반팔 티셔츠', tc, style, gender)
+      : tempData.min>=12
+        ? detailItem('기능성 긴팔 티셔츠', tc, style, gender)
+        : detailItem('기능성 티셔츠', tc, style, gender);
+    const sportBottom = gender==='female'
+      ? detailItem('하이웨이스트 레깅스', bc, style, gender)
+      : detailItem('조거 트레이닝 바지', bc, style, gender);
+    const sportOuter = tempData.min<17
+      ? (tempData.min<9
+          ? detailItem('기능성 패딩', oc, style, gender)
+          : detailItem('집업 바람막이', oc, style, gender))
+      : null;
+    outfits.push({
+      name:'스포츠 퍼포먼스 룩',
+      items:[sportTop, sportBottom, sportOuter, '쿠션감 있는 운동화'].filter(Boolean),
+      tip:`운동·액티비티 최적화 코디! 땀 흡수·통기성 좋은 기능성 소재를 선택하세요.${tempData.min<12?' 기온이 낮으니 워밍업 후 겉옷을 벗는 레이어드를 추천해요!':''}`
+    });
+    outfits.push({
+      name:'애슬레저 룩',
+      items:[
+        detailItem(tempData.min>=20?'크롭 맨투맨':'루즈핏 맨투맨', tc, style, gender),
+        detailItem('하이웨이스트 레깅스', bc, style, gender),
+        tempData.min<17 ? detailItem('집업 바람막이', oc, style, gender) : null,
+        '스니커즈'
+      ].filter(Boolean),
+      tip:'운동과 일상을 동시에! 카페·편의점 들르기에도 완벽한 스타일이에요.'
+    });
+
+  } else if(occasion==='work'){
+    outfits.push({
+      name:'오피스 프로페셔널 룩',
+      items:[
+        dTop(style==='formal'?'셔츠':'니트'),
+        dBot('테이퍼드 슬랙스'),
+        tempData.min<17 ? dOut('트렌치코트') : null,
+        '로퍼'
+      ].filter(Boolean),
+      tip:'신뢰감 있는 오피스 무드! 깔끔한 핏과 단정한 컬러로 전문적인 인상을 줘요.'
+    });
+    outfits.push({
+      name:'스마트 캐주얼 룩',
+      items:[
+        dTop('슬림핏 니트'),
+        dBot('슬림 슬랙스'),
+        tempData.min<17 ? dOut('테일러드 자켓') : null,
+        '로퍼'
+      ].filter(Boolean),
+      tip:'포멀하지 않아도 단정하게! 니트+슬랙스 조합은 실패 없는 오피스룩.'
+    });
+
+  } else if(occasion==='date'){
+    const dateTop = style==='trendy' ? dTop('크롭 니트') : style==='street' ? dTop('오버핏 맨투맨') : dTop('루즈핏 블라우스');
+    outfits.push({
+      name:'설레는 데이트 룩',
+      items:[
+        dateTop,
+        gender==='female' ? dBot('미니스커트') : dBot('슬림 슬랙스'),
+        tempData.min<20 ? dOut(아우터[0]||'가디건') : null,
+        기타[0]||'스니커즈'
+      ].filter(Boolean),
+      tip:'설레는 데이트 무드! 포인트 아이템 하나로 기억에 남는 스타일을 만들어요.'
+    });
+    outfits.push({
+      name:'로맨틱 캐주얼 룩',
+      items:[
+        dTop('루즈핏 니트'),
+        dBot('스트레이트 청바지'),
+        tempData.min<17 ? dOut('루즈핏 가디건') : null,
+        '로퍼'
+      ].filter(Boolean),
+      tip:'편안하면서도 사랑스럽게. 여유 있는 핏이 더 자연스럽고 매력적이에요.'
+    });
+
+  } else if(occasion==='home'){
+    outfits.push({
+      name:'포근한 홈웨어 룩',
+      items:[dTop('기모 맨투맨'), dBot('조거 트레이닝 바지'), '두꺼운 양말', '슬리퍼'],
+      tip:'집에서 편안하게! 부드럽고 포근한 기모 소재가 핵심이에요.'
+    });
+    outfits.push({
+      name:'캐주얼 홈웨어 룩',
+      items:[dTop('루즈핏 맨투맨'), dBot('와이드 면바지'), '슬리퍼'],
+      tip:'가벼운 외출도 가능한 편안한 홈 스타일! 편의점 정도는 바로 나갈 수 있어요.'
+    });
+
+  } else {
+    const casualTop = style==='street' ? dTop('오버핏 맨투맨') : style==='minimal' ? dTop('슬림핏 긴팔 티셔츠') : dTop(상의[0]);
+    outfits.push({
+      name:'데일리 캐주얼 룩',
+      items:[
+        casualTop,
+        style==='formal' ? dBot('테이퍼드 슬랙스') : dBot('스트레이트 청바지'),
+        아우터.length ? dOut(아우터[0]) : null,
+        기타[0]||'스니커즈'
+      ].filter(Boolean),
+      tip:'어디서나 무난하게! 기본에 충실한 실패 없는 데일리 스타일.'
+    });
+    outfits.push({
+      name: style==='street'?'스트릿 무드 룩':style==='minimal'?'클린 미니멀 룩':style==='natural'?'내추럴 빈티지 룩':'트렌디 믹스 룩',
+      items:[
+        dTop(상의[1]||상의[0]),
+        dBot(하의[1]||하의[0]),
+        아우터[1] ? dOut(아우터[1]) : null
+      ].filter(Boolean),
+      tip:style==='street'?'힙하고 트렌디한 스트릿 무드! 오버핏으로 연출하면 더 좋아요.':style==='minimal'?'군더더기 없는 깔끔한 미니멀! 컬러 하나로 통일감을 줘요.':'편안하고 자연스러운 무드! 어스톤 컬러가 잘 어울려요.'
+    });
+  }
+
+  // ══ 3순위: 날씨+priority 최적화 코디 ══
+  outfits.push({
+    name:`${tempData.label} 날씨 최적 코디`,
+    items:[
+      priority==='neat'||priority==='style'
+        ? dTop(상의.find(i=>i.includes('셔츠')||i.includes('니트'))||상의[0])
+        : dTop(상의.find(i=>i.includes('맨투맨')||i.includes('티셔츠'))||상의[0]),
+      priority==='neat' ? dBot(하의.find(i=>i.includes('슬랙스'))||하의[0]) : dBot(하의[0]),
+      아우터.length ? dOut(아우터[0]) : null,
+      기타[0]||null
+    ].filter(Boolean),
+    tip:`${tempData.desc} 오늘 기온에 딱 맞춘 코디! ${priority==='neat'?'단정하게':priority==='comfort'?'편안하게':priority==='unique'?'개성 있게':'스타일리쉬하게'} — ${colorTip}`
+  });
+
+  return outfits.slice(0,3).map((o,i)=>({...o,colorTip,gender,rank:i+1}));
+}
 
   const colorTips={
     achromatic:'블랙·화이트·그레이 무채색 조합으로 세련되게!',
@@ -506,6 +781,9 @@ function render(){
     const o=outfits[si];
     const gf = o.gender==='male' ? 'M' : o.gender==='female' ? 'F' : '';
     const gKw=o.gender==='male'?' 남성':o.gender==='female'?' 여성':'';
+    // 컬러 조합 계산
+    const ans={};s.answers.forEach(x=>ans[x.questionId]=x.value);
+    const combo=getCombo(ans.color||'any', ans.style||'minimal');
 
     let tabs='<div class="tab-row">';
     outfits.forEach((ot,i)=>{
@@ -553,6 +831,8 @@ function render(){
         <button onclick="restart()" style="flex:1;padding:13px;border-radius:14px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif">🔄 다시 테스트</button>
         <a href="/" style="flex:1;padding:13px;border-radius:14px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:13px;font-weight:600;text-decoration:none;text-align:center;font-family:'Noto Sans KR',sans-serif;display:flex;align-items:center;justify-content:center">🏠 홈으로</a>
       </div>
+
+      ${renderColorCard(combo, o.gender)}
 
       <div style="margin-top:16px;display:flex;justify-content:center">
         <iframe src="https://ads-partners.coupang.com/widgets.html?id=975826&template=carousel&trackingCode=AF6033415&subId=&width=300&height=250&tsource=" width="300" height="250" frameborder="0" scrolling="no" referrerpolicy="unsafe-url" browsingtopics></iframe>
