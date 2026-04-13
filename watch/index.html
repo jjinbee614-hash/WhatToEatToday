@@ -135,37 +135,44 @@ const QUESTIONS=[
     {label:"🍺 친구들과",value:"friends"}]}
 ];
 
-// ── 콘텐츠 DB ──
+// ── 콘텐츠 DB (평점/리뷰 포함) ──
 const CONTENT_DB=[
-  // ── 코미디 특화 ──
-  {title:"SNL 코리아",platform:"tving",genre:"variety",moods:["comedy","light"],length:["short","medium"],company:["solo","friends","couple"],tags:["코미디","스케치","개그"],desc:"매주 폭발하는 웃음! 신동엽·주현영의 코미디 스케치쇼. 숏클립만 봐도 배꼽 빠짐.",tving:"https://www.tving.com/search?keyword=SNL코리아",youtube:"https://www.youtube.com/results?search_query=SNL코리아"},
-  {title:"개그콘서트 레전드",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["short","medium"],company:["solo","friends","family"],tags:["개그","레전드","코미디"],desc:"국민 개그 프로그램의 레전드 명장면 모음. 지금 봐도 배꼽 빠지는 클래식.",youtube:"https://www.youtube.com/results?search_query=개그콘서트+레전드"},
-  {title:"무한도전 레전드",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["short","medium"],company:["solo","friends","family"],tags:["레전드예능","코미디","추억"],desc:"무한도전의 명장면 모음. 그 시절 최고의 예능! 지금 봐도 너무 웃김.",youtube:"https://www.youtube.com/@MBC_Unlimited"},
-  {title:"런닝맨",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["medium","long"],company:["friends","family","couple"],tags:["예능","게임","코미디"],desc:"매주 웃음이 터지는 국민 예능. 유재석·지석진의 케미가 빛나는 명장면들.",youtube:"https://www.youtube.com/results?search_query=런닝맨+레전드"},
-  {title:"워크맨",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["short","medium"],company:["solo","friends"],tags:["코미디","직업체험","예능"],desc:"장성규가 다양한 직업을 체험하는 유튜브 예능. 짧고 빵빵 터지는 웃음.",youtube:"https://www.youtube.com/@workman_jang"},
-  {title:"나 혼자 산다",platform:"tving",genre:"variety",moods:["comedy","light"],length:["medium"],company:["solo","family","couple"],tags:["예능","일상","관찰"],desc:"혼자 사는 연예인들의 웃기고 공감되는 일상 예능.",tving:"https://www.tving.com/search?keyword=나혼자산다",youtube:"https://www.youtube.com/results?search_query=나혼자산다+레전드"},
-  {title:"신서유기",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["medium","long"],company:["friends","solo"],tags:["코미디","게임","여행"],desc:"강호동·이수근·은지원·규현의 황금 케미. 매 에피소드 빵빵 터지는 역대급 예능.",youtube:"https://www.youtube.com/results?search_query=신서유기"},
-  {title:"코미디 빅리그",platform:"youtube",genre:"variety",moods:["comedy"],length:["short","medium"],company:["solo","friends","family"],tags:["스탠드업","코미디","개그"],desc:"쟁쟁한 개그맨들의 코미디 배틀. 레전드 무대 모음집.",youtube:"https://www.youtube.com/results?search_query=코미디빅리그+레전드"},
+
+  // ── 코미디 ──
+  {title:"SNL 코리아",platform:"tving",genre:"variety",moods:["comedy","light"],length:["short","medium"],company:["solo","friends","couple"],tags:["코미디","스케치","개그"],desc:"매주 폭발하는 웃음! 신동엽·주현영의 코미디 스케치쇼.",rating:{score:"9.1",source:"티빙 이용자",review:"\"매 회차마다 빵 터짐\""},tving:"https://www.tving.com/search?keyword=SNL코리아",youtube:"https://www.youtube.com/results?search_query=SNL코리아"},
+  {title:"무한도전 레전드",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["short","medium"],company:["solo","friends","family"],tags:["레전드예능","코미디","추억"],desc:"무한도전 명장면 모음. 지금 봐도 배꼽 빠지는 국민 예능의 레전드.",rating:{score:"9.5",source:"네이버 평점",review:"\"역대 최고 예능. 다시 봐도 너무 웃김\""},youtube:"https://www.youtube.com/@MBC_Unlimited"},
+  {title:"신서유기",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["medium","long"],company:["friends","solo"],tags:["코미디","게임","여행"],desc:"강호동·이수근·은지원·규현의 황금 케미. 매 에피소드 빵빵 터지는 역대급 예능.",rating:{score:"9.3",source:"네이버 평점",review:"\"케미 실화? 배꼽 빠짐 주의\""},youtube:"https://www.youtube.com/results?search_query=신서유기"},
+  {title:"워크맨",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["short","medium"],company:["solo","friends"],tags:["코미디","직업체험","예능"],desc:"장성규가 다양한 직업을 체험하는 유튜브 예능. 짧고 빵빵 터지는 웃음.",rating:{score:"8.9",source:"유튜브 시청자",review:"\"출퇴근 때 보기 딱 좋음\""},youtube:"https://www.youtube.com/@workman_jang"},
+  {title:"코미디 빅리그",platform:"youtube",genre:"variety",moods:["comedy"],length:["short","medium"],company:["solo","friends","family"],tags:["스탠드업","코미디","개그"],desc:"쟁쟁한 개그맨들의 코미디 배틀. 레전드 무대 모음집.",rating:{score:"8.7",source:"네이버 평점",review:"\"개그맨들의 실력이 느껴지는 무대\""},youtube:"https://www.youtube.com/results?search_query=코미디빅리그+레전드"},
+  {title:"나 혼자 산다",platform:"tving",genre:"variety",moods:["comedy","light"],length:["medium"],company:["solo","family","couple"],tags:["예능","일상","관찰"],desc:"혼자 사는 연예인들의 웃기고 공감되는 일상 예능.",rating:{score:"8.8",source:"네이버 평점",review:"\"혼자 사는 사람이라면 더 공감되는 예능\""},tving:"https://www.tving.com/search?keyword=나혼자산다",youtube:"https://www.youtube.com/results?search_query=나혼자산다+레전드"},
+  {title:"런닝맨",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["medium","long"],company:["friends","family","couple"],tags:["예능","게임","코미디"],desc:"매주 웃음이 터지는 국민 예능. 유재석·지석진의 케미가 빛나는 명장면들.",rating:{score:"8.6",source:"네이버 평점",review:"\"레전드 에피소드는 진짜 배꼽 빠짐\""},youtube:"https://www.youtube.com/results?search_query=런닝맨+레전드"},
+
+  // ── 감동 영화 ──
+  {title:"어바웃 타임",platform:"netflix",genre:"movie",moods:["touching","light"],length:["medium"],company:["couple","solo","friends"],tags:["감동","로맨스","영화"],desc:"시간 여행 능력으로 사랑과 삶을 되짚는 따뜻한 영국 영화. 보고 나면 오늘 하루가 소중해짐.",rating:{score:"8.1",source:"IMDb",review:"\"인생 영화. 볼 때마다 울게 됨\""},netflix:"https://www.netflix.com/search?q=어바웃타임",youtube:"https://www.youtube.com/results?search_query=어바웃타임+영화"},
+  {title:"코코",platform:"disney",genre:"movie",moods:["touching"],length:["medium"],company:["family","couple","solo"],tags:["애니메이션","가족","감동"],desc:"망자의 날을 배경으로 한 픽사의 걸작. 엔딩에서 안 우는 사람이 없는 영화.",rating:{score:"8.4",source:"IMDb",review:"\"엔딩 곡 나올 때 오열 보장\""},disney:"https://www.disneyplus.com/search/coco",youtube:"https://www.youtube.com/results?search_query=코코+영화"},
+  {title:"인사이드 아웃 2",platform:"disney",genre:"movie",moods:["touching","light"],length:["medium"],company:["family","couple","friends"],tags:["애니메이션","가족","감동"],desc:"라일리의 감정들이 돌아왔다. 어른도 울게 만드는 픽사의 명작.",rating:{score:"7.9",source:"IMDb",review:"\"어른이 더 공감하는 픽사 영화\""},disney:"https://www.disneyplus.com/search/인사이드아웃",youtube:"https://www.youtube.com/results?search_query=인사이드아웃2"},
+  {title:"포레스트 검프",platform:"netflix",genre:"movie",moods:["touching","deep"],length:["medium"],company:["solo","couple"],tags:["감동","드라마","인생영화"],desc:"순수한 영혼 포레스트 검프의 기적 같은 인생 이야기. 역대 최고의 감동 영화 중 하나.",rating:{score:"8.8",source:"IMDb",review:"\"인생 영화 1위. 볼 때마다 다르게 느껴짐\""},netflix:"https://www.netflix.com/search?q=포레스트검프",youtube:"https://www.youtube.com/results?search_query=포레스트검프"},
+  {title:"인터스텔라",platform:"netflix",genre:"movie",moods:["touching","deep","thrill"],length:["medium"],company:["solo","couple"],tags:["SF","감동","우주"],desc:"딸을 향한 아버지의 사랑이 우주를 넘는다. 크리스토퍼 놀란의 대작.",rating:{score:"8.7",source:"IMDb",review:"\"엔딩에서 안 우는 사람 없음. 최고의 SF\""},netflix:"https://www.netflix.com/search?q=인터스텔라",youtube:"https://www.youtube.com/results?search_query=인터스텔라"},
+  {title:"빅 피쉬",platform:"netflix",genre:"movie",moods:["touching","light"],length:["medium"],company:["solo","couple","family"],tags:["판타지","감동","드라마"],desc:"아버지와 아들의 이야기. 팀 버튼의 따뜻하고 몽환적인 걸작.",rating:{score:"8.0",source:"IMDb",review:"\"아버지와 같이 보면 더 좋은 영화\""},netflix:"https://www.netflix.com/search?q=빅피쉬",youtube:"https://www.youtube.com/results?search_query=빅피쉬+영화"},
+  {title:"그린 북",platform:"netflix",genre:"movie",moods:["touching","light"],length:["medium"],company:["solo","couple","friends"],tags:["감동","드라마","우정"],desc:"흑인 음악가와 백인 운전기사의 우정 로드무비. 아카데미 작품상 수상.",rating:{score:"8.2",source:"IMDb",review:"\"보고 나면 기분이 따뜻해지는 영화\""},netflix:"https://www.netflix.com/search?q=그린북",youtube:"https://www.youtube.com/results?search_query=그린북+영화"},
+
+  // ── 감동 드라마 ──
+  {title:"사랑의 불시착",platform:"netflix",genre:"drama",moods:["touching","light"],length:["binge","long"],company:["couple","solo"],tags:["로맨스","드라마","힐링"],desc:"북한에 불시착한 재벌 딸과 장교의 이루어질 수 없는 사랑. 역대급 로맨스 드라마.",rating:{score:"9.2",source:"넷플릭스 이용자",review:"\"로맨스 드라마 역대 1위급\""},netflix:"https://www.netflix.com/title/81159258",youtube:"https://www.youtube.com/results?search_query=사랑의불시착"},
+  {title:"유 퀴즈 온 더 블럭",platform:"tving",genre:"variety",moods:["touching","deep"],length:["medium"],company:["solo","family","couple"],tags:["토크쇼","힐링","감동"],desc:"유재석·조세호가 다양한 사람들의 진심 어린 이야기를 듣는 감동 프로그램.",rating:{score:"9.0",source:"네이버 평점",review:"\"매 회차마다 눈물 한 방울\""},tving:"https://www.tving.com/search?keyword=유퀴즈",youtube:"https://www.youtube.com/results?search_query=유퀴즈온더블럭"},
 
   // ── 스릴러 ──
-  {title:"오징어 게임",platform:"netflix",genre:"drama",moods:["thrill","deep"],length:["long","binge"],company:["solo","couple","friends"],tags:["서바이벌","스릴러","드라마"],desc:"456억 원의 상금을 위한 목숨을 건 게임. 전 세계를 강타한 K-드라마.",netflix:"https://www.netflix.com/title/81040344",youtube:"https://www.youtube.com/results?search_query=오징어게임"},
-  {title:"더 글로리",platform:"netflix",genre:"drama",moods:["deep","thrill"],length:["long","binge"],company:["solo","couple"],tags:["복수극","드라마","스릴러"],desc:"학교 폭력 피해자의 치밀한 복수극. 송혜교 주연의 화제작.",netflix:"https://www.netflix.com/title/81511807",youtube:"https://www.youtube.com/results?search_query=더글로리"},
-  {title:"기생충",platform:"netflix",genre:"movie",moods:["thrill","deep"],length:["medium"],company:["solo","couple"],tags:["스릴러","블랙코미디","드라마"],desc:"봉준호 감독의 아카데미 작품상 수상작. 두 계층이 얽히며 벌어지는 충격적인 이야기.",netflix:"https://www.netflix.com/search?q=기생충",youtube:"https://www.youtube.com/results?search_query=기생충+영화"},
-  {title:"범죄도시 시리즈",platform:"any",genre:"movie",moods:["thrill","light","comedy"],length:["medium"],company:["friends","couple","solo"],tags:["액션","범죄","통쾌"],desc:"마동석 주연의 시원한 액션 범죄물. 통쾌한 한 방이 필요할 때 강력 추천.",netflix:"https://www.netflix.com/search?q=범죄도시",youtube:"https://www.youtube.com/results?search_query=범죄도시"},
-  {title:"블랙미러",platform:"netflix",genre:"drama",moods:["deep","thrill"],length:["medium","long"],company:["solo","couple"],tags:["SF","디스토피아","철학"],desc:"기술이 지배하는 미래 사회의 어두운 면. 보고 나면 한동안 생각하게 됨.",netflix:"https://www.netflix.com/title/70264888",youtube:"https://www.youtube.com/results?search_query=블랙미러"},
+  {title:"오징어 게임",platform:"netflix",genre:"drama",moods:["thrill","deep"],length:["long","binge"],company:["solo","couple","friends"],tags:["서바이벌","스릴러","드라마"],desc:"456억 원의 상금을 위한 목숨을 건 게임. 전 세계를 강타한 K-드라마.",rating:{score:"8.0",source:"IMDb",review:"\"전 세계 1위. 긴장감 실화\""},netflix:"https://www.netflix.com/title/81040344",youtube:"https://www.youtube.com/results?search_query=오징어게임"},
+  {title:"더 글로리",platform:"netflix",genre:"drama",moods:["deep","thrill"],length:["long","binge"],company:["solo","couple"],tags:["복수극","드라마","스릴러"],desc:"학교 폭력 피해자의 치밀한 복수극. 송혜교 주연의 화제작.",rating:{score:"8.1",source:"IMDb",review:"\"복수 드라마 최고봉. 몰입감 극강\""},netflix:"https://www.netflix.com/title/81511807",youtube:"https://www.youtube.com/results?search_query=더글로리"},
+  {title:"기생충",platform:"netflix",genre:"movie",moods:["thrill","deep"],length:["medium"],company:["solo","couple"],tags:["스릴러","블랙코미디","드라마"],desc:"봉준호 감독의 아카데미 작품상 수상작. 두 계층이 얽히며 벌어지는 충격적인 이야기.",rating:{score:"8.5",source:"IMDb",review:"\"반전 실화. 두 번째 보면 더 재밌음\""},netflix:"https://www.netflix.com/search?q=기생충",youtube:"https://www.youtube.com/results?search_query=기생충+영화"},
+  {title:"범죄도시 시리즈",platform:"netflix",genre:"movie",moods:["thrill","light","comedy"],length:["medium"],company:["friends","couple","solo"],tags:["액션","범죄","통쾌"],desc:"마동석 주연의 시원한 액션 범죄물. 통쾌한 한 방이 필요할 때 강력 추천.",rating:{score:"7.3",source:"IMDb",review:"\"마동석 주먹 한 방에 스트레스 해소\""},netflix:"https://www.netflix.com/search?q=범죄도시",youtube:"https://www.youtube.com/results?search_query=범죄도시"},
+  {title:"블랙미러",platform:"netflix",genre:"drama",moods:["deep","thrill"],length:["medium","long"],company:["solo","couple"],tags:["SF","디스토피아","철학"],desc:"기술이 지배하는 미래 사회의 어두운 면. 보고 나면 한동안 생각하게 됨.",rating:{score:"8.8",source:"IMDb",review:"\"보고 나서 핸드폰 보기 무서워짐\""},netflix:"https://www.netflix.com/title/70264888",youtube:"https://www.youtube.com/results?search_query=블랙미러"},
 
-  // ── 감동 ──
-  {title:"사랑의 불시착",platform:"netflix",genre:"drama",moods:["touching","light"],length:["binge","long"],company:["couple","solo"],tags:["로맨스","드라마","힐링"],desc:"북한에 불시착한 재벌 딸과 장교의 이루어질 수 없는 사랑. 역대급 로맨스 드라마.",netflix:"https://www.netflix.com/title/81159258",youtube:"https://www.youtube.com/results?search_query=사랑의불시착"},
-  {title:"인사이드 아웃 2",platform:"disney",genre:"movie",moods:["touching","light"],length:["medium"],company:["family","couple","friends"],tags:["애니메이션","가족","감동"],desc:"라일리의 감정들이 돌아왔다. 어른도 울게 만드는 픽사의 명작.",disney:"https://www.disneyplus.com/search/인사이드아웃",youtube:"https://www.youtube.com/results?search_query=인사이드아웃2"},
-  {title:"유 퀴즈 온 더 블럭",platform:"tving",genre:"variety",moods:["touching","light","deep"],length:["medium"],company:["solo","family","couple"],tags:["토크쇼","힐링","감동"],desc:"유재석·조세호가 다양한 사람들의 진심 어린 이야기를 듣는 감동 프로그램.",tving:"https://www.tving.com/search?keyword=유퀴즈",youtube:"https://www.youtube.com/results?search_query=유퀴즈온더블럭"},
-
-  // ── 깊이 있는 ──
-  {title:"나는 신이다",platform:"netflix",genre:"docu",moods:["deep","thrill"],length:["long","binge"],company:["solo","couple"],tags:["다큐","충격","사회"],desc:"한국 종교 사기 집단의 실체를 파헤친 충격 다큐멘터리.",netflix:"https://www.netflix.com/search?q=나는신이다",youtube:"https://www.youtube.com/results?search_query=나는신이다+다큐"},
-  {title:"쇼미더머니",platform:"tving",genre:"variety",moods:["light","thrill","deep"],length:["long","binge"],company:["friends","solo"],tags:["힙합","서바이벌","음악"],desc:"한국 힙합의 역사를 만든 서바이벌. 명장면과 명곡이 가득.",tving:"https://www.tving.com/search?keyword=쇼미더머니",youtube:"https://www.youtube.com/results?search_query=쇼미더머니"},
+  // ── 깊이 있는/다큐 ──
+  {title:"나는 신이다",platform:"netflix",genre:"docu",moods:["deep","thrill"],length:["long","binge"],company:["solo","couple"],tags:["다큐","충격","사회"],desc:"한국 종교 사기 집단의 실체를 파헤친 충격 다큐멘터리.",rating:{score:"9.1",source:"넷플릭스 이용자",review:"\"충격 실화. 혼자 보기 무서움\""},netflix:"https://www.netflix.com/search?q=나는신이다",youtube:"https://www.youtube.com/results?search_query=나는신이다+다큐"},
 
   // ── 음악 ──
-  {title:"싱어게인",platform:"tving",genre:"music",moods:["touching","light","deep"],length:["medium","long"],company:["solo","family","couple"],tags:["음악","서바이벌","감동"],desc:"잊혀진 가수들의 재도전. 매 무대가 소름돋는 감동의 음악 서바이벌.",tving:"https://www.tving.com/search?keyword=싱어게인",youtube:"https://www.youtube.com/results?search_query=싱어게인"},
-  {title:"미스터트롯",platform:"tving",genre:"music",moods:["touching","light"],length:["medium","long"],company:["family","solo"],tags:["트롯","음악","서바이벌"],desc:"트롯의 부흥을 이끈 화제의 음악 서바이벌. 임영웅을 탄생시킨 그 프로그램.",tving:"https://www.tving.com/search?keyword=미스터트롯",youtube:"https://www.youtube.com/results?search_query=미스터트롯"},
+  {title:"싱어게인",platform:"tving",genre:"music",moods:["touching","light","deep"],length:["medium","long"],company:["solo","family","couple"],tags:["음악","서바이벌","감동"],desc:"잊혀진 가수들의 재도전. 매 무대가 소름돋는 감동의 음악 서바이벌.",rating:{score:"9.3",source:"네이버 평점",review:"\"매 무대에서 소름 보장\""},tving:"https://www.tving.com/search?keyword=싱어게인",youtube:"https://www.youtube.com/results?search_query=싱어게인"},
+  {title:"쇼미더머니",platform:"tving",genre:"music",moods:["light","thrill"],length:["long","binge"],company:["friends","solo"],tags:["힙합","서바이벌","음악"],desc:"한국 힙합의 역사를 만든 서바이벌. 명장면과 명곡이 가득.",rating:{score:"8.5",source:"네이버 평점",review:"\"힙합 좋아하면 무조건 봐야 함\""},tving:"https://www.tving.com/search?keyword=쇼미더머니",youtube:"https://www.youtube.com/results?search_query=쇼미더머니"},
 ];
 
 // ── 추천 로직 ──
@@ -173,27 +180,26 @@ function getRecommendations(answers){
   const a={};answers.forEach(x=>a[x.questionId]=x.value);
   function score(c){
     let s=0;
-    // 기분 (최우선, 가중치 최대)
+    // 1순위: 기분 (최우선)
     if(c.moods.includes(a.mood)) s+=15;
-    else s-=8; // 기분 불일치 강력 패널티
+    else s-=10;
 
-    // 장르
-    if(c.genre===a.genre) s+=10;
+    // 2순위: 장르 (강력 반영 + 불일치 패널티)
+    if(c.genre===a.genre) s+=12;
+    else s-=6;
 
-    // 플랫폼
+    // 3순위: 플랫폼
     if(a.platform==='any') s+=2;
     else if(c.platform===a.platform) s+=6;
-    else if(c.platform==='any') s+=3;
-    // 유튜브는 어느 플랫폼 선택해도 보조로 추천 가능
-    else if(c.youtube && a.platform!=='any') s+=0;
+    else if(c.platform==='any') s+=2;
     else s-=2;
 
-    // 길이
+    // 4순위: 길이
     if(c.length.includes(a.length)) s+=5;
     else if(a.length==='binge'&&c.length.includes('long')) s+=2;
 
-    // 함께
-    if(c.company.includes(a.company)) s+=4;
+    // 5순위: 함께
+    if(c.company.includes(a.company)) s+=3;
     return s;
   }
   return [...CONTENT_DB]
@@ -273,6 +279,15 @@ function render(){
     let cardsHTML='';
     recs.forEach((c,i)=>{
       const rankColors=["var(--red)","rgba(255,255,255,.5)","rgba(255,255,255,.3)"];
+      const ratingHTML = c.rating ? `
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:8px 12px;background:rgba(255,255,255,.04);border-radius:10px;border:1px solid var(--border)">
+          <span style="font-size:16px">⭐</span>
+          <div>
+            <span style="font-size:15px;font-weight:900;color:var(--text)">${c.rating.score}</span>
+            <span style="font-size:10px;color:var(--muted);margin-left:4px">${c.rating.source}</span>
+          </div>
+          <div style="flex:1;font-size:11px;color:var(--muted);font-style:italic;text-align:right">${c.rating.review}</div>
+        </div>` : '';
       cardsHTML+=`<div class="result-card anim-fadeUp" style="animation-delay:${i*.1}s">
         <div class="result-card-header">
           <span class="rank-num" style="color:${rankColors[i]}">${i+1}</span>
@@ -281,6 +296,7 @@ function render(){
         </div>
         <div class="result-card-body">
           <div class="card-genre">${c.tags.map(t=>`<span class="genre-tag">${t}</span>`).join('')}</div>
+          ${ratingHTML}
           <div class="card-desc-text">${c.desc}</div>
           <div class="card-links">${getWatchLinks(c)}</div>
         </div>
