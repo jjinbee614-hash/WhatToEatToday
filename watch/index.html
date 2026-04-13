@@ -173,6 +173,13 @@ const CONTENT_DB=[
   // ── 음악 ──
   {title:"싱어게인",platform:"tving",genre:"music",moods:["touching","light","deep"],length:["medium","long"],company:["solo","family","couple"],tags:["음악","서바이벌","감동"],desc:"잊혀진 가수들의 재도전. 매 무대가 소름돋는 감동의 음악 서바이벌.",rating:{score:"9.3",source:"네이버 평점",review:"\"매 무대에서 소름 보장\""},tving:"https://www.tving.com/search?keyword=싱어게인",youtube:"https://www.youtube.com/results?search_query=싱어게인"},
   {title:"쇼미더머니",platform:"tving",genre:"music",moods:["light","thrill"],length:["long","binge"],company:["friends","solo"],tags:["힙합","서바이벌","음악"],desc:"한국 힙합의 역사를 만든 서바이벌. 명장면과 명곡이 가득.",rating:{score:"8.5",source:"네이버 평점",review:"\"힙합 좋아하면 무조건 봐야 함\""},tving:"https://www.tving.com/search?keyword=쇼미더머니",youtube:"https://www.youtube.com/results?search_query=쇼미더머니"},
+
+  // ── 티빙 추가 콘텐츠 ──
+  {title:"환승연애",platform:"tving",genre:"variety",moods:["light","touching"],length:["long","binge"],company:["couple","friends","solo"],tags:["연애예능","리얼리티","감동"],desc:"헤어진 연인들이 다시 만나는 리얼리티. 매 회차 반전과 감동이 넘치는 화제작.",rating:{score:"9.0",source:"티빙 이용자",review:"\"보다가 심장 떨림. 몰입감 최강\""},tving:"https://www.tving.com/search?keyword=환승연애",youtube:"https://www.youtube.com/results?search_query=환승연애"},
+  {title:"술꾼도시여자들",platform:"tving",genre:"drama",moods:["light","comedy"],length:["long","binge"],company:["friends","couple","solo"],tags:["드라마","공감","코미디"],desc:"30대 여자들의 찐 공감 드라마. 술 한 잔 하면서 보기 딱 좋은 힐링 시리즈.",rating:{score:"8.7",source:"네이버 평점",review:"\"현실 공감 200%. 친구와 보면 더 재밌음\""},tving:"https://www.tving.com/search?keyword=술꾼도시여자들",youtube:"https://www.youtube.com/results?search_query=술꾼도시여자들"},
+  {title:"이상한 변호사 우영우",platform:"tving",genre:"drama",moods:["touching","light","deep"],length:["long","binge"],company:["solo","couple","family"],tags:["드라마","감동","법정"],desc:"자폐 스펙트럼을 가진 천재 변호사의 성장 이야기. 따뜻하고 유쾌한 국민 드라마.",rating:{score:"9.0",source:"네이버 평점",review:"\"인생 드라마. 보는 내내 따뜻함\""},tving:"https://www.tving.com/search?keyword=이상한변호사우영우",youtube:"https://www.youtube.com/results?search_query=이상한변호사우영우"},
+  {title:"여고추리반",platform:"tving",genre:"variety",moods:["thrill","comedy","light"],length:["medium","long"],company:["friends","solo"],tags:["추리","예능","스릴러"],desc:"연예인들이 직접 추리 게임을 풀어가는 두뇌 예능. 긴장감과 웃음이 동시에.",rating:{score:"8.8",source:"티빙 이용자",review:"\"추리 예능 중 최고. 몰입감 실화\""},tving:"https://www.tving.com/search?keyword=여고추리반",youtube:"https://www.youtube.com/results?search_query=여고추리반"},
+  {title:"피식대학",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["short","medium"],company:["solo","friends"],tags:["코미디","스케치","유튜브"],desc:"B대면데이트, 한사랑산악회 등 캐릭터 코미디의 끝판왕. 보다 보면 시간 가는 줄 모름.",rating:{score:"9.2",source:"유튜브 시청자",review:"\"한사랑산악회 보다가 배꼽 빠짐\""},youtube:"https://www.youtube.com/@psick_univ"},
 ];
 
 // ── 추천 로직 ──
@@ -188,11 +195,16 @@ function getRecommendations(answers){
     if(c.genre===a.genre) s+=12;
     else s-=6;
 
-    // 3순위: 플랫폼
-    if(a.platform==='any') s+=2;
-    else if(c.platform===a.platform) s+=6;
-    else if(c.platform==='any') s+=2;
-    else s-=2;
+    // 3순위: 플랫폼 (선택한 플랫폼 외 강력 패널티)
+    if(a.platform==='any'){
+      s+=2; // 상관없어 선택 시 소폭 보너스
+    } else if(c.platform===a.platform){
+      s+=10; // 정확히 일치
+    } else if(c.platform==='any'){
+      s+=3;  // 여러 플랫폼 지원 콘텐츠
+    } else {
+      s-=12; // 다른 플랫폼 → 강력 패널티
+    }
 
     // 4순위: 길이
     if(c.length.includes(a.length)) s+=5;
