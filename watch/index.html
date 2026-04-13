@@ -53,7 +53,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .platform-badge{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.06em}
 .badge-netflix{background:rgba(229,9,20,.2);color:#e50914}
 .badge-youtube{background:rgba(255,0,0,.15);color:#ff6b6b}
-.badge-wavve{background:rgba(0,112,243,.2);color:#4a90d9}
+.badge-tving{background:rgba(0,200,100,.15);color:#00c864}
 .badge-disney{background:rgba(17,60,207,.2);color:#4a70e0}
 .rank-num{font-size:22px;font-weight:900;color:var(--red);min-width:28px}
 .card-title-text{font-size:15px;font-weight:700;flex:1}
@@ -67,7 +67,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .btn-netflix:hover{background:rgba(229,9,20,.25)}
 .btn-youtube{background:rgba(255,0,0,.1);color:#ff6b6b;border:1px solid rgba(255,0,0,.25)}
 .btn-youtube:hover{background:rgba(255,0,0,.2)}
-.btn-wavve{background:rgba(0,112,243,.1);color:#4a90d9;border:1px solid rgba(0,112,243,.25)}
+.btn-tving{background:rgba(0,200,100,.1);color:#00c864;border:1px solid rgba(0,200,100,.25)}
+.btn-tving:hover{background:rgba(0,200,100,.2)}
 .btn-search{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border)}
 .btn-search:hover{background:rgba(255,255,255,.1);color:var(--text)}
 
@@ -115,11 +116,11 @@ const QUESTIONS=[
     {label:"📺 드라마·시리즈",value:"drama"},
     {label:"🎭 다큐멘터리",value:"docu"},
     {label:"🎮 예능·버라이어티",value:"variety"},
-    {label:"📹 유튜브 영상",value:"youtube"}]},
+    {label:"🎵 음악·공연",value:"music"}]},
   {id:"platform", question:"주로 사용하는 플랫폼은?", options:[
     {label:"🔴 넷플릭스",value:"netflix"},
     {label:"📹 유튜브",value:"youtube"},
-    {label:"🌊 웨이브",value:"wavve"},
+    {label:"🟢 티빙",value:"tving"},
     {label:"✨ 디즈니+",value:"disney"},
     {label:"🎲 상관없어, 다 알려줘",value:"any"}]},
   {id:"length", question:"얼마나 볼 시간이 있어요?", options:[
@@ -136,22 +137,35 @@ const QUESTIONS=[
 
 // ── 콘텐츠 DB ──
 const CONTENT_DB=[
-  // 넷플릭스 영화
-  {title:"기생충",platform:"netflix",genre:"movie",moods:["thrill","deep"],length:["medium"],company:["solo","couple"],tags:["스릴러","드라마","블랙코미디"],desc:"봉준호 감독의 아카데미 작품상 수상작. 두 계층의 가족이 얽히며 벌어지는 충격적인 이야기.",netflix:"https://www.netflix.com/search?q=기생충",youtube:"https://www.youtube.com/results?search_query=기생충+영화"},
-  {title:"오징어 게임",platform:"netflix",genre:"drama",moods:["thrill","deep"],length:["long","binge"],company:["solo","couple","friends"],tags:["서바이벌","스릴러","드라마"],desc:"456억 원의 상금을 위해 벌어지는 목숨을 건 게임. 전 세계를 강타한 K-드라마.",netflix:"https://www.netflix.com/title/81040344",youtube:"https://www.youtube.com/results?search_query=오징어게임"},
+  // ── 코미디 특화 ──
+  {title:"SNL 코리아",platform:"tving",genre:"variety",moods:["comedy","light"],length:["short","medium"],company:["solo","friends","couple"],tags:["코미디","스케치","개그"],desc:"매주 폭발하는 웃음! 신동엽·주현영의 코미디 스케치쇼. 숏클립만 봐도 배꼽 빠짐.",tving:"https://www.tving.com/search?keyword=SNL코리아",youtube:"https://www.youtube.com/results?search_query=SNL코리아"},
+  {title:"개그콘서트 레전드",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["short","medium"],company:["solo","friends","family"],tags:["개그","레전드","코미디"],desc:"국민 개그 프로그램의 레전드 명장면 모음. 지금 봐도 배꼽 빠지는 클래식.",youtube:"https://www.youtube.com/results?search_query=개그콘서트+레전드"},
+  {title:"무한도전 레전드",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["short","medium"],company:["solo","friends","family"],tags:["레전드예능","코미디","추억"],desc:"무한도전의 명장면 모음. 그 시절 최고의 예능! 지금 봐도 너무 웃김.",youtube:"https://www.youtube.com/@MBC_Unlimited"},
+  {title:"런닝맨",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["medium","long"],company:["friends","family","couple"],tags:["예능","게임","코미디"],desc:"매주 웃음이 터지는 국민 예능. 유재석·지석진의 케미가 빛나는 명장면들.",youtube:"https://www.youtube.com/results?search_query=런닝맨+레전드"},
+  {title:"워크맨",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["short","medium"],company:["solo","friends"],tags:["코미디","직업체험","예능"],desc:"장성규가 다양한 직업을 체험하는 유튜브 예능. 짧고 빵빵 터지는 웃음.",youtube:"https://www.youtube.com/@workman_jang"},
+  {title:"나 혼자 산다",platform:"tving",genre:"variety",moods:["comedy","light"],length:["medium"],company:["solo","family","couple"],tags:["예능","일상","관찰"],desc:"혼자 사는 연예인들의 웃기고 공감되는 일상 예능.",tving:"https://www.tving.com/search?keyword=나혼자산다",youtube:"https://www.youtube.com/results?search_query=나혼자산다+레전드"},
+  {title:"신서유기",platform:"youtube",genre:"variety",moods:["comedy","light"],length:["medium","long"],company:["friends","solo"],tags:["코미디","게임","여행"],desc:"강호동·이수근·은지원·규현의 황금 케미. 매 에피소드 빵빵 터지는 역대급 예능.",youtube:"https://www.youtube.com/results?search_query=신서유기"},
+  {title:"코미디 빅리그",platform:"youtube",genre:"variety",moods:["comedy"],length:["short","medium"],company:["solo","friends","family"],tags:["스탠드업","코미디","개그"],desc:"쟁쟁한 개그맨들의 코미디 배틀. 레전드 무대 모음집.",youtube:"https://www.youtube.com/results?search_query=코미디빅리그+레전드"},
+
+  // ── 스릴러 ──
+  {title:"오징어 게임",platform:"netflix",genre:"drama",moods:["thrill","deep"],length:["long","binge"],company:["solo","couple","friends"],tags:["서바이벌","스릴러","드라마"],desc:"456억 원의 상금을 위한 목숨을 건 게임. 전 세계를 강타한 K-드라마.",netflix:"https://www.netflix.com/title/81040344",youtube:"https://www.youtube.com/results?search_query=오징어게임"},
   {title:"더 글로리",platform:"netflix",genre:"drama",moods:["deep","thrill"],length:["long","binge"],company:["solo","couple"],tags:["복수극","드라마","스릴러"],desc:"학교 폭력 피해자의 치밀한 복수극. 송혜교 주연의 화제작.",netflix:"https://www.netflix.com/title/81511807",youtube:"https://www.youtube.com/results?search_query=더글로리"},
-  {title:"나는 솔로",platform:"wavve",genre:"variety",moods:["light","comedy"],length:["long","binge"],company:["couple","friends","family"],tags:["연애예능","리얼리티","버라이어티"],desc:"평범한 솔로남녀들의 리얼 연애 관찰 예능. 매 시즌 화제의 중심.",wavve:"https://www.wavve.com/search?keyword=나는솔로",youtube:"https://www.youtube.com/results?search_query=나는솔로"},
-  {title:"인사이드 아웃 2",platform:"disney",genre:"movie",moods:["touching","light"],length:["medium"],company:["family","couple","friends"],tags:["애니메이션","가족","감동"],desc:"라일리의 감정들이 돌아왔다. 새로운 감정 '앤자이어티'와 함께하는 성장 이야기.",disney:"https://www.disneyplus.com/search/인사이드아웃",youtube:"https://www.youtube.com/results?search_query=인사이드아웃2"},
-  {title:"나 혼자 산다",platform:"any",genre:"variety",moods:["light","comedy"],length:["short","medium"],company:["solo","family"],tags:["예능","일상","관찰"],desc:"혼자 사는 연예인들의 일상을 담은 힐링 예능. 편하게 보기 딱 좋아요.",youtube:"https://www.youtube.com/results?search_query=나혼자산다",netflix:"https://www.netflix.com/search?q=나혼자산다"},
-  {title:"범죄도시 시리즈",platform:"any",genre:"movie",moods:["thrill","light"],length:["medium"],company:["friends","couple","solo"],tags:["액션","범죄","코미디"],desc:"마동석 주연의 시원한 액션 범죄물. 통쾌한 한 방이 필요할 때.",netflix:"https://www.netflix.com/search?q=범죄도시",youtube:"https://www.youtube.com/results?search_query=범죄도시"},
-  {title:"무한도전 레전드",platform:"youtube",genre:"youtube",moods:["comedy","light"],length:["short","medium"],company:["solo","friends","family"],tags:["레전드예능","코미디","추억"],desc:"무한도전의 명장면 모음. 그 시절 최고의 예능이 유튜브에.",youtube:"https://www.youtube.com/@MBC_Unlimited"},
-  {title:"워크맨",platform:"youtube",genre:"youtube",moods:["comedy","light"],length:["short"],company:["solo","friends"],tags:["유튜브","예능","직업체험"],desc:"장성규가 다양한 직업을 체험하는 유튜브 예능. 짧고 재미있게.",youtube:"https://www.youtube.com/@workman_jang"},
-  {title:"쇼미더머니",platform:"wavve",genre:"variety",moods:["light","thrill"],length:["long","binge"],company:["friends","solo"],tags:["힙합","서바이벌","음악"],desc:"한국 힙합의 역사를 만든 서바이벌 프로그램. 명장면이 넘친다.",wavve:"https://www.wavve.com/search?keyword=쇼미더머니",youtube:"https://www.youtube.com/results?search_query=쇼미더머니"},
-  {title:"유 퀴즈 온 더 블럭",platform:"any",genre:"variety",moods:["touching","light","deep"],length:["medium"],company:["solo","family","couple"],tags:["토크쇼","힐링","다큐"],desc:"유재석·조세호가 다양한 사람들의 이야기를 들으며 감동을 전하는 프로그램.",youtube:"https://www.youtube.com/results?search_query=유퀴즈온더블럭",netflix:"https://www.netflix.com/search?q=유퀴즈"},
-  {title:"블랙미러",platform:"netflix",genre:"drama",moods:["deep","thrill"],length:["medium","long"],company:["solo","couple"],tags:["SF","디스토피아","철학"],desc:"기술이 지배하는 미래 사회의 어두운 면을 그린 앤솔로지 시리즈.",netflix:"https://www.netflix.com/title/70264888",youtube:"https://www.youtube.com/results?search_query=블랙미러"},
-  {title:"무비 리뷰 채널 (JTBC 씨네타운)",platform:"youtube",genre:"youtube",moods:["deep","light"],length:["short"],company:["solo"],tags:["영화리뷰","추천","분석"],desc:"영화 추천·리뷰 영상. 오늘 뭐 볼지 고민될 때 먼저 보세요.",youtube:"https://www.youtube.com/results?search_query=영화추천+리뷰"},
-  {title:"사랑의 불시착",platform:"netflix",genre:"drama",moods:["touching","light"],length:["binge","long"],company:["couple","solo"],tags:["로맨스","드라마","힐링"],desc:"북한에 불시착한 재벌 딸과 장교의 이루어질 수 없는 사랑 이야기.",netflix:"https://www.netflix.com/title/81159258",youtube:"https://www.youtube.com/results?search_query=사랑의불시착"},
-  {title:"아이유 유튜브 라이브",platform:"youtube",genre:"youtube",moods:["touching","light"],length:["short","medium"],company:["solo","couple"],tags:["음악","힐링","ASMR"],desc:"아이유의 따뜻한 라이브 영상. 혼자 보기 좋은 힐링 콘텐츠.",youtube:"https://www.youtube.com/results?search_query=아이유+라이브+유튜브"},
+  {title:"기생충",platform:"netflix",genre:"movie",moods:["thrill","deep"],length:["medium"],company:["solo","couple"],tags:["스릴러","블랙코미디","드라마"],desc:"봉준호 감독의 아카데미 작품상 수상작. 두 계층이 얽히며 벌어지는 충격적인 이야기.",netflix:"https://www.netflix.com/search?q=기생충",youtube:"https://www.youtube.com/results?search_query=기생충+영화"},
+  {title:"범죄도시 시리즈",platform:"any",genre:"movie",moods:["thrill","light","comedy"],length:["medium"],company:["friends","couple","solo"],tags:["액션","범죄","통쾌"],desc:"마동석 주연의 시원한 액션 범죄물. 통쾌한 한 방이 필요할 때 강력 추천.",netflix:"https://www.netflix.com/search?q=범죄도시",youtube:"https://www.youtube.com/results?search_query=범죄도시"},
+  {title:"블랙미러",platform:"netflix",genre:"drama",moods:["deep","thrill"],length:["medium","long"],company:["solo","couple"],tags:["SF","디스토피아","철학"],desc:"기술이 지배하는 미래 사회의 어두운 면. 보고 나면 한동안 생각하게 됨.",netflix:"https://www.netflix.com/title/70264888",youtube:"https://www.youtube.com/results?search_query=블랙미러"},
+
+  // ── 감동 ──
+  {title:"사랑의 불시착",platform:"netflix",genre:"drama",moods:["touching","light"],length:["binge","long"],company:["couple","solo"],tags:["로맨스","드라마","힐링"],desc:"북한에 불시착한 재벌 딸과 장교의 이루어질 수 없는 사랑. 역대급 로맨스 드라마.",netflix:"https://www.netflix.com/title/81159258",youtube:"https://www.youtube.com/results?search_query=사랑의불시착"},
+  {title:"인사이드 아웃 2",platform:"disney",genre:"movie",moods:["touching","light"],length:["medium"],company:["family","couple","friends"],tags:["애니메이션","가족","감동"],desc:"라일리의 감정들이 돌아왔다. 어른도 울게 만드는 픽사의 명작.",disney:"https://www.disneyplus.com/search/인사이드아웃",youtube:"https://www.youtube.com/results?search_query=인사이드아웃2"},
+  {title:"유 퀴즈 온 더 블럭",platform:"tving",genre:"variety",moods:["touching","light","deep"],length:["medium"],company:["solo","family","couple"],tags:["토크쇼","힐링","감동"],desc:"유재석·조세호가 다양한 사람들의 진심 어린 이야기를 듣는 감동 프로그램.",tving:"https://www.tving.com/search?keyword=유퀴즈",youtube:"https://www.youtube.com/results?search_query=유퀴즈온더블럭"},
+
+  // ── 깊이 있는 ──
+  {title:"나는 신이다",platform:"netflix",genre:"docu",moods:["deep","thrill"],length:["long","binge"],company:["solo","couple"],tags:["다큐","충격","사회"],desc:"한국 종교 사기 집단의 실체를 파헤친 충격 다큐멘터리.",netflix:"https://www.netflix.com/search?q=나는신이다",youtube:"https://www.youtube.com/results?search_query=나는신이다+다큐"},
+  {title:"쇼미더머니",platform:"tving",genre:"variety",moods:["light","thrill","deep"],length:["long","binge"],company:["friends","solo"],tags:["힙합","서바이벌","음악"],desc:"한국 힙합의 역사를 만든 서바이벌. 명장면과 명곡이 가득.",tving:"https://www.tving.com/search?keyword=쇼미더머니",youtube:"https://www.youtube.com/results?search_query=쇼미더머니"},
+
+  // ── 음악 ──
+  {title:"싱어게인",platform:"tving",genre:"music",moods:["touching","light","deep"],length:["medium","long"],company:["solo","family","couple"],tags:["음악","서바이벌","감동"],desc:"잊혀진 가수들의 재도전. 매 무대가 소름돋는 감동의 음악 서바이벌.",tving:"https://www.tving.com/search?keyword=싱어게인",youtube:"https://www.youtube.com/results?search_query=싱어게인"},
+  {title:"미스터트롯",platform:"tving",genre:"music",moods:["touching","light"],length:["medium","long"],company:["family","solo"],tags:["트롯","음악","서바이벌"],desc:"트롯의 부흥을 이끈 화제의 음악 서바이벌. 임영웅을 탄생시킨 그 프로그램.",tving:"https://www.tving.com/search?keyword=미스터트롯",youtube:"https://www.youtube.com/results?search_query=미스터트롯"},
 ];
 
 // ── 추천 로직 ──
@@ -159,18 +173,25 @@ function getRecommendations(answers){
   const a={};answers.forEach(x=>a[x.questionId]=x.value);
   function score(c){
     let s=0;
-    // 플랫폼
-    if(a.platform==='any') s+=3;
-    else if(c.platform===a.platform||c.platform==='any') s+=8;
-    else s-=3;
+    // 기분 (최우선, 가중치 최대)
+    if(c.moods.includes(a.mood)) s+=15;
+    else s-=8; // 기분 불일치 강력 패널티
+
     // 장르
     if(c.genre===a.genre) s+=10;
-    else if(a.genre==='youtube'&&c.platform==='youtube') s+=8;
-    // 기분
-    if(c.moods.includes(a.mood)) s+=8;
+
+    // 플랫폼
+    if(a.platform==='any') s+=2;
+    else if(c.platform===a.platform) s+=6;
+    else if(c.platform==='any') s+=3;
+    // 유튜브는 어느 플랫폼 선택해도 보조로 추천 가능
+    else if(c.youtube && a.platform!=='any') s+=0;
+    else s-=2;
+
     // 길이
-    if(c.length.includes(a.length)) s+=6;
-    else if(a.length==='binge'&&c.length.includes('long')) s+=3;
+    if(c.length.includes(a.length)) s+=5;
+    else if(a.length==='binge'&&c.length.includes('long')) s+=2;
+
     // 함께
     if(c.company.includes(a.company)) s+=4;
     return s;
@@ -184,7 +205,7 @@ function getRecommendations(answers){
 function getPlatformBadge(p){
   if(p==='netflix') return '<span class="platform-badge badge-netflix">넷플릭스</span>';
   if(p==='youtube') return '<span class="platform-badge badge-youtube">유튜브</span>';
-  if(p==='wavve') return '<span class="platform-badge badge-wavve">웨이브</span>';
+  if(p==='tving') return '<span class="platform-badge badge-tving">티빙</span>';
   if(p==='disney') return '<span class="platform-badge badge-disney">디즈니+</span>';
   return '<span class="platform-badge" style="background:rgba(255,255,255,.08);color:var(--muted)">OTT</span>';
 }
@@ -193,7 +214,7 @@ function getWatchLinks(c){
   let links='';
   if(c.netflix) links+=`<a href="${c.netflix}" target="_blank" class="watch-btn btn-netflix">넷플릭스</a>`;
   if(c.youtube) links+=`<a href="${c.youtube}" target="_blank" class="watch-btn btn-youtube">유튜브</a>`;
-  if(c.wavve) links+=`<a href="${c.wavve}" target="_blank" class="watch-btn btn-wavve">웨이브</a>`;
+  if(c.tving) links+=`<a href="${c.tving}" target="_blank" class="watch-btn btn-tving">티빙</a>`;
   if(c.disney) links+=`<a href="${c.disney}" target="_blank" class="watch-btn btn-search">디즈니+</a>`;
   return links;
 }
