@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>오늘 뭐 볼까? — 결정장애</title>
+<meta name="description" content="기분에 맞는 오늘의 영화·드라마·유튜브를 추천해드려요."/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a0f;--card:#13131e;--card2:#1a1a28;
+  --red:#ff4d6d;--red2:#ff8fa3;--red-glow:rgba(255,77,109,.12);
+  --text:#f0ede8;--muted:#5a5875;--border:rgba(255,255,255,.07);
+  --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(100px)}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(255,77,109,.1),transparent 70%);top:-100px;right:-100px;animation:o1 14s ease-in-out infinite}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(80,20,40,.8),transparent 70%);bottom:-80px;left:-80px;animation:o2 18s ease-in-out infinite}
+
+.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px 100px;position:relative;z-index:2}
+.container{width:100%;max-width:400px}
+
+/* Progress */
+.progress-wrap{margin-bottom:32px}
+.progress-track{height:2px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:10px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--red2));transition:width .6s cubic-bezier(.4,0,.2,1)}
+.progress-meta{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+
+/* Buttons */
+.btn-primary{width:100%;padding:16px 24px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .3s ease;box-shadow:0 4px 20px rgba(255,77,109,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,77,109,.4)}
+.btn-ghost{width:100%;padding:14px 24px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:14px;font-weight:400;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .25s ease}
+.btn-ghost:hover{border-color:rgba(255,255,255,.15);color:var(--text)}
+
+/* Options */
+.options-list{display:flex;flex-direction:column;gap:8px}
+.option-btn{width:100%;padding:15px 18px;border-radius:14px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;font-weight:400;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .22s ease;text-align:left;display:flex;align-items:center;gap:12px}
+.opt-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:all .22s ease}
+.option-btn:hover{border-color:rgba(255,77,109,.3);background:var(--card2);transform:translateX(3px)}
+.option-btn:hover .opt-dot{background:var(--red)}
+.option-btn.selected{border-color:rgba(255,77,109,.4);background:var(--red-glow)}
+.option-btn.selected .opt-dot{background:var(--red);box-shadow:0 0 8px rgba(255,77,109,.6)}
+
+/* Result Cards */
+.result-cards{display:flex;flex-direction:column;gap:14px;margin:20px 0}
+.result-card{border-radius:var(--radius);border:1px solid var(--border);background:var(--card);overflow:hidden;cursor:pointer;transition:all .3s ease;text-decoration:none;display:block;color:var(--text)}
+.result-card:hover{border-color:rgba(255,77,109,.3);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.4)}
+.result-card-header{padding:16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.platform-badge{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.06em}
+.badge-netflix{background:rgba(229,9,20,.2);color:#e50914}
+.badge-youtube{background:rgba(255,0,0,.15);color:#ff6b6b}
+.badge-wavve{background:rgba(0,112,243,.2);color:#4a90d9}
+.badge-disney{background:rgba(17,60,207,.2);color:#4a70e0}
+.rank-num{font-size:22px;font-weight:900;color:var(--red);min-width:28px}
+.card-title-text{font-size:15px;font-weight:700;flex:1}
+.result-card-body{padding:14px 16px}
+.card-genre{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.genre-tag{font-size:10px;padding:3px 9px;border-radius:20px;background:rgba(255,77,109,.1);color:var(--red2);font-weight:600}
+.card-desc-text{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px}
+.card-links{display:flex;gap:8px}
+.watch-btn{flex:1;padding:9px 0;border-radius:10px;text-decoration:none;font-size:11px;font-weight:700;text-align:center;font-family:'Noto Sans KR',sans-serif;transition:all .2s}
+.btn-netflix{background:rgba(229,9,20,.15);color:#e50914;border:1px solid rgba(229,9,20,.3)}
+.btn-netflix:hover{background:rgba(229,9,20,.25)}
+.btn-youtube{background:rgba(255,0,0,.1);color:#ff6b6b;border:1px solid rgba(255,0,0,.25)}
+.btn-youtube:hover{background:rgba(255,0,0,.2)}
+.btn-wavve{background:rgba(0,112,243,.1);color:#4a90d9;border:1px solid rgba(0,112,243,.25)}
+.btn-search{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border)}
+.btn-search:hover{background:rgba(255,255,255,.1);color:var(--text)}
+
+/* Ad */
+.ad-wrap{position:fixed;bottom:0;left:0;right:0;z-index:999;display:flex;justify-content:center;align-items:center;background:rgba(10,10,15,.97);padding:8px 0;border-top:1px solid var(--border)}
+
+@keyframes o1{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,25px)}}
+@keyframes o2{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,-20px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleUp{from{opacity:0;transform:scale(.97) translateY(6px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.anim-scaleUp{animation:scaleUp .5s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
+.anim-fadeUp{animation:fadeUp .4s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
+.anim-slideUp{animation:slideUp .4s cubic-bezier(.16,1,.3,1) forwards;opacity:0}
+</style>
+</head>
+<body>
+<div class="bg-canvas">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+</div>
+<div class="app">
+  <div class="container" id="root"></div>
+</div>
+
+<!-- 카카오 애드핏 -->
+<div class="ad-wrap">
+  <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-w1b5n8JUEWiLvW95" data-ad-width="320" data-ad-height="50"></ins>
+  <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+</div>
+
+<script>
+// ── 질문 ──
+const QUESTIONS=[
+  {id:"mood", question:"지금 기분이 어때요?", options:[
+    {label:"😊 가볍고 유쾌하게",value:"light"},
+    {label:"😢 감동받고 싶어",value:"touching"},
+    {label:"😱 짜릿하고 긴장감 있게",value:"thrill"},
+    {label:"🤣 배꼽 빠지게 웃고 싶어",value:"comedy"},
+    {label:"🤔 생각할 거리가 필요해",value:"deep"}]},
+  {id:"genre", question:"선호하는 장르는?", options:[
+    {label:"🎬 영화",value:"movie"},
+    {label:"📺 드라마·시리즈",value:"drama"},
+    {label:"🎭 다큐멘터리",value:"docu"},
+    {label:"🎮 예능·버라이어티",value:"variety"},
+    {label:"📹 유튜브 영상",value:"youtube"}]},
+  {id:"platform", question:"주로 사용하는 플랫폼은?", options:[
+    {label:"🔴 넷플릭스",value:"netflix"},
+    {label:"📹 유튜브",value:"youtube"},
+    {label:"🌊 웨이브",value:"wavve"},
+    {label:"✨ 디즈니+",value:"disney"},
+    {label:"🎲 상관없어, 다 알려줘",value:"any"}]},
+  {id:"length", question:"얼마나 볼 시간이 있어요?", options:[
+    {label:"⚡ 30분 이하 (숏폼·클립)",value:"short"},
+    {label:"🎬 1~2시간 (영화 한 편)",value:"medium"},
+    {label:"🌙 2~3시간 (여러 편)",value:"long"},
+    {label:"🛋️ 하루 종일 정주행",value:"binge"}]},
+  {id:"company", question:"누구와 함께 보나요?", options:[
+    {label:"🙋 혼자",value:"solo"},
+    {label:"💑 연인과",value:"couple"},
+    {label:"👨‍👩‍👧 가족과",value:"family"},
+    {label:"🍺 친구들과",value:"friends"}]}
+];
+
+// ── 콘텐츠 DB ──
+const CONTENT_DB=[
+  // 넷플릭스 영화
+  {title:"기생충",platform:"netflix",genre:"movie",moods:["thrill","deep"],length:["medium"],company:["solo","couple"],tags:["스릴러","드라마","블랙코미디"],desc:"봉준호 감독의 아카데미 작품상 수상작. 두 계층의 가족이 얽히며 벌어지는 충격적인 이야기.",netflix:"https://www.netflix.com/search?q=기생충",youtube:"https://www.youtube.com/results?search_query=기생충+영화"},
+  {title:"오징어 게임",platform:"netflix",genre:"drama",moods:["thrill","deep"],length:["long","binge"],company:["solo","couple","friends"],tags:["서바이벌","스릴러","드라마"],desc:"456억 원의 상금을 위해 벌어지는 목숨을 건 게임. 전 세계를 강타한 K-드라마.",netflix:"https://www.netflix.com/title/81040344",youtube:"https://www.youtube.com/results?search_query=오징어게임"},
+  {title:"더 글로리",platform:"netflix",genre:"drama",moods:["deep","thrill"],length:["long","binge"],company:["solo","couple"],tags:["복수극","드라마","스릴러"],desc:"학교 폭력 피해자의 치밀한 복수극. 송혜교 주연의 화제작.",netflix:"https://www.netflix.com/title/81511807",youtube:"https://www.youtube.com/results?search_query=더글로리"},
+  {title:"나는 솔로",platform:"wavve",genre:"variety",moods:["light","comedy"],length:["long","binge"],company:["couple","friends","family"],tags:["연애예능","리얼리티","버라이어티"],desc:"평범한 솔로남녀들의 리얼 연애 관찰 예능. 매 시즌 화제의 중심.",wavve:"https://www.wavve.com/search?keyword=나는솔로",youtube:"https://www.youtube.com/results?search_query=나는솔로"},
+  {title:"인사이드 아웃 2",platform:"disney",genre:"movie",moods:["touching","light"],length:["medium"],company:["family","couple","friends"],tags:["애니메이션","가족","감동"],desc:"라일리의 감정들이 돌아왔다. 새로운 감정 '앤자이어티'와 함께하는 성장 이야기.",disney:"https://www.disneyplus.com/search/인사이드아웃",youtube:"https://www.youtube.com/results?search_query=인사이드아웃2"},
+  {title:"나 혼자 산다",platform:"any",genre:"variety",moods:["light","comedy"],length:["short","medium"],company:["solo","family"],tags:["예능","일상","관찰"],desc:"혼자 사는 연예인들의 일상을 담은 힐링 예능. 편하게 보기 딱 좋아요.",youtube:"https://www.youtube.com/results?search_query=나혼자산다",netflix:"https://www.netflix.com/search?q=나혼자산다"},
+  {title:"범죄도시 시리즈",platform:"any",genre:"movie",moods:["thrill","light"],length:["medium"],company:["friends","couple","solo"],tags:["액션","범죄","코미디"],desc:"마동석 주연의 시원한 액션 범죄물. 통쾌한 한 방이 필요할 때.",netflix:"https://www.netflix.com/search?q=범죄도시",youtube:"https://www.youtube.com/results?search_query=범죄도시"},
+  {title:"무한도전 레전드",platform:"youtube",genre:"youtube",moods:["comedy","light"],length:["short","medium"],company:["solo","friends","family"],tags:["레전드예능","코미디","추억"],desc:"무한도전의 명장면 모음. 그 시절 최고의 예능이 유튜브에.",youtube:"https://www.youtube.com/@MBC_Unlimited"},
+  {title:"워크맨",platform:"youtube",genre:"youtube",moods:["comedy","light"],length:["short"],company:["solo","friends"],tags:["유튜브","예능","직업체험"],desc:"장성규가 다양한 직업을 체험하는 유튜브 예능. 짧고 재미있게.",youtube:"https://www.youtube.com/@workman_jang"},
+  {title:"쇼미더머니",platform:"wavve",genre:"variety",moods:["light","thrill"],length:["long","binge"],company:["friends","solo"],tags:["힙합","서바이벌","음악"],desc:"한국 힙합의 역사를 만든 서바이벌 프로그램. 명장면이 넘친다.",wavve:"https://www.wavve.com/search?keyword=쇼미더머니",youtube:"https://www.youtube.com/results?search_query=쇼미더머니"},
+  {title:"유 퀴즈 온 더 블럭",platform:"any",genre:"variety",moods:["touching","light","deep"],length:["medium"],company:["solo","family","couple"],tags:["토크쇼","힐링","다큐"],desc:"유재석·조세호가 다양한 사람들의 이야기를 들으며 감동을 전하는 프로그램.",youtube:"https://www.youtube.com/results?search_query=유퀴즈온더블럭",netflix:"https://www.netflix.com/search?q=유퀴즈"},
+  {title:"블랙미러",platform:"netflix",genre:"drama",moods:["deep","thrill"],length:["medium","long"],company:["solo","couple"],tags:["SF","디스토피아","철학"],desc:"기술이 지배하는 미래 사회의 어두운 면을 그린 앤솔로지 시리즈.",netflix:"https://www.netflix.com/title/70264888",youtube:"https://www.youtube.com/results?search_query=블랙미러"},
+  {title:"무비 리뷰 채널 (JTBC 씨네타운)",platform:"youtube",genre:"youtube",moods:["deep","light"],length:["short"],company:["solo"],tags:["영화리뷰","추천","분석"],desc:"영화 추천·리뷰 영상. 오늘 뭐 볼지 고민될 때 먼저 보세요.",youtube:"https://www.youtube.com/results?search_query=영화추천+리뷰"},
+  {title:"사랑의 불시착",platform:"netflix",genre:"drama",moods:["touching","light"],length:["binge","long"],company:["couple","solo"],tags:["로맨스","드라마","힐링"],desc:"북한에 불시착한 재벌 딸과 장교의 이루어질 수 없는 사랑 이야기.",netflix:"https://www.netflix.com/title/81159258",youtube:"https://www.youtube.com/results?search_query=사랑의불시착"},
+  {title:"아이유 유튜브 라이브",platform:"youtube",genre:"youtube",moods:["touching","light"],length:["short","medium"],company:["solo","couple"],tags:["음악","힐링","ASMR"],desc:"아이유의 따뜻한 라이브 영상. 혼자 보기 좋은 힐링 콘텐츠.",youtube:"https://www.youtube.com/results?search_query=아이유+라이브+유튜브"},
+];
+
+// ── 추천 로직 ──
+function getRecommendations(answers){
+  const a={};answers.forEach(x=>a[x.questionId]=x.value);
+  function score(c){
+    let s=0;
+    // 플랫폼
+    if(a.platform==='any') s+=3;
+    else if(c.platform===a.platform||c.platform==='any') s+=8;
+    else s-=3;
+    // 장르
+    if(c.genre===a.genre) s+=10;
+    else if(a.genre==='youtube'&&c.platform==='youtube') s+=8;
+    // 기분
+    if(c.moods.includes(a.mood)) s+=8;
+    // 길이
+    if(c.length.includes(a.length)) s+=6;
+    else if(a.length==='binge'&&c.length.includes('long')) s+=3;
+    // 함께
+    if(c.company.includes(a.company)) s+=4;
+    return s;
+  }
+  return [...CONTENT_DB]
+    .map(c=>({...c,score:score(c)}))
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,3);
+}
+
+function getPlatformBadge(p){
+  if(p==='netflix') return '<span class="platform-badge badge-netflix">넷플릭스</span>';
+  if(p==='youtube') return '<span class="platform-badge badge-youtube">유튜브</span>';
+  if(p==='wavve') return '<span class="platform-badge badge-wavve">웨이브</span>';
+  if(p==='disney') return '<span class="platform-badge badge-disney">디즈니+</span>';
+  return '<span class="platform-badge" style="background:rgba(255,255,255,.08);color:var(--muted)">OTT</span>';
+}
+
+function getWatchLinks(c){
+  let links='';
+  if(c.netflix) links+=`<a href="${c.netflix}" target="_blank" class="watch-btn btn-netflix">넷플릭스</a>`;
+  if(c.youtube) links+=`<a href="${c.youtube}" target="_blank" class="watch-btn btn-youtube">유튜브</a>`;
+  if(c.wavve) links+=`<a href="${c.wavve}" target="_blank" class="watch-btn btn-wavve">웨이브</a>`;
+  if(c.disney) links+=`<a href="${c.disney}" target="_blank" class="watch-btn btn-search">디즈니+</a>`;
+  return links;
+}
+
+// ── State ──
+let state={screen:"intro",currentQ:0,answers:[]};
+function setState(u){Object.assign(state,u);render()}
+
+// ── Render ──
+function render(){
+  const root=document.getElementById("root"),s=state;
+
+  if(s.screen==="intro"){
+    root.innerHTML=`<div class="anim-scaleUp" style="text-align:center;padding:20px 0">
+      <div style="font-size:11px;letter-spacing:.2em;color:var(--red);text-transform:uppercase;margin-bottom:24px;font-weight:700">오늘의 콘텐츠 추천</div>
+      <div style="font-size:56px;font-weight:900;line-height:1;margin-bottom:16px">오늘<br>뭐 볼까?</div>
+      <div style="width:40px;height:2px;background:linear-gradient(90deg,var(--red),var(--red2));margin:0 auto 20px;border-radius:2px"></div>
+      <p style="color:var(--muted);font-size:13px;font-weight:300;line-height:1.7;margin-bottom:40px">5가지 질문으로<br>딱 맞는 콘텐츠를 찾아드려요</p>
+      <button class="btn-primary" style="width:auto;padding:16px 52px;font-size:15px" onclick="startQuiz()">시작하기</button>
+      <div style="margin-top:14px"><a href="/" style="font-size:12px;color:var(--muted);text-decoration:none">← 결정장애 홈으로</a></div>
+    </div>`;return}
+
+  if(s.screen==="quiz"){
+    const q=QUESTIONS[s.currentQ];
+    const pct=Math.round((s.currentQ/QUESTIONS.length)*100);
+    let opts='';
+    q.options.forEach((o,i)=>{
+      opts+=`<button class="option-btn anim-fadeUp" style="animation-delay:${i*.06}s" onclick="selectOption(${s.currentQ},${i})">
+        <span class="opt-dot"></span><span>${o.label}</span>
+      </button>`;
+    });
+    root.innerHTML=`
+      <div class="progress-wrap anim-fadeUp">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          ${s.currentQ>0?`<button onclick="goBackQuiz()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;font-family:'Noto Sans KR',sans-serif;padding:0;font-weight:500">← 이전</button>`:`<div></div>`}
+          <div class="progress-meta"><span>${s.currentQ+1} / ${QUESTIONS.length}</span><span>${pct}%</span></div>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      </div>
+      <div class="anim-slideUp" style="margin-bottom:28px">
+        <div style="font-size:11px;letter-spacing:.12em;color:var(--red);text-transform:uppercase;margin-bottom:14px;font-weight:700">Question ${s.currentQ+1}</div>
+        <h2 style="font-size:23px;font-weight:800;line-height:1.35">${q.question}</h2>
+      </div>
+      <div class="options-list">${opts}</div>`;
+    return}
+
+  if(s.screen==="loading"){
+    root.innerHTML=`<div class="anim-fadeUp" style="text-align:center;padding:40px 0">
+      <div style="width:48px;height:48px;border:2px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 24px"></div>
+      <div style="font-size:20px;font-weight:800;margin-bottom:10px">콘텐츠 찾는 중</div>
+      <p style="color:var(--muted);font-size:12px;animation:pulse 2s ease-in-out infinite">취향에 맞는 영상을 고르고 있어요</p>
+    </div>`;return}
+
+  if(s.screen==="result"){
+    const recs=s.recommendations;
+    let cardsHTML='';
+    recs.forEach((c,i)=>{
+      const rankColors=["var(--red)","rgba(255,255,255,.5)","rgba(255,255,255,.3)"];
+      cardsHTML+=`<div class="result-card anim-fadeUp" style="animation-delay:${i*.1}s">
+        <div class="result-card-header">
+          <span class="rank-num" style="color:${rankColors[i]}">${i+1}</span>
+          ${getPlatformBadge(c.platform)}
+          <span class="card-title-text">${c.title}</span>
+        </div>
+        <div class="result-card-body">
+          <div class="card-genre">${c.tags.map(t=>`<span class="genre-tag">${t}</span>`).join('')}</div>
+          <div class="card-desc-text">${c.desc}</div>
+          <div class="card-links">${getWatchLinks(c)}</div>
+        </div>
+      </div>`;
+    });
+    root.innerHTML=`<div class="anim-scaleUp">
+      <div style="margin-bottom:20px">
+        <div style="font-size:11px;letter-spacing:.15em;color:var(--red);text-transform:uppercase;margin-bottom:8px;font-weight:700">오늘의 추천</div>
+        <div style="font-size:22px;font-weight:900">이거 보세요! 🎬</div>
+      </div>
+      <div class="result-cards">${cardsHTML}</div>
+      <button class="btn-ghost" style="margin-top:4px;font-size:13px" onclick="restart()">🔄 다시 추천받기</button>
+      <div style="margin-top:10px;text-align:center">
+        <a href="/" style="font-size:12px;color:var(--muted);text-decoration:none">← 결정장애 홈으로</a>
+      </div>
+    </div>`;return}
+}
+
+// ── Actions ──
+function startQuiz(){setState({screen:"quiz",currentQ:0,answers:[]})}
+function goBackQuiz(){
+  if(state.currentQ===0){setState({screen:"intro"});return;}
+  setState({answers:state.answers.slice(0,-1),currentQ:state.currentQ-1});
+}
+function selectOption(qIdx,optIdx){
+  const q=QUESTIONS[qIdx],opt=q.options[optIdx];
+  document.querySelectorAll(".option-btn")[optIdx].classList.add("selected");
+  setTimeout(()=>{
+    const na=[...state.answers,{questionId:q.id,value:opt.value}];
+    if(qIdx<QUESTIONS.length-1){
+      setState({answers:na,currentQ:qIdx+1});
+    }else{
+      setState({answers:na,screen:"loading"});
+      setTimeout(()=>{
+        setState({recommendations:getRecommendations(na),screen:"result"});
+      },1000);
+    }
+  },350);
+}
+function restart(){setState({screen:"intro",currentQ:0,answers:[],recommendations:[]})}
+
+render();
+</script>
+</body>
+</html>

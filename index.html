@@ -3,206 +3,175 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>What2Today — 오늘 하루의 모든 결정</title>
-<meta name="description" content="오늘 뭐 먹지? 뭐 입지? 뭐 하지? 오늘 하루의 모든 결정을 도와드려요."/>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<title>결정장애 — 당신의 결정을 대신 해드립니다</title>
+<meta name="description" content="오늘 뭐 먹지? 뭐 입지? 뭐 볼까? 결정장애가 대신 결정해드려요."/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --bg:#07070e;
-  --card:#111120;
-  --card2:#181828;
-  --gold:#c9a84c;
-  --gold2:#e8c96a;
-  --text:#ede9e1;
-  --muted:#5a5870;
+  --bg:#0a0a0f;
+  --card:#13131e;
   --border:rgba(255,255,255,.07);
+  --text:#f0ede8;
+  --muted:#5a5875;
+  --accent:#ff4d6d;
+  --accent2:#ff8fa3;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 
-/* Background */
-.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
-.orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.5}
-.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(20,8,40,.9),transparent 70%);top:-100px;right:-100px;animation:o1 14s ease-in-out infinite}
-.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(5,20,15,.9),transparent 70%);bottom:-80px;left:-80px;animation:o2 18s ease-in-out infinite}
-.orb-3{width:300px;height:300px;background:radial-gradient(circle,rgba(201,168,76,.05),transparent 70%);top:40%;left:30%;animation:o3 11s ease-in-out infinite}
+/* 배경 노이즈 */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:0}
 
-/* Layout */
-.wrap{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:60px 20px 100px}
+/* 오브 배경 */
+.orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(255,77,109,.12),transparent 70%);top:-100px;right:-100px;animation:drift1 16s ease-in-out infinite}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(100,60,200,.08),transparent 70%);bottom:-80px;left:-80px;animation:drift2 20s ease-in-out infinite}
 
-/* Header */
-.header{text-align:center;margin-bottom:64px}
-.logo{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;opacity:.9}
-.title{font-size:clamp(36px,8vw,56px);font-weight:900;line-height:1.1;letter-spacing:-.03em;margin-bottom:16px}
-.title span{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.subtitle{font-size:15px;color:var(--muted);font-weight:300;line-height:1.7}
-.divider{width:48px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:24px auto 0}
+.wrap{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:60px 20px 120px}
 
-/* Cards Grid */
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:480px}
-.card{border-radius:20px;border:1px solid var(--border);background:var(--card);padding:28px 24px;cursor:pointer;text-decoration:none;color:var(--text);transition:all .35s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;display:flex;flex-direction:column;gap:12px}
-.card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .35s}
-.card:hover{transform:translateY(-4px);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+/* 헤더 */
+.header{text-align:center;margin-bottom:72px}
+.brand-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;border:1px solid rgba(255,77,109,.3);padding:5px 14px;border-radius:20px;margin-bottom:28px;animation:fadeUp .6s ease both}
+.brand-title{font-size:clamp(52px,12vw,88px);font-weight:900;line-height:.95;letter-spacing:-.04em;margin-bottom:20px;animation:fadeUp .6s .1s ease both}
+.brand-title .highlight{color:var(--accent);position:relative;display:inline-block}
+.brand-title .highlight::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:3px;background:var(--accent);border-radius:2px;transform:scaleX(0);transform-origin:left;animation:underline .5s .7s ease forwards}
+.brand-sub{font-size:16px;color:var(--muted);font-weight:300;line-height:1.7;animation:fadeUp .6s .2s ease both}
+.divider{width:1px;height:48px;background:linear-gradient(180deg,transparent,var(--accent),transparent);margin:32px auto;animation:fadeUp .6s .3s ease both}
+
+/* 카드 그리드 */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:480px}
+
+.card{border-radius:20px;border:1px solid var(--border);background:var(--card);padding:24px 20px 20px;cursor:pointer;text-decoration:none;color:var(--text);transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;display:flex;flex-direction:column;gap:10px}
+.card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s;border-radius:20px}
+.card:hover{transform:translateY(-5px)}
 .card:hover::before{opacity:1}
 
-/* EAT */
-.card-eat{border-color:rgba(201,168,76,.15)}
-.card-eat::before{background:linear-gradient(135deg,rgba(201,168,76,.08),transparent)}
-.card-eat:hover{border-color:rgba(201,168,76,.35);box-shadow:0 24px 60px rgba(201,168,76,.1)}
-.card-eat .card-icon{color:#c9a84c}
-.card-eat .card-tag{background:rgba(201,168,76,.12);color:#c9a84c}
-.card-eat .card-badge{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#060400}
+/* 각 카드 컬러 */
+.card-eat{--c:#ff6b35;--cg:rgba(255,107,53,.12)}
+.card-eat::before{background:radial-gradient(circle at 30% 30%,var(--cg),transparent 60%)}
+.card-eat:hover{border-color:rgba(255,107,53,.3);box-shadow:0 20px 60px rgba(255,107,53,.1)}
 
-/* WEAR */
-.card-wear{border-color:rgba(99,179,237,.1)}
-.card-wear::before{background:linear-gradient(135deg,rgba(99,179,237,.07),transparent)}
-.card-wear:hover{border-color:rgba(99,179,237,.3);box-shadow:0 24px 60px rgba(99,179,237,.08)}
-.card-wear .card-icon{color:#63b3ed}
-.card-wear .card-tag{background:rgba(99,179,237,.1);color:#63b3ed}
-.card-wear .card-badge{background:rgba(99,179,237,.15);color:#63b3ed}
+.card-wear{--c:#63b3ed;--cg:rgba(99,179,237,.12)}
+.card-wear::before{background:radial-gradient(circle at 30% 30%,var(--cg),transparent 60%)}
+.card-wear:hover{border-color:rgba(99,179,237,.3);box-shadow:0 20px 60px rgba(99,179,237,.1)}
 
-/* DO */
-.card-do{border-color:rgba(154,117,234,.1)}
-.card-do::before{background:linear-gradient(135deg,rgba(154,117,234,.07),transparent)}
-.card-do:hover{border-color:rgba(154,117,234,.3);box-shadow:0 24px 60px rgba(154,117,234,.08)}
-.card-do .card-icon{color:#9a75ea}
-.card-do .card-tag{background:rgba(154,117,234,.1);color:#9a75ea}
-.card-do .card-badge{background:rgba(154,117,234,.15);color:#9a75ea}
+.card-watch{--c:#ff4d6d;--cg:rgba(255,77,109,.12)}
+.card-watch::before{background:radial-gradient(circle at 30% 30%,var(--cg),transparent 60%)}
+.card-watch:hover{border-color:rgba(255,77,109,.3);box-shadow:0 20px 60px rgba(255,77,109,.1)}
 
-/* WATCH */
-.card-watch{border-color:rgba(252,129,129,.1)}
-.card-watch::before{background:linear-gradient(135deg,rgba(252,129,129,.07),transparent)}
-.card-watch:hover{border-color:rgba(252,129,129,.3);box-shadow:0 24px 60px rgba(252,129,129,.08)}
-.card-watch .card-icon{color:#fc8181}
-.card-watch .card-tag{background:rgba(252,129,129,.1);color:#fc8181}
-.card-watch .card-badge{background:rgba(252,129,129,.15);color:#fc8181}
+.card-do{--c:#9a75ea;--cg:rgba(154,117,234,.12)}
+.card-do::before{background:radial-gradient(circle at 30% 30%,var(--cg),transparent 60%)}
+.card-do:hover{border-color:rgba(154,117,234,.3);box-shadow:0 20px 60px rgba(154,117,234,.1)}
 
-.card-icon{font-size:32px;line-height:1}
-.card-top{display:flex;align-items:flex-start;justify-content:space-between}
-.card-badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:20px}
-.card-title{font-size:16px;font-weight:800;letter-spacing:-.02em;line-height:1.3}
+.card-emoji{font-size:32px;line-height:1;margin-bottom:2px}
+.card-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.06);color:var(--muted);margin-bottom:4px;width:fit-content}
+.card-badge.live{background:rgba(255,107,53,.15);color:#ff9f6b}
+.card-badge.live-blue{background:rgba(99,179,237,.15);color:#63b3ed}
+.card-badge.live-red{background:rgba(255,77,109,.15);color:#ff4d6d}
+.card-title{font-size:20px;font-weight:900;letter-spacing:-.03em;line-height:1.2}
 .card-desc{font-size:11px;color:var(--muted);line-height:1.6;font-weight:300}
-.card-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:20px}
-.card-arrow{font-size:14px;color:var(--muted);margin-top:auto;transition:transform .2s,color .2s}
-.card:hover .card-arrow{transform:translateX(4px);color:inherit}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:8px}
+.card-path{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.04em}
+.card-arrow{font-size:16px;color:var(--muted);transition:transform .2s,color .2s}
+.card:hover .card-arrow{transform:translateX(4px);color:var(--c)}
 
-/* Soon overlay */
-.card-soon{opacity:.5;cursor:default;pointer-events:none}
-.card-soon:hover{transform:none;box-shadow:none}
+/* 준비중 카드 */
+.card-soon{opacity:.45;cursor:default;pointer-events:none}
 
-/* Footer */
-.footer{margin-top:56px;text-align:center}
-.footer-logo{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.footer-copy{font-size:11px;color:rgba(255,255,255,.2);font-weight:300}
+/* 푸터 */
+.footer{margin-top:64px;text-align:center;animation:fadeUp .6s .5s ease both}
+.footer-brand{font-size:22px;font-weight:900;letter-spacing:-.03em;margin-bottom:6px}
+.footer-brand span{color:var(--accent)}
+.footer-copy{font-size:11px;color:var(--muted);font-weight:300}
 
-/* Animations */
-@keyframes o1{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,25px)}}
-@keyframes o2{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,-20px)}}
-@keyframes o3{0%,100%{transform:translate(0,0)}50%{transform:translate(-15px,30px)}}
+/* 카드 애니메이션 */
+.card:nth-child(1){animation:fadeUp .5s .3s ease both;opacity:0}
+.card:nth-child(2){animation:fadeUp .5s .38s ease both;opacity:0}
+.card:nth-child(3){animation:fadeUp .5s .46s ease both;opacity:0}
+.card:nth-child(4){animation:fadeUp .5s .54s ease both;opacity:0}
+
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes drift1{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,25px)}}
+@keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,-20px)}}
+@keyframes underline{to{transform:scaleX(1)}}
 
-.header{animation:fadeUp .6s cubic-bezier(.16,1,.3,1) forwards}
-.card:nth-child(1){animation:fadeUp .5s .1s cubic-bezier(.16,1,.3,1) both}
-.card:nth-child(2){animation:fadeUp .5s .18s cubic-bezier(.16,1,.3,1) both}
-.card:nth-child(3){animation:fadeUp .5s .26s cubic-bezier(.16,1,.3,1) both}
-.card:nth-child(4){animation:fadeUp .5s .34s cubic-bezier(.16,1,.3,1) both}
-.footer{animation:fadeUp .5s .4s cubic-bezier(.16,1,.3,1) both}
+/* 애드핏 */
+.ad-wrap{position:fixed;bottom:0;left:0;right:0;z-index:99;display:flex;justify-content:center;align-items:center;background:rgba(10,10,15,.97);padding:8px 0;border-top:1px solid var(--border)}
 </style>
 </head>
 <body>
-<div class="bg-canvas">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-</div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
 
 <div class="wrap">
   <header class="header">
-    <div class="logo">What2Today</div>
-    <h1 class="title">오늘, 뭐<span>?</span></h1>
-    <p class="subtitle">오늘 하루의 모든 결정을<br>대신 도와드려요</p>
+    <div class="brand-tag">오늘도 못 고르셨나요?</div>
+    <h1 class="brand-title"><span class="highlight">결정장애</span></h1>
+    <p class="brand-sub">당신의 결정을 대신 해드립니다</p>
     <div class="divider"></div>
   </header>
 
   <div class="grid">
-    <!-- EAT -->
+    <!-- 뭐 먹지 -->
     <a class="card card-eat" href="/eat">
-      <div class="card-top">
-        <span class="card-icon">🍽️</span>
-        <span class="card-badge">LIVE</span>
-      </div>
-      <div>
-        <div class="card-title">오늘<br>뭐 먹지?</div>
-        <div class="card-desc" style="margin-top:6px">취향 테스트로<br>맞춤 맛집 추천</div>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <span class="card-tag">/eat</span>
+      <div class="card-emoji">🍽️</div>
+      <div class="card-badge live">LIVE</div>
+      <div class="card-title">오늘<br>뭐 먹지?</div>
+      <div class="card-desc">취향 테스트로<br>맞춤 맛집 추천</div>
+      <div class="card-footer">
+        <span class="card-path">/eat</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
 
-    <!-- WEAR -->
+    <!-- 뭐 입지 -->
     <a class="card card-wear" href="/wear">
-      <div class="card-top">
-        <span class="card-icon">👔</span>
-        <span class="card-badge">LIVE</span>
-      </div>
-      <div>
-        <div class="card-title">오늘<br>뭐 입지?</div>
-        <div class="card-desc" style="margin-top:6px">날씨·일정에 맞는<br>코디 추천</div>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <span class="card-tag">/wear</span>
+      <div class="card-emoji">👔</div>
+      <div class="card-badge live-blue">LIVE</div>
+      <div class="card-title">오늘<br>뭐 입지?</div>
+      <div class="card-desc">날씨·기온 맞춤<br>코디 추천</div>
+      <div class="card-footer">
+        <span class="card-path">/wear</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
 
-    <!-- DO -->
-    <div class="card card-do card-soon">
-      <div class="card-top">
-        <span class="card-icon">🎯</span>
-        <span class="card-badge">준비중</span>
-      </div>
-      <div>
-        <div class="card-title">오늘<br>뭐 하지?</div>
-        <div class="card-desc" style="margin-top:6px">기분·날씨로<br>활동 추천</div>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <span class="card-tag">/do</span>
+    <!-- 뭐 볼까 -->
+    <a class="card card-watch" href="/watch">
+      <div class="card-emoji">🎬</div>
+      <div class="card-badge live-red">LIVE</div>
+      <div class="card-title">오늘<br>뭐 볼까?</div>
+      <div class="card-desc">넷플릭스·유튜브<br>콘텐츠 추천</div>
+      <div class="card-footer">
+        <span class="card-path">/watch</span>
         <span class="card-arrow">→</span>
       </div>
-    </div>
+    </a>
 
-    <!-- WATCH -->
-    <div class="card card-watch card-soon">
-      <div class="card-top">
-        <span class="card-icon">🎬</span>
-        <span class="card-badge">준비중</span>
-      </div>
-      <div>
-        <div class="card-title">오늘<br>뭐 볼까?</div>
-        <div class="card-desc" style="margin-top:6px">취향저격<br>콘텐츠 추천</div>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <span class="card-tag">/watch</span>
+    <!-- 뭐 하지 -->
+    <div class="card card-do card-soon">
+      <div class="card-emoji">🎯</div>
+      <div class="card-badge">준비중</div>
+      <div class="card-title">오늘<br>뭐 하지?</div>
+      <div class="card-desc">기분·날씨 맞춤<br>활동 추천</div>
+      <div class="card-footer">
+        <span class="card-path">/do</span>
         <span class="card-arrow">→</span>
       </div>
     </div>
   </div>
 
   <footer class="footer">
-    <div class="footer-logo">What2Today</div>
-    <div class="footer-copy">© 2025 What2Today. All rights reserved.</div>
+    <div class="footer-brand">결정<span>장애</span></div>
+    <div class="footer-copy">© 2025 결정장애. All rights reserved.</div>
   </footer>
 </div>
 
-<!-- 카카오 애드핏 하단 고정 배너 -->
-<style>
-.ad-wrap{position:fixed;bottom:0;left:0;right:0;z-index:999;display:flex;justify-content:center;align-items:center;background:rgba(7,7,14,.97);padding:8px 0;border-top:1px solid rgba(255,255,255,.07)}
-</style>
+<!-- 카카오 애드핏 -->
 <div class="ad-wrap">
   <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-w1b5n8JUEWiLvW95" data-ad-width="320" data-ad-height="50"></ins>
   <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
 </div>
+
 </body>
 </html>
