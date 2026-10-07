@@ -17,22 +17,35 @@ for (const dialog of document.querySelectorAll('dialog')) {
     window.scrollTo(0, scrollY); returnFocus?.focus({preventScroll:true});
   });
 }
-$('#open-products').onclick = event => openDialog($('#products'), event.currentTarget);
+if ($('#open-products')) $('#open-products').onclick = event => openDialog($('#products'), event.currentTarget);
 for (const button of document.querySelectorAll('[data-open="products"]')) button.onclick = event => openDialog($('#products'), event.currentTarget);
-$('#open-video').disabled = true;
-function openVideo(event) {
-  if (!youtubeVideoId) return;
-  const frame = document.createElement('iframe');
-  frame.title = 'EP001 · LOOKMOOD 유튜브 쇼츠';
-  frame.src = 'https://www.youtube-nocookie.com/embed/' + youtubeVideoId + '?autoplay=0&playsinline=1&rel=0';
-  frame.allow = 'encrypted-media; picture-in-picture; fullscreen';
-  frame.allowFullscreen = true;
-  frame.referrerPolicy = 'strict-origin-when-cross-origin';
-  $('#youtube-player').replaceChildren(frame);
-  openDialog($('#video-dialog'), event.currentTarget);
+const videoButtons = document.querySelectorAll('#open-video, [data-open="video"]');
+for (const button of videoButtons) { button.disabled = true; button.onclick = openVideo; }
+function openVideo() {
+  if (!youtubeVideoId || !$('#inline-player')) return;
+  if (!$('#inline-player iframe')) {
+    const frame = document.createElement('iframe');
+    frame.title = 'EP001 · LOOKMOOD 유튜브 쇼츠';
+    frame.src = 'https://www.youtube-nocookie.com/embed/' + youtubeVideoId + '?autoplay=0&playsinline=1&rel=0';
+    frame.allow = 'encrypted-media; picture-in-picture; fullscreen';
+    frame.allowFullscreen = true;
+    frame.referrerPolicy = 'strict-origin-when-cross-origin';
+    $('#inline-player').replaceChildren(frame);
+  }
+  $('#inline-player').hidden = false;
+  $('#look-media').classList.add('playing');
+  $('#show-photo').setAttribute('aria-pressed', 'false');
+  $('#show-short').setAttribute('aria-pressed', 'true');
+  $('#show-short').focus({preventScroll:true});
+  $('#look-media').scrollIntoView({block:'center'});
+}
+if ($('#show-photo')) $('#show-photo').onclick = () => {
+  $('#inline-player').replaceChildren();
+  $('#inline-player').hidden = true;
+  $('#look-media').classList.remove('playing');
+  $('#show-photo').setAttribute('aria-pressed', 'true');
+  $('#show-short').setAttribute('aria-pressed', 'false');
 };
-$('#open-video').onclick = openVideo;
-for (const button of document.querySelectorAll('[data-open="video"]')) { button.disabled = true; button.onclick = openVideo; }
 function el(tag, text, className) {
   const node = document.createElement(tag);
   if (text) node.textContent = text;
@@ -56,13 +69,11 @@ fetch('/lookmood/content.json').then(response => {
   return response.json();
 }).then(data => {
   $('#look-title').textContent = data.look.title;
-  $('#description').textContent = data.look.description;
+  if ($('#description')) $('#description').textContent = data.look.description;
   if (/^[A-Za-z0-9_-]{11}$/.test(data.look.youtubeVideoId || '')) {
     youtubeVideoId = data.look.youtubeVideoId;
-    $('#open-video').disabled = false;
-    for (const button of document.querySelectorAll('[data-open="video"]')) button.disabled = false;
-    $('#youtube-original').href = 'https://www.youtube.com/shorts/' + youtubeVideoId;
-    $('#youtube-original').hidden = false;
+    for (const button of videoButtons) button.disabled = false;
+    if ($('#youtube-original')) { $('#youtube-original').href = 'https://www.youtube.com/shorts/' + youtubeVideoId; $('#youtube-original').hidden = false; }
   }
   for (const [name, url] of Object.entries(data.socials)) {
     const href = safeUrl(url), node = el(href ? 'a' : 'span', name);
@@ -73,9 +84,10 @@ fetch('/lookmood/content.json').then(response => {
   const products = data.products.filter(product => product.published);
   if (products.some(affiliateUrl)) {
     for (const selector of ['#disclosure', '#page-disclosure']) {
-      $(selector).hidden = false; $(selector).textContent = disclosure;
+      if ($(selector)) { $(selector).hidden = false; $(selector).textContent = disclosure; }
     }
   }
+  if (!$('#product-list')) return;
   for (const product of products) {
     const thumb = el('button'); thumb.setAttribute('aria-label', product.name + ' 상세보기');
     const thumbImage = el('img'); thumbImage.src = product.image; thumbImage.alt = ''; thumbImage.loading = 'lazy';
@@ -99,4 +111,3 @@ fetch('/lookmood/content.json').then(response => {
     row.append(image, body); $('#product-list').append(row);
   }
 }).catch(() => { $('#error').hidden = false; });
-
