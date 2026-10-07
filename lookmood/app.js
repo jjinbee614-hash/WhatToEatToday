@@ -1,5 +1,5 @@
 const $ = selector => document.querySelector(selector);
-let returnFocus, scrollY;
+let returnFocus, scrollY, youtubeVideoId;
 function openDialog(dialog, trigger) {
   returnFocus = trigger; scrollY = window.scrollY;
   Object.assign(document.body.style, {position:'fixed', top:`-${scrollY}px`, width:'100%'});
@@ -12,13 +12,24 @@ for (const dialog of document.querySelectorAll('dialog')) {
     if (event.target === dialog && (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom)) dialog.close();
   });
   dialog.addEventListener('close', () => {
-    dialog.querySelector('video')?.pause();
+    dialog.querySelector('iframe')?.remove();
     Object.assign(document.body.style, {position:'', top:'', width:''});
     window.scrollTo(0, scrollY); returnFocus?.focus({preventScroll:true});
   });
 }
 $('#open-products').onclick = event => openDialog($('#products'), event.currentTarget);
-$('#open-video').onclick = event => openDialog($('#video-dialog'), event.currentTarget);
+$('#open-video').disabled = true;
+$('#open-video').onclick = event => {
+  if (!youtubeVideoId) return;
+  const frame = document.createElement('iframe');
+  frame.title = 'EP001 · LOOKMOOD 유튜브 쇼츠';
+  frame.src = 'https://www.youtube-nocookie.com/embed/' + youtubeVideoId + '?autoplay=0&playsinline=1&rel=0';
+  frame.allow = 'encrypted-media; picture-in-picture; fullscreen';
+  frame.allowFullscreen = true;
+  frame.referrerPolicy = 'strict-origin-when-cross-origin';
+  $('#youtube-player').replaceChildren(frame);
+  openDialog($('#video-dialog'), event.currentTarget);
+};
 function el(tag, text, className) {
   const node = document.createElement(tag);
   if (text) node.textContent = text;
@@ -43,6 +54,12 @@ fetch('/lookmood/content.json').then(response => {
 }).then(data => {
   $('#look-title').textContent = data.look.title;
   $('#description').textContent = data.look.description;
+  if (/^[A-Za-z0-9_-]{11}$/.test(data.look.youtubeVideoId || '')) {
+    youtubeVideoId = data.look.youtubeVideoId;
+    $('#open-video').disabled = false;
+    $('#youtube-original').href = 'https://www.youtube.com/shorts/' + youtubeVideoId;
+    $('#youtube-original').hidden = false;
+  }
   for (const [name, url] of Object.entries(data.socials)) {
     const href = safeUrl(url), node = el(href ? 'a' : 'span', name);
     if (href) { node.href = href; node.target = '_blank'; node.rel = 'noopener noreferrer'; }
