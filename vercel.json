@@ -1,8 +1,63 @@
 {
+  "redirects": [
+    {
+      "destination": "/lookmood",
+      "permanent": false,
+      "source": "/"
+    },
+    {
+      "destination": "/lookmood",
+      "permanent": false,
+      "source": "/index.html"
+    },
+    {
+      "destination": "/lookmood",
+      "permanent": false,
+      "source": "/eat/:path*"
+    },
+    {
+      "destination": "/lookmood",
+      "permanent": false,
+      "source": "/wear/:path*"
+    },
+    {
+      "destination": "/lookmood",
+      "permanent": false,
+      "source": "/watch/:path*"
+    },
+    {
+      "destination": "/lookmood",
+      "permanent": false,
+      "source": "/food-finder-map.html"
+    }
+  ],
   "rewrites": [
-    { "source": "/api/kakao/search", "destination": "/api/kakao" },
-    { "source": "/eat", "destination": "/eat/index.html" },
-    { "source": "/wear", "destination": "/wear/index.html" },
-    { "source": "/watch", "destination": "/watch/index.html" }
+    {
+      "destination": "/api/kakao",
+      "source": "/api/kakao/search"
+    },
+    {
+      "destination": "/lookmood/index.html",
+      "source": "/lookmood"
+    },
+    {
+      "destination": "/lookmood/looks/001/index.html",
+      "source": "/lookmood/looks/001"
+    }
+  ],
+  "headers": [
+    {
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ],
+      "source": "/lookmood/:path*"
+    }
   ]
 }
