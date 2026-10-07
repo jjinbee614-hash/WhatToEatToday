@@ -3,7 +3,7 @@ let returnFocus, scrollY, youtubeVideoId;
 function openDialog(dialog, trigger) {
   returnFocus = trigger; scrollY = window.scrollY;
   Object.assign(document.body.style, {position:'fixed', top:`-${scrollY}px`, width:'100%'});
-  dialog.showModal(); dialog.querySelector('.close').focus();
+  dialog.showModal(); dialog.scrollTop = 0; dialog.querySelector('.close').focus();
 }
 for (const dialog of document.querySelectorAll('dialog')) {
   dialog.querySelector('.close').onclick = () => dialog.close();
@@ -18,8 +18,9 @@ for (const dialog of document.querySelectorAll('dialog')) {
   });
 }
 $('#open-products').onclick = event => openDialog($('#products'), event.currentTarget);
+for (const button of document.querySelectorAll('[data-open="products"]')) button.onclick = event => openDialog($('#products'), event.currentTarget);
 $('#open-video').disabled = true;
-$('#open-video').onclick = event => {
+function openVideo(event) {
   if (!youtubeVideoId) return;
   const frame = document.createElement('iframe');
   frame.title = 'EP001 · LOOKMOOD 유튜브 쇼츠';
@@ -30,6 +31,8 @@ $('#open-video').onclick = event => {
   $('#youtube-player').replaceChildren(frame);
   openDialog($('#video-dialog'), event.currentTarget);
 };
+$('#open-video').onclick = openVideo;
+for (const button of document.querySelectorAll('[data-open="video"]')) { button.disabled = true; button.onclick = openVideo; }
 function el(tag, text, className) {
   const node = document.createElement(tag);
   if (text) node.textContent = text;
@@ -57,6 +60,7 @@ fetch('/lookmood/content.json').then(response => {
   if (/^[A-Za-z0-9_-]{11}$/.test(data.look.youtubeVideoId || '')) {
     youtubeVideoId = data.look.youtubeVideoId;
     $('#open-video').disabled = false;
+    for (const button of document.querySelectorAll('[data-open="video"]')) button.disabled = false;
     $('#youtube-original').href = 'https://www.youtube.com/shorts/' + youtubeVideoId;
     $('#youtube-original').hidden = false;
   }
@@ -73,7 +77,12 @@ fetch('/lookmood/content.json').then(response => {
     }
   }
   for (const product of products) {
+    const thumb = el('button'); thumb.setAttribute('aria-label', product.name + ' 상세보기');
+    const thumbImage = el('img'); thumbImage.src = product.image; thumbImage.alt = ''; thumbImage.loading = 'lazy';
+    thumb.append(thumbImage); thumb.onclick = event => { openDialog($('#products'), event.currentTarget); document.getElementById('product-' + product.id).scrollIntoView({block:'start'}); };
+    $('#item-thumbnails').append(thumb);
     const row = el('article', null, 'product'), image = el('img'), body = el('div');
+    row.id = 'product-' + product.id;
     image.src = product.image; image.alt = product.name; image.loading = 'lazy';
     body.append(el('span', product.brand, 'brand'), el('h3', product.name),
       el('span', product.relation === 'alternative' ? '대체 상품' : product.relation === 'exact' ? '동일 상품' : '스타일링 참고 상품', 'badge'),
@@ -90,3 +99,4 @@ fetch('/lookmood/content.json').then(response => {
     row.append(image, body); $('#product-list').append(row);
   }
 }).catch(() => { $('#error').hidden = false; });
+
