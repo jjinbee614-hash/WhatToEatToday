@@ -1,0 +1,109 @@
+{
+  "look": {
+    "id": "002",
+    "title": "체크 스커트로 완성하는 차분한 가을룩 🤎",
+    "description": "아이보리 가디건과 그레이 체크 스커트에 라이트 브라운 코트를 더했어요. 블랙 숄더백과 스니커즈로 편안하게 마무리한 가을 스타일링.",
+    "youtubeVideoId": "WMOJBKMuENY"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep002-4190852",
+      "name": "원브릴리언트(ONE BRILLIANT) Oraa-OB446-Leopard",
+      "brand": "원브릴리언트",
+      "color": "Leopard",
+      "note": "판매처에서 사이즈와 옵션을 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20240612/4190852/4190852_17642309076799_500.jpg",
+      "url": "https://www.musinsa.com/products/4190852",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": "https://link.coupang.com/a/hFIXqX77xk",
+      "affiliateVerified": true,
+      "affiliateOriginalUrl": "https://www.coupang.com/vp/products/9720429265?itemId=29157383554&vendorItemId=96079764253",
+      "affiliateProductName": "매장정품 원브릴리언트 ONE BRILLIANT Oraa-OB446-Leopard 202226",
+      "affiliateCheckedAt": "2026-10-08",
+      "affiliateNote": "브랜드·상품명·색상 기준 매칭 · 사이즈와 현재 재고는 판매처 확인"
+    },
+    {
+      "id": "ep002-6593581",
+      "name": "무신사 스탠다드 우먼(MUSINSA STANDARD WOMAN) 우먼즈 슬럽 리브드 탑 가디건 세트 [아이보리]",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "아이보리",
+      "note": "판매처에서 사이즈와 옵션을 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20260602/6593581/6593581_17834092985570_500.jpg",
+      "url": "https://www.musinsa.com/products/6593581",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": "https://link.coupang.com/a/hFIXq45ZUy",
+      "affiliateVerified": true,
+      "affiliateOriginalUrl": "https://www.coupang.com/vp/products/9766031084?itemId=29229703460&vendorItemId=96148838236",
+      "affiliateProductName": "MUSINSA STANDARD WOMAN 우먼즈 슬럽 리브드 탑 가디건 세트 [아이보리]",
+      "affiliateCheckedAt": "2026-10-08",
+      "affiliateNote": "브랜드·상품명·색상 기준 매칭 · 사이즈와 현재 재고는 판매처 확인"
+    },
+    {
+      "id": "ep002-5151494",
+      "name": "무신사 스탠다드 우먼(MUSINSA STANDARD WOMAN) 우먼즈 신세틱 스웨이드 카 코트 [라이트 브라운]",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "라이트 브라운",
+      "note": "판매처에서 사이즈와 옵션을 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20250528/5151494/5151494_17585862581831_500.jpg",
+      "url": "https://www.musinsa.com/products/5151494",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": "https://link.coupang.com/a/hFIXs5qVe8",
+      "affiliateVerified": true,
+      "affiliateOriginalUrl": "https://www.coupang.com/vp/products/9766026909?itemId=29229688824&vendorItemId=96148824633",
+      "affiliateProductName": "MUSINSA STANDARD WOMAN 우먼즈 신세틱 스웨이드 카 코트 [라이트 브라운]",
+      "affiliateCheckedAt": "2026-10-08",
+      "affiliateNote": "브랜드·상품명·색상 기준 매칭 · 사이즈와 현재 재고는 판매처 확인"
+    },
+    {
+      "id": "ep002-4662864",
+      "name": "무센트(MUCENT) 그릭 레더 숄더백 남녀공용 (2컬러)",
+      "brand": "무센트",
+      "color": "블랙 스타일링 · 옵션 확인",
+      "note": "판매처에서 사이즈와 옵션을 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20241212/4662864/4662864_17907406124240_500.jpg",
+      "url": "https://www.musinsa.com/products/4662864",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep002-6605356",
+      "name": "무신사 스탠다드 우먼(MUSINSA STANDARD WOMAN) 우먼즈 옴브레 체크 니 렝스 스커트 [그레이]",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "그레이",
+      "note": "판매처에서 사이즈와 옵션을 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20260604/6605356/6605356_17883394252937_500.jpg",
+      "url": "https://www.musinsa.com/products/6605356",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": "https://link.coupang.com/a/hFIXtbLfLU",
+      "affiliateVerified": true,
+      "affiliateOriginalUrl": "https://www.coupang.com/vp/products/9752636960?itemId=29202534103&vendorItemId=96122815045",
+      "affiliateProductName": "MUSINSA STANDARD WOMAN 우먼즈 옴브레 체크 니 렝스 스커트 [그레이]",
+      "affiliateCheckedAt": "2026-10-08",
+      "affiliateNote": "브랜드·상품명·색상 기준 매칭 · 사이즈와 현재 재고는 판매처 확인"
+    },
+    {
+      "id": "ep002-6997822",
+      "name": "오니츠카타이거(ONITSUKA TIGER) 토쿠텐 1183C429_250",
+      "brand": "오니츠카타이거",
+      "color": "1183C429_250",
+      "note": "판매처에서 사이즈와 옵션을 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20260805/6997822/6997822_17870141063865_500.jpg",
+      "url": "https://www.musinsa.com/products/6997822",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    }
+  ]
+}

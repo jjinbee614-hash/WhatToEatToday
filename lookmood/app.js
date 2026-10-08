@@ -25,7 +25,7 @@ function openVideo() {
   if (!youtubeVideoId || !$('#inline-player')) return;
   if (!$('#inline-player iframe')) {
     const frame = document.createElement('iframe');
-    frame.title = 'EP001 · LOOKMOOD 유튜브 쇼츠';
+    frame.title = 'LOOKMOOD 유튜브 쇼츠';
     frame.src = 'https://www.youtube-nocookie.com/embed/' + youtubeVideoId + '?autoplay=0&playsinline=1&rel=0';
     frame.allow = 'encrypted-media; picture-in-picture; fullscreen';
     frame.allowFullscreen = true;
@@ -64,7 +64,7 @@ function link(text, url, affiliate = false) {
   return node;
 }
 const disclosure = '이 페이지는 쿠팡파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.';
-fetch('/lookmood/content.json').then(response => {
+fetch(document.body.dataset.content || '/lookmood/content.json').then(response => {
   if (!response.ok) throw Error(response.status);
   return response.json();
 }).then(data => {
