@@ -57,10 +57,24 @@ function affiliateUrl(product) {
   const url = safeUrl(product.affiliateUrl);
   return product.affiliateVerified && url && new URL(url).hostname === 'link.coupang.com' ? url : null;
 }
-function link(text, url, affiliate = false) {
+function link(text, url, affiliate = false, product = null, lookId = null) {
   const node = el('a', text, affiliate ? 'buy affiliate-buy' : 'buy');
   node.href = url; node.target = '_blank';
   node.rel = affiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer';
+  if (affiliate && product) {
+    const track = event => {
+      if (event.type === 'auxclick' && event.button !== 1) return;
+      try {
+        if (typeof window.gtag === 'function') window.gtag('event', 'coupang_click', {
+          episode_id: 'EP' + lookId, product_id: product.id,
+          product_name: product.name.slice(0, 100), link_url: url,
+          link_domain: 'link.coupang.com', transport_type: 'beacon'
+        });
+      } catch { /* Tracking must never block product navigation. */ }
+    };
+    node.addEventListener('click', track);
+    node.addEventListener('auxclick', track);
+  }
   return node;
 }
 const disclosure = '이 페이지는 쿠팡파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.';
@@ -102,7 +116,7 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
     const affiliate = affiliateUrl(product);
     if (affiliate) {
       body.append(el('p', product.affiliateNote), el('p', disclosure, 'disclosure'));
-      body.append(link(product.affiliateStock === 'sold_out' ? '쿠팡 품절 상품 확인 ↗' : '쿠팡에서 상품 보기 ↗', affiliate, true));
+      body.append(link(product.affiliateStock === 'sold_out' ? '쿠팡 품절 상품 확인 ↗' : '쿠팡에서 상품 보기 ↗', affiliate, true, product, data.look.id));
     } else {
       body.append(el('p', '쿠팡 동일 상품 미확인 · 원본 상품 링크를 확인해 주세요.'));
     }
