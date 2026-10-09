@@ -1,0 +1,122 @@
+{
+  "look": {
+    "id": "003",
+    "title": "블랙 레더에 버건디 한 끗 🖤",
+    "description": "블랙 레더 블루종과 블랙 니트에 그레이 티어드 롱 스커트를 매치했어요. 버건디 호보백으로 포인트를 더한 가을 데일리룩.",
+    "youtubeVideoId": "lAgVIq0Ej9Y"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep003-5256437",
+      "name": "치미(CHIMI) 코드 CODE BLACK",
+      "brand": "치미",
+      "color": "블랙",
+      "note": "판매처에서 사이즈와 옵션을 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20250718/5256437/5256437_17822625761862_500.jpg",
+      "url": "https://www.musinsa.com/products/5256437",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep003-6652082",
+      "name": "무신사 스탠다드 우먼(MUSINSA STANDARD WOMAN) 우먼즈 신세틱 레더 하이 넥 블루종 재킷 [블랙]",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "블랙",
+      "note": "판매처에서 사이즈와 옵션을 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20260611/6652082/6652082_17876231576126_500.jpg",
+      "url": "https://www.musinsa.com/products/6652082",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": "https://link.coupang.com/a/hHnRCVLWlo",
+      "affiliateVerified": true,
+      "affiliateOriginalUrl": "https://www.coupang.com/vp/products/9721857097?itemId=29156018637&vendorItemId=96078486308",
+      "affiliateProductName": "MUSINSA STANDARD WOMAN [한소희 PICK]우먼즈 신세틱 레더 하이 넥 블루종 재킷 [블랙]",
+      "affiliateCheckedAt": "2026-10-09",
+      "affiliateNote": "브랜드·상품명·색상 일치 확인. 사이즈와 재고는 판매처에서 확인해 주세요."
+    },
+    {
+      "id": "ep003-6495841",
+      "name": "로우클래식(LOW CLASSIC) SHEER LINEN BLENDED DEEP U-NECK SWEATER_BLACK [LC262KN03BK]",
+      "brand": "로우클래식",
+      "color": "블랙",
+      "note": "판매처에서 사이즈와 옵션을 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20260516/6495841/6495841_17792641871159_500.jpg",
+      "url": "https://www.musinsa.com/products/6495841",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": "https://link.coupang.com/a/hHnRC1yHQa",
+      "affiliateVerified": true,
+      "affiliateOriginalUrl": "https://www.coupang.com/vp/products/9689126123?itemId=29150492517&vendorItemId=96073405367",
+      "affiliateProductName": "로우클래식 LOW CLASSIC SHEER LINEN BLENDED DEEP U-NECK SWEATER BLACK LC262KN03BK",
+      "affiliateCheckedAt": "2026-10-09",
+      "affiliateNote": "브랜드·상품명·색상 일치 확인. 사이즈와 재고는 판매처에서 확인해 주세요."
+    },
+    {
+      "id": "ep003-5349564",
+      "name": "샌드뮤지엄(SAND MUSEUM) CACTUS HOBO BAG [Burgundy]",
+      "brand": "샌드뮤지엄",
+      "color": "버건디",
+      "note": "판매처에서 사이즈와 옵션을 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20250821/5349564/5349564_17572384344406_500.jpg",
+      "url": "https://www.musinsa.com/products/5349564",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": "https://link.coupang.com/a/hHnRC6DyP6",
+      "affiliateVerified": true,
+      "affiliateOriginalUrl": "https://www.coupang.com/vp/products/9685812437?itemId=28965749080&vendorItemId=95895632242",
+      "affiliateProductName": "샌드뮤지엄 CACTUS HOBO BAG [Burgundy]",
+      "affiliateCheckedAt": "2026-10-09",
+      "affiliateNote": "브랜드·상품명·색상 일치 확인. 사이즈와 재고는 판매처에서 확인해 주세요."
+    },
+    {
+      "id": "ep003-7010742",
+      "name": "세릭(CERRIC) Shirring Belt _ Black",
+      "brand": "세릭",
+      "color": "블랙",
+      "note": "판매처에서 사이즈와 옵션을 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20260806/7010742/7010742_17859958843204_500.jpg",
+      "url": "https://www.musinsa.com/products/7010742",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep003-5626723",
+      "name": "무신사 스탠다드 우먼(MUSINSA STANDARD WOMAN) 우먼즈 저지 티어드 롱 스커트 [그레이]",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "그레이",
+      "note": "판매처에서 사이즈와 옵션을 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20251022/5626723/5626723_17707883215660_500.jpg",
+      "url": "https://www.musinsa.com/products/5626723",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": "https://link.coupang.com/a/hHnRDbUtRk",
+      "affiliateVerified": true,
+      "affiliateOriginalUrl": "https://www.coupang.com/vp/products/9752625812?itemId=29202506623&vendorItemId=96122789206",
+      "affiliateProductName": "MUSINSA STANDARD WOMAN 우먼즈 저지 티어드 롱 스커트 [그레이]",
+      "affiliateCheckedAt": "2026-10-09",
+      "affiliateNote": "브랜드·상품명·색상 일치 확인. 사이즈와 재고는 판매처에서 확인해 주세요."
+    },
+    {
+      "id": "ep003-5439129",
+      "name": "솔트앤초콜릿(SALT AND CHOCOLATE) 이베르 와이드 롱부츠 412548004 (3.5cm)",
+      "brand": "솔트앤초콜릿",
+      "color": "판매처 색상 옵션 확인",
+      "note": "판매처에서 사이즈와 옵션을 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20250910/5439129/5439129_17586753266432_500.jpg",
+      "url": "https://www.musinsa.com/products/5439129",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    }
+  ]
+}
