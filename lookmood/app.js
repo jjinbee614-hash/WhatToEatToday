@@ -140,14 +140,19 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
     const row = el('article', null, 'product'), image = el('img'), body = el('div');
     row.id = 'product-' + product.id;
     image.src = product.image; image.alt = product.name; image.loading = 'lazy';
-    body.append(el('span', product.brand, 'brand'), el('h3', product.name),
+    const info = el('div', null, 'product-info');
+    body.className = 'product-body';
+    info.append(el('span', product.brand, 'brand'), el('h3', product.name),
       el('span', product.relation === 'alternative' ? '대체 상품' : product.relation === 'exact' ? '동일 상품' : '스타일링 참고 상품', 'badge'),
-      el('p', product.color + ' · ' + product.note));
+      el('p', product.color, 'product-color'));
+    const note = (product.note || '').replace(/판매처에서 사이즈와 옵션을 확인(?:해 주세요|하세요)\.?/g, '').trim();
+    if (note) info.append(el('p', note, 'product-styling-note'));
+    body.append(info);
     const affiliate = affiliateUrl(product);
     const original = safeUrl(product.url);
-    renderPrice(body, product, data.look.id, affiliate || original);
+    renderPrice(info, product, data.look.id, affiliate || original);
     if (affiliate) {
-      body.append(el('p', product.affiliateNote), el('p', disclosure, 'disclosure'));
+      info.append(el('p', product.affiliateNote), el('p', disclosure, 'disclosure'));
       body.append(link('상품 상세보기 ↗', affiliate, true, product, data.look.id));
     }
     if (!affiliate && original) {
