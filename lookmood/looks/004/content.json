@@ -1,0 +1,132 @@
+{
+  "look": {
+    "id": "004",
+    "title": "블랙 레더에 크림 스카프, 차분한 가을 출근룩 🖤",
+    "description": "블랙 레더 코트와 오트밀 니트에 그레이 체크 스커트를 매치했어요. 크림 스카프와 블랙 소품으로 단정하게 마무리한 가을 출근룩.",
+    "youtubeVideoId": "EjRD-fH7g_c"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep004-7103167",
+      "name": "로긴 앤 로지(ROGIN N ROSIE) 세이지 스퀘어 블랙",
+      "brand": "로긴 앤 로지",
+      "color": "블랙",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260819/7103167/7103167_17878869624579_500.jpg",
+      "url": "https://www.musinsa.com/products/7103167",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep004-7036807",
+      "name": "엘무드 우먼(LMOOD WOMEN) FRELE Jacquard Silk Scarf Cream",
+      "brand": "엘무드 우먼",
+      "color": "크림",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260810/7036807/7036807_17884358796295_500.jpg",
+      "url": "https://www.musinsa.com/products/7036807",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep004-6652080",
+      "name": "무신사 스탠다드 우먼(MUSINSA STANDARD WOMAN) 우먼즈 신세틱 레더 카 코트 [블랙]",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "블랙",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260611/6652080/6652080_17878200633645_500.jpg",
+      "url": "https://www.musinsa.com/products/6652080",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep004-7097818",
+      "name": "로우클래식(LOW CLASSIC) WOOL BLEND HIGH-NECK SWEATER_OATMEAL [LC263KN02OT]",
+      "brand": "로우클래식",
+      "color": "오트밀",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260818/7097818/7097818_17883214965244_500.jpg",
+      "url": "https://www.musinsa.com/products/7097818",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep004-6032708",
+      "name": "시코마(CCOMA) 클래식 블랙 레더 벨트",
+      "brand": "시코마",
+      "color": "블랙",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260219/6032708/6032708_17715008650180_500.jpg",
+      "url": "https://www.musinsa.com/products/6032708",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep004-6605356",
+      "name": "무신사 스탠다드 우먼(MUSINSA STANDARD WOMAN) 우먼즈 옴브레 체크 니 렝스 스커트 [그레이]",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "그레이",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260604/6605356/6605356_17883394252937_500.jpg",
+      "url": "https://www.musinsa.com/products/6605356",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep004-5426529",
+      "name": "모어모르(MOREMORR) MOVO BAG _black 미니백 3way",
+      "brand": "모어모르",
+      "color": "블랙",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20250909/5426529/5426529_17782248607726_500.jpg",
+      "url": "https://www.musinsa.com/products/5426529",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep004-2236682",
+      "name": "비아리츠(BIARRITZ) 15데니아 라이크라 고탄력 팬티스타킹",
+      "brand": "비아리츠",
+      "color": "블랙 착장 참고",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20211117/2236682/2236682_1_500.jpg",
+      "url": "https://www.musinsa.com/products/2236682",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep004-6033998",
+      "name": "에퓨레(EPURE) COPE Square Loafers (2color)",
+      "brand": "에퓨레",
+      "color": "블랙 착장 참고",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260220/6033998/6033998_17715537171433_500.jpg",
+      "url": "https://www.musinsa.com/products/6033998",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    }
+  ]
+}
