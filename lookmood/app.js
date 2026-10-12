@@ -1,5 +1,18 @@
 const $ = selector => document.querySelector(selector);
 let returnFocus, scrollY, youtubeVideoId;
+const mobileLayout = window.matchMedia('(max-width:700px)');
+let inlineProducts;
+function showProducts(trigger, productId) {
+  if (mobileLayout.matches && inlineProducts) {
+    const target = productId ? document.getElementById('product-' + productId) : inlineProducts;
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll:true});
+    target.scrollIntoView({block:'start'});
+  } else {
+    openDialog($('#products'), trigger);
+    if (productId) document.getElementById('product-' + productId).scrollIntoView({block:'start'});
+  }
+}
 function openDialog(dialog, trigger) {
   returnFocus = trigger; scrollY = window.scrollY;
   Object.assign(document.body.style, {position:'fixed', top:`-${scrollY}px`, width:'100%'});
@@ -17,8 +30,8 @@ for (const dialog of document.querySelectorAll('dialog')) {
     window.scrollTo(0, scrollY); returnFocus?.focus({preventScroll:true});
   });
 }
-if ($('#open-products')) $('#open-products').onclick = event => openDialog($('#products'), event.currentTarget);
-for (const button of document.querySelectorAll('[data-open="products"]')) button.onclick = event => openDialog($('#products'), event.currentTarget);
+if ($('#open-products')) $('#open-products').onclick = event => showProducts(event.currentTarget);
+for (const button of document.querySelectorAll('[data-open="products"]')) button.onclick = event => showProducts(event.currentTarget);
 const videoButtons = document.querySelectorAll('#open-video, [data-open="video"]');
 for (const button of videoButtons) { button.disabled = true; button.onclick = openVideo; }
 function openVideo() {
@@ -68,7 +81,8 @@ function link(text, url, affiliate = false, product = null, lookId = null) {
         if (typeof window.gtag === 'function') window.gtag('event', 'coupang_click', {
           episode_id: 'EP' + lookId, product_id: product.id,
           product_name: product.name.slice(0, 100), link_url: url,
-          link_domain: 'link.coupang.com', transport_type: 'beacon'
+          link_domain: 'link.coupang.com', transport_type: 'beacon',
+          ...(product.displayedPrice ? {displayed_price:product.displayedPrice,currency:'KRW'} : {})
         });
       } catch { /* Tracking must never block product navigation. */ }
     };
@@ -78,6 +92,22 @@ function link(text, url, affiliate = false, product = null, lookId = null) {
   return node;
 }
 const disclosure = '이 페이지는 쿠팡파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.';
+const pricesReady = fetch('/lookmood/prices.json').then(response => response.ok ? response.json() : null).catch(() => null);
+function renderPrice(body, product, lookId, destination) {
+  const price = el('p', '판매처에서 가격 확인', 'product-price');
+  body.append(price);
+  pricesReady.then(data => {
+    const record = data?.products?.[lookId + ':' + product.id];
+    const age = Date.now() - Date.parse(record?.checkedAt);
+    if (!record || record.url !== destination || record.currency !== 'KRW' || age < -60000 || age > 36*60*60*1000 || !Number.isFinite(age)) return;
+    if (record.status === 'sold_out') { price.textContent = '확인한 옵션 품절 · 판매처 확인'; return; }
+    if (record.status !== 'confirmed' || !Number.isSafeInteger(record.amount) || record.amount <= 0) return;
+    product.displayedPrice = record.amount;
+    price.textContent = new Intl.NumberFormat('ko-KR').format(record.amount) + '원';
+    const timestamp = new Intl.DateTimeFormat('ko-KR', {timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(record.checkedAt));
+    price.append(el('small', (record.source === 'coupang' ? '쿠팡' : '무신사') + ' · ' + timestamp + ' 확인'));
+  });
+}
 fetch(document.body.dataset.content || '/lookmood/content.json').then(response => {
   if (!response.ok) throw Error(response.status);
   return response.json();
@@ -105,7 +135,7 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
   for (const product of products) {
     const thumb = el('button'); thumb.setAttribute('aria-label', product.name + ' 상세보기');
     const thumbImage = el('img'); thumbImage.src = product.image; thumbImage.alt = ''; thumbImage.loading = 'lazy';
-    thumb.append(thumbImage); thumb.onclick = event => { openDialog($('#products'), event.currentTarget); document.getElementById('product-' + product.id).scrollIntoView({block:'start'}); };
+    thumb.append(thumbImage); thumb.onclick = event => showProducts(event.currentTarget, product.id);
     $('#item-thumbnails').append(thumb);
     const row = el('article', null, 'product'), image = el('img'), body = el('div');
     row.id = 'product-' + product.id;
@@ -114,14 +144,33 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
       el('span', product.relation === 'alternative' ? '대체 상품' : product.relation === 'exact' ? '동일 상품' : '스타일링 참고 상품', 'badge'),
       el('p', product.color + ' · ' + product.note));
     const affiliate = affiliateUrl(product);
+    const original = safeUrl(product.url);
+    renderPrice(body, product, data.look.id, affiliate || original);
     if (affiliate) {
       body.append(el('p', product.affiliateNote), el('p', disclosure, 'disclosure'));
-      body.append(link(product.affiliateStock === 'sold_out' ? '쿠팡 품절 상품 확인 ↗' : '쿠팡에서 상품 보기 ↗', affiliate, true, product, data.look.id));
-    } else {
-      body.append(el('p', '쿠팡 동일 상품 미확인 · 원본 상품 링크를 확인해 주세요.'));
+      body.append(link('상품 상세보기 ↗', affiliate, true, product, data.look.id));
     }
-    const original = safeUrl(product.url);
-    if (original) body.append(link(affiliate ? '무신사 원본 상품 ↗' : '무신사에서 상품 보기 ↗', original));
+    if (!affiliate && original) {
+      const originalLink = link('상품 상세보기 ↗', original);
+      originalLink.classList.add('product-buy');
+      body.append(originalLink);
+    }
     row.append(image, body); $('#product-list').append(row);
   }
+  const dialog = $('#products'), panel = dialog.querySelector('.dialog-body');
+  panel.prepend(el('p', '확인 시점의 참고 가격입니다. 옵션·쿠폰·배송비에 따라 달라질 수 있으며 최종 가격은 판매처에서 확인해 주세요.', 'notice price-notice'));
+  inlineProducts = el('section', null, 'inline-products');
+  inlineProducts.id = 'shop-the-look';
+  inlineProducts.setAttribute('aria-labelledby', 'inline-products-title');
+  const heading = el('h2', '이 룩의 아이템 · ' + products.length);
+  heading.id = 'inline-products-title';
+  inlineProducts.append(heading);
+  $('#latest').after(inlineProducts);
+  const syncLayout = () => {
+    if (dialog.open) dialog.close();
+    inlineProducts.hidden = !mobileLayout.matches;
+    (mobileLayout.matches ? inlineProducts : dialog).append(panel);
+  };
+  mobileLayout.addEventListener('change', syncLayout);
+  syncLayout();
 }).catch(() => { $('#error').hidden = false; });
