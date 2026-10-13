@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-13T00:05:45.507Z",
+  "updatedAt": "2026-10-13T03:04:36.917Z",
   "products": {
     "001:glasses": {
       "source": "musinsa",
@@ -236,6 +236,62 @@
       "currency": "KRW",
       "checkedAt": "2026-10-13T00:08:55.701Z",
       "amount": 92650,
+      "status": "confirmed"
+    },
+    "005:ep005-6622351": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6622351",
+      "currency": "KRW",
+      "checkedAt": "2026-10-13T03:04:36.836Z",
+      "amount": 29900,
+      "status": "confirmed"
+    },
+    "005:ep005-6835375": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6835375",
+      "currency": "KRW",
+      "checkedAt": "2026-10-13T03:04:36.857Z",
+      "amount": 159900,
+      "status": "confirmed"
+    },
+    "005:ep005-5626704": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/5626704",
+      "currency": "KRW",
+      "checkedAt": "2026-10-13T03:04:36.871Z",
+      "amount": 19900,
+      "status": "confirmed"
+    },
+    "005:ep005-6604568": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6604568",
+      "currency": "KRW",
+      "checkedAt": "2026-10-13T03:04:36.882Z",
+      "amount": 45900,
+      "status": "confirmed"
+    },
+    "005:ep005-4765581": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/4765581",
+      "currency": "KRW",
+      "checkedAt": "2026-10-13T03:04:36.894Z",
+      "amount": 109000,
+      "status": "confirmed"
+    },
+    "005:ep005-5892071": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/5892071",
+      "currency": "KRW",
+      "checkedAt": "2026-10-13T03:04:36.907Z",
+      "amount": 47390,
+      "status": "confirmed"
+    },
+    "005:ep005-7046215": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7046215",
+      "currency": "KRW",
+      "checkedAt": "2026-10-13T03:04:36.917Z",
+      "amount": 102400,
       "status": "confirmed"
     }
   }
