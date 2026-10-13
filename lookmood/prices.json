@@ -1,19 +1,19 @@
 {
-  "updatedAt": "2026-10-12T03:05:15.300Z",
+  "updatedAt": "2026-10-13T00:05:45.507Z",
   "products": {
     "001:glasses": {
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/6806228",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:08:03.502Z",
-      "amount": 39900,
+      "checkedAt": "2026-10-13T00:05:45.519Z",
+      "amount": 36540,
       "status": "confirmed"
     },
     "001:jacket": {
       "source": "coupang",
       "url": "https://link.coupang.com/a/hEgltcUzBc",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:08:10.413Z",
+      "checkedAt": "2026-10-13T00:05:52.561Z",
       "amount": null,
       "status": "sold_out"
     },
@@ -21,7 +21,7 @@
       "source": "coupang",
       "url": "https://link.coupang.com/a/hEgltipu20",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:08:16.922Z",
+      "checkedAt": "2026-10-13T00:05:59.067Z",
       "amount": null,
       "status": "unavailable",
       "reason": "same_option_not_found"
@@ -30,7 +30,7 @@
       "source": "coupang",
       "url": "https://link.coupang.com/a/hEgltoqKOa",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:08:26.902Z",
+      "checkedAt": "2026-10-13T00:06:06.009Z",
       "amount": 57100,
       "status": "confirmed"
     },
@@ -38,7 +38,7 @@
       "source": "coupang",
       "url": "https://link.coupang.com/a/hEgltvOkbQ",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:08:33.592Z",
+      "checkedAt": "2026-10-13T00:06:12.735Z",
       "amount": 38300,
       "status": "confirmed"
     },
@@ -46,7 +46,7 @@
       "source": "coupang",
       "url": "https://link.coupang.com/a/hEgltA81Dg",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:08:40.816Z",
+      "checkedAt": "2026-10-13T00:06:19.429Z",
       "amount": null,
       "status": "unavailable",
       "reason": "same_option_not_found"
@@ -55,7 +55,7 @@
       "source": "coupang",
       "url": "https://link.coupang.com/a/hEgltFzrno",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:08:47.556Z",
+      "checkedAt": "2026-10-13T00:06:26.801Z",
       "amount": 114000,
       "status": "confirmed"
     },
@@ -63,7 +63,7 @@
       "source": "coupang",
       "url": "https://link.coupang.com/a/hFIXqX77xk",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:08:54.182Z",
+      "checkedAt": "2026-10-13T00:06:33.727Z",
       "amount": 38800,
       "status": "confirmed"
     },
@@ -71,7 +71,7 @@
       "source": "coupang",
       "url": "https://link.coupang.com/a/hFIXq45ZUy",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:09:00.894Z",
+      "checkedAt": "2026-10-13T00:06:40.366Z",
       "amount": null,
       "status": "unavailable",
       "reason": "same_option_not_found"
@@ -80,7 +80,7 @@
       "source": "coupang",
       "url": "https://link.coupang.com/a/hFIXs5qVe8",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:09:07.526Z",
+      "checkedAt": "2026-10-13T00:06:47.406Z",
       "amount": null,
       "status": "unavailable",
       "reason": "same_option_not_found"
@@ -89,15 +89,15 @@
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/4662864",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:09:14.184Z",
-      "amount": 40200,
+      "checkedAt": "2026-10-13T00:06:54.186Z",
+      "amount": 43900,
       "status": "confirmed"
     },
     "002:ep002-6605356": {
       "source": "coupang",
       "url": "https://link.coupang.com/a/hFIXtbLfLU",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:09:21.047Z",
+      "checkedAt": "2026-10-13T00:07:00.907Z",
       "amount": 64900,
       "status": "confirmed"
     },
@@ -105,7 +105,7 @@
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/6997822",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:09:27.708Z",
+      "checkedAt": "2026-10-13T00:07:07.670Z",
       "amount": 210000,
       "status": "confirmed"
     },
@@ -113,7 +113,7 @@
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/5256437",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:09:34.431Z",
+      "checkedAt": "2026-10-13T00:07:14.390Z",
       "amount": 328000,
       "status": "confirmed"
     },
@@ -121,7 +121,7 @@
       "source": "coupang",
       "url": "https://link.coupang.com/a/hHnRCVLWlo",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:09:41.142Z",
+      "checkedAt": "2026-10-13T00:07:21.124Z",
       "amount": 212800,
       "status": "confirmed"
     },
@@ -129,7 +129,7 @@
       "source": "coupang",
       "url": "https://link.coupang.com/a/hHnRC1yHQa",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:09:47.812Z",
+      "checkedAt": "2026-10-13T00:07:27.776Z",
       "amount": null,
       "status": "unavailable",
       "reason": "same_option_not_found"
@@ -138,7 +138,7 @@
       "source": "coupang",
       "url": "https://link.coupang.com/a/hHnRC6DyP6",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:09:54.608Z",
+      "checkedAt": "2026-10-13T00:07:34.463Z",
       "amount": 189800,
       "status": "confirmed"
     },
@@ -146,7 +146,7 @@
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/7010742",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:10:01.251Z",
+      "checkedAt": "2026-10-13T00:07:41.157Z",
       "amount": 139000,
       "status": "confirmed"
     },
@@ -154,7 +154,7 @@
       "source": "coupang",
       "url": "https://link.coupang.com/a/hHnRDbUtRk",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:10:07.935Z",
+      "checkedAt": "2026-10-13T00:07:47.880Z",
       "amount": 57000,
       "status": "confirmed"
     },
@@ -162,7 +162,7 @@
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/5439129",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T01:10:14.672Z",
+      "checkedAt": "2026-10-13T00:07:54.707Z",
       "amount": 111200,
       "status": "confirmed"
     },
@@ -170,7 +170,7 @@
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/7103167",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T03:05:15.218Z",
+      "checkedAt": "2026-10-13T00:08:01.433Z",
       "amount": 35860,
       "status": "confirmed"
     },
@@ -178,7 +178,7 @@
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/7036807",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T03:05:15.241Z",
+      "checkedAt": "2026-10-13T00:08:08.154Z",
       "amount": 49500,
       "status": "confirmed"
     },
@@ -186,7 +186,7 @@
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/6652080",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T03:05:15.251Z",
+      "checkedAt": "2026-10-13T00:08:14.842Z",
       "amount": 159900,
       "status": "confirmed"
     },
@@ -194,7 +194,7 @@
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/7097818",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T03:05:15.259Z",
+      "checkedAt": "2026-10-13T00:08:21.951Z",
       "amount": 160550,
       "status": "confirmed"
     },
@@ -202,7 +202,7 @@
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/6032708",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T03:05:15.269Z",
+      "checkedAt": "2026-10-13T00:08:28.707Z",
       "amount": 29750,
       "status": "confirmed"
     },
@@ -210,7 +210,7 @@
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/6605356",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T03:05:15.277Z",
+      "checkedAt": "2026-10-13T00:08:35.591Z",
       "amount": 49900,
       "status": "confirmed"
     },
@@ -218,15 +218,15 @@
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/5426529",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T03:05:15.284Z",
-      "amount": 112500,
+      "checkedAt": "2026-10-13T00:08:42.293Z",
+      "amount": 95900,
       "status": "confirmed"
     },
     "004:ep004-2236682": {
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/2236682",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T03:05:15.292Z",
+      "checkedAt": "2026-10-13T00:08:49.001Z",
       "amount": 6930,
       "status": "confirmed"
     },
@@ -234,7 +234,7 @@
       "source": "musinsa",
       "url": "https://www.musinsa.com/products/6033998",
       "currency": "KRW",
-      "checkedAt": "2026-10-12T03:05:15.300Z",
+      "checkedAt": "2026-10-13T00:08:55.701Z",
       "amount": 92650,
       "status": "confirmed"
     }
