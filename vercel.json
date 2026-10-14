@@ -59,6 +59,10 @@
     {
       "source": "/lookmood/looks/005",
       "destination": "/lookmood/looks/005/index.html"
+    },
+    {
+      "source": "/lookmood/looks/006",
+      "destination": "/lookmood/looks/006/index.html"
     }
   ],
   "headers": [
