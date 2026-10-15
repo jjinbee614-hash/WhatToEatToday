@@ -1,0 +1,106 @@
+{
+  "look": {
+    "id": "007",
+    "title": "반바지에 롱부츠, 가을 주말룩 🤎",
+    "description": "베이지 블루종과 네이비 스트라이프 니트에 그레이 쇼츠를 매치했어요. 브로치와 토트백, 샌드 롱부츠로 완성한 가을 주말룩.",
+    "youtubeVideoId": "eHyWnTWhtvM"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep007-7010709",
+      "name": "플레이스 스튜디오(PLACE STUDIO) 스터드 하이넥 비조 멀티 포켓 포인트 오버핏 블루종 코튼 집업 자켓 [베이지]",
+      "brand": "플레이스 스튜디오",
+      "color": "베이지",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260806/7010709/7010709_17866691704486_500.jpg",
+      "url": "https://www.musinsa.com/products/7010709",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep007-7108460",
+      "name": "글로니(GLOWNY) MELLOW V-NECK STRIPE KNIT (NAVY STRIPE)",
+      "brand": "글로니",
+      "color": "네이비 스트라이프",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260819/7108460/7108460_17890185409645_500.jpg",
+      "url": "https://www.musinsa.com/products/7108460",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep007-5544155",
+      "name": "에이레브(EIREVE) 보우 앤 그레이프 브로치(크림)",
+      "brand": "에이레브",
+      "color": "크림",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20250929/5544155/5544155_17591231532971_500.jpg",
+      "url": "https://www.musinsa.com/products/5544155",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep007-5952555",
+      "name": "카키포인트(KHAKIPOINT) Lettering Sweat Shorts (gray)",
+      "brand": "카키포인트",
+      "color": "그레이",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260129/5952555/5952555_17706219820558_500.jpg",
+      "url": "https://www.musinsa.com/products/5952555",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep007-4402750",
+      "name": "유라고(URAGO) Washable V-neck knit",
+      "brand": "유라고",
+      "color": "판매처 색상 선택",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20240904/4402750/4402750_17732772563292_500.jpg",
+      "url": "https://www.musinsa.com/products/4402750",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep007-6417746",
+      "name": "데프가먼츠(DEFGARMENTS) METAL STUD TOTE BAG [3COLOR]",
+      "brand": "데프가먼츠",
+      "color": "판매처 색상 선택",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260504/6417746/6417746_17788099898191_500.jpg",
+      "url": "https://www.musinsa.com/products/6417746",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep007-7049297",
+      "name": "네거티브쓰리(NEGATIVETHREE) H-Kimera Knee-High Slouchy Long Boots_Sand",
+      "brand": "네거티브쓰리",
+      "color": "샌드",
+      "note": "",
+      "image": "https://image.msscdn.net/images/prd_img/20260811/7049297/detail_7049297_17918539003826_500.jpg",
+      "url": "https://www.musinsa.com/products/7049297",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    }
+  ]
+}
