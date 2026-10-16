@@ -1,0 +1,106 @@
+{
+  "look": {
+    "id": "008",
+    "title": "핑크 니트로 완성한 빈티지 가을룩 🩷",
+    "description": "차콜 필드 재킷에 애쉬 핑크 니트와 그레이 티어드 스커트를 매치했어요. 메쉬캡과 레이스 레그워머, 브라운 부츠로 더한 빈티지 무드.",
+    "youtubeVideoId": "Q7wSUSag0qc"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep008-6366416",
+      "name": "루저스클럽(LOSERS CLUB) NO CAP 스타 스터드 메쉬캡 스카이 블루",
+      "brand": "루저스클럽",
+      "color": "스카이 블루",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260423/6366416/6366416_17784308194309_500.jpg",
+      "url": "https://www.musinsa.com/products/6366416",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep008-6034189",
+      "name": "파르티멘토 우먼(PARTIMENTO WOMEN) 워시드 크롭 M65 필드 자켓_차콜",
+      "brand": "파르티멘토 우먼",
+      "color": "차콜",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260220/6034189/6034189_17730330256345_500.jpg",
+      "url": "https://www.musinsa.com/products/6034189",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep008-6983075",
+      "name": "비터셀즈(BITTERCELLS) 에센셜 브이넥 골지 니트-애쉬 핑크",
+      "brand": "비터셀즈",
+      "color": "애쉬 핑크",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260803/6983075/6983075_17872211490815_500.jpg",
+      "url": "https://www.musinsa.com/products/6983075",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep008-7195082",
+      "name": "에이이에이이(AEAE) TIERED FRILL SKIRT [GREY]",
+      "brand": "에이이에이이",
+      "color": "그레이",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260828/7195082/7195082_17884989876165_500.jpg",
+      "url": "https://www.musinsa.com/products/7195082",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep008-7068304",
+      "name": "파인드카푸어(FINDKAPOOR) 니아백 38 - 2color",
+      "brand": "파인드카푸어",
+      "color": "2color",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260813/7068304/7068304_17878059596151_500.jpg",
+      "url": "https://www.musinsa.com/products/7068304",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep008-7067305",
+      "name": "닥터마틴(DR.MARTENS) 1460 파스칼 벤 8홀 부츠 - 파실 브라운 / 43326201",
+      "brand": "닥터마틴",
+      "color": "파실 브라운",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260813/7067305/7067305_17877167390647_500.jpg",
+      "url": "https://www.musinsa.com/products/7067305",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep008-6769639",
+      "name": "킬리만(KILLIMAN) Lace knee legwarmer (2color)",
+      "brand": "킬리만",
+      "color": "2color",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260702/6769639/6769639_17832724123049_500.png",
+      "url": "https://www.musinsa.com/products/6769639",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    }
+  ]
+}

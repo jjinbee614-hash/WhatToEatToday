@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-16T00:03:44.109Z",
+  "updatedAt": "2026-10-16T12:05:29.657Z",
   "products": {
     "001:glasses": {
       "source": "musinsa",
@@ -390,6 +390,62 @@
       "currency": "KRW",
       "checkedAt": "2026-10-16T00:09:05.290Z",
       "amount": 489000,
+      "status": "confirmed"
+    },
+    "008:ep008-6366416": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6366416",
+      "currency": "KRW",
+      "checkedAt": "2026-10-16T12:05:29.577Z",
+      "amount": 41650,
+      "status": "confirmed"
+    },
+    "008:ep008-6034189": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6034189",
+      "currency": "KRW",
+      "checkedAt": "2026-10-16T12:05:29.603Z",
+      "amount": 185300,
+      "status": "confirmed"
+    },
+    "008:ep008-6983075": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6983075",
+      "currency": "KRW",
+      "checkedAt": "2026-10-16T12:05:29.616Z",
+      "amount": 62100,
+      "status": "confirmed"
+    },
+    "008:ep008-7195082": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7195082",
+      "currency": "KRW",
+      "checkedAt": "2026-10-16T12:05:29.626Z",
+      "amount": 117300,
+      "status": "confirmed"
+    },
+    "008:ep008-7068304": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7068304",
+      "currency": "KRW",
+      "checkedAt": "2026-10-16T12:05:29.636Z",
+      "amount": 151050,
+      "status": "confirmed"
+    },
+    "008:ep008-7067305": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7067305",
+      "currency": "KRW",
+      "checkedAt": "2026-10-16T12:05:29.644Z",
+      "amount": 202990,
+      "status": "confirmed"
+    },
+    "008:ep008-6769639": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6769639",
+      "currency": "KRW",
+      "checkedAt": "2026-10-16T12:05:29.657Z",
+      "amount": 39000,
       "status": "confirmed"
     }
   }
