@@ -1,0 +1,132 @@
+{
+  "look": {
+    "id": "009",
+    "title": "트렌치와 데님 스커트, 가을의 클래식 🤎",
+    "description": "화이트 셔츠와 네이비 니트에 베이지 트렌치를 걸쳤어요. 데님 스커트와 스웨이드 부츠, 블루 프린지 소품으로 완성한 가을 코디.",
+    "youtubeVideoId": "XKWOijH0V3I"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep009-6888759",
+      "name": "논픽(NONPICK) BERA_BK 안경테",
+      "brand": "논픽",
+      "color": "블랙",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260721/6888759/6888759_17846189588417_500.jpg",
+      "url": "https://www.musinsa.com/products/6888759",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep009-3323596",
+      "name": "무신사 스탠다드 우먼(MUSINSA STANDARD WOMAN) 우먼즈 슬림 핏 크롭 셔츠 [화이트]",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "화이트",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20230525/3323596/3323596_17721597051218_500.jpg",
+      "url": "https://www.musinsa.com/products/3323596",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep009-6341375",
+      "name": "무신사 스탠다드 우먼(MUSINSA STANDARD WOMAN) 우먼즈 에센셜 칼라드 니트 [네이비]",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "네이비",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260420/6341375/6341375_17882480517090_500.jpg",
+      "url": "https://www.musinsa.com/products/6341375",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep009-7288400",
+      "name": "레이브(RAIVE) Vintage Mood Leather Belt VX6AT941_2color",
+      "brand": "레이브",
+      "color": "2color",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260909/7288400/7288400_17889378994145_500.jpg",
+      "url": "https://www.musinsa.com/products/7288400",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep009-7290760",
+      "name": "플랙 우먼(PLAC WOMEN) 라글란 하이넥 하프 트렌치 코트 베이지",
+      "brand": "플랙 우먼",
+      "color": "베이지",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260909/7290760/7290760_17896941847056_500.jpg",
+      "url": "https://www.musinsa.com/products/7290760",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep009-5385604",
+      "name": "플랙 우먼(PLAC WOMEN) 리벳 포인트 미디 데님 스커트 미드 블루",
+      "brand": "플랙 우먼",
+      "color": "미드 블루",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20250901/5385604/5385604_17568588986067_500.jpg",
+      "url": "https://www.musinsa.com/products/5385604",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep009-7239313",
+      "name": "히에타(HIETA) Emma / Grey",
+      "brand": "히에타",
+      "color": "그레이",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260903/7239313/7239313_17895378782096_500.jpg",
+      "url": "https://www.musinsa.com/products/7239313",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep009-7101290",
+      "name": "쿨시스(COOLSIS) CS BELT SUEDE LONG BOOTS (BEIGE,8CM)",
+      "brand": "쿨시스",
+      "color": "베이지 · 8cm",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260819/7101290/7101290_17875368026763_500.jpg",
+      "url": "https://www.musinsa.com/products/7101290",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep009-7239325",
+      "name": "히에타(HIETA) Fringe Multi Case / Blue",
+      "brand": "히에타",
+      "color": "블루",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260903/7239325/7239325_17890234279490_500.jpg",
+      "url": "https://www.musinsa.com/products/7239325",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    }
+  ]
+}
