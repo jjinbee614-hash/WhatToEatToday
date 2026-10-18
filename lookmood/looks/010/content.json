@@ -1,0 +1,93 @@
+{
+  "look": {
+    "id": "010",
+    "title": "브라운 야상과 쇼츠, 자유로운 가을룩 🤎",
+    "description": "브라운 야상과 그래픽 티셔츠에 블랙 데님 쇼츠를 매치했어요. 스트라이프 니트와 플로럴 빅백, 롱부츠로 완성한 가을 캐주얼룩.",
+    "youtubeVideoId": "A89PgI4ttMM"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep010-7235987",
+      "name": "에이이에이이(AEAE) STRIPE KNIT HOODIE [IVORY]",
+      "brand": "에이이에이이",
+      "color": "아이보리",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260903/7235987/7235987_17909169897250_500.jpg",
+      "url": "https://www.musinsa.com/products/7235987",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep010-7103352",
+      "name": "썸플레이스(SOME PLACE) 빈티지 워싱 멀티 포켓 스탠다드 유틸리티 오버핏 야상 베이직 코튼 자켓 [브라운]",
+      "brand": "썸플레이스",
+      "color": "브라운",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260819/7103352/7103352_17884009385716_500.jpg",
+      "url": "https://www.musinsa.com/products/7103352",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep010-6832449",
+      "name": "튜드먼트(TTUDEMENT) 50s RAGLAN GRAPHIC T-SHIRT_NAVY",
+      "brand": "튜드먼트",
+      "color": "네이비",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260713/6832449/6832449_17853900231291_500.jpg",
+      "url": "https://www.musinsa.com/products/6832449",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep010-7232256",
+      "name": "이로시 이로아(IROSI IROA) IR Classic Big Bag (Floral)",
+      "brand": "이로시 이로아",
+      "color": "플로럴",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260902/7232256/7232256_17886839858720_500.jpg",
+      "url": "https://www.musinsa.com/products/7232256",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep010-6376258",
+      "name": "락케이크(ROCKCAKE) Damage Denim Shorts - Black",
+      "brand": "락케이크",
+      "color": "블랙",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260424/6376258/6376258_17794354705026_500.jpg",
+      "url": "https://www.musinsa.com/products/6376258",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep010-7160580",
+      "name": "길라아카이브(GILAARCHIVE) [X IHCNIK] DRAPE SNAP LEATHER BOOTS_BLACK",
+      "brand": "길라아카이브",
+      "color": "블랙",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260825/7160580/7160580_17895208084251_500.jpg",
+      "url": "https://www.musinsa.com/products/7160580",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    }
+  ]
+}
