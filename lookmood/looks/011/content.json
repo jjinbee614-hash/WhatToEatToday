@@ -1,0 +1,119 @@
+{
+  "look": {
+    "id": "011",
+    "title": "브라운 스웨이드에 퍼플 한 끗 🤎",
+    "description": "스웨이드 점퍼와 버터 크림 티셔츠에 체크 스커트를 매치했어요. 허리에 두른 퍼플 니트와 레드 액세서리로 더한 가을 포인트.",
+    "youtubeVideoId": "z3MpXLVrp7E"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep011-6938938",
+      "name": "미쏘(MIXXO) 페이크 스웨이드 점퍼_MIWJLG91SS",
+      "brand": "미쏘",
+      "color": "판매처 색상 선택",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260728/6938938/6938938_17883095716362_500.jpg",
+      "url": "https://www.musinsa.com/products/6938938",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep011-7237433",
+      "name": "모던라이크(MODERN LIKE) [ Silver ] 산호 레드 진주 목걸이 4mm",
+      "brand": "모던라이크",
+      "color": "레드",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260903/7237433/7237433_17884101586707_500.jpg",
+      "url": "https://www.musinsa.com/products/7237433",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep011-6595055",
+      "name": "무신사 스탠다드 우먼(MUSINSA STANDARD WOMAN) 우먼즈 프론트 셔링 긴소매 티셔츠 [버터 크림]",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "버터 크림",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260602/6595055/6595055_17864968573554_500.jpg",
+      "url": "https://www.musinsa.com/products/6595055",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep011-5929820",
+      "name": "미쏘(MIXXO) [에센셜] V넥 풀오버_MIWKAG310T",
+      "brand": "미쏘",
+      "color": "판매처 색상 선택",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260123/5929820/5929820_17694891308079_500.jpg",
+      "url": "https://www.musinsa.com/products/5929820",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep011-7242053",
+      "name": "모던라이크(MODERN LIKE) [ Silver 925 ] 산호 레드 진주 팔찌 4mm",
+      "brand": "모던라이크",
+      "color": "레드",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260903/7242053/7242053_17884264857422_500.jpg",
+      "url": "https://www.musinsa.com/products/7242053",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep011-6605357",
+      "name": "무신사 스탠다드 우먼(MUSINSA STANDARD WOMAN) 우먼즈 옴브레 체크 니 렝스 스커트 [다크 브라운]",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "다크 브라운",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260604/6605357/6605357_17883393460774_500.jpg",
+      "url": "https://www.musinsa.com/products/6605357",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep011-6917690",
+      "name": "스탠드오일(STAND OIL) Zuni Bag · 주니백 / 그레이",
+      "brand": "스탠드오일",
+      "color": "그레이",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260724/6917690/6917690_17923691110663_500.jpg",
+      "url": "https://www.musinsa.com/products/6917690",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    },
+    {
+      "id": "ep011-7099021",
+      "name": "아수라(ASURA) BRAID SUEDE BOOTS (BROWN)",
+      "brand": "아수라",
+      "color": "브라운",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260818/7099021/7099021_17878986026668_500.jpg",
+      "url": "https://www.musinsa.com/products/7099021",
+      "relation": "reference",
+      "published": true,
+      "affiliateUrl": null,
+      "affiliateVerified": false
+    }
+  ]
+}
