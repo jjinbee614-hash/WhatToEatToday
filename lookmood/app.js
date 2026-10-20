@@ -164,6 +164,7 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
     row.append(image, body); $('#product-list').append(row);
   }
   const dialog = $('#products'), panel = dialog.querySelector('.dialog-body');
+  panel.prepend(el('p', ablyDisclosure, 'notice'));
   panel.prepend(el('p', '확인 시점의 참고 가격입니다. 옵션·쿠폰·배송비에 따라 달라질 수 있으며 최종 가격은 판매처에서 확인해 주세요.', 'notice price-notice'));
   inlineProducts = el('section', null, 'inline-products');
   inlineProducts.id = 'shop-the-look';
