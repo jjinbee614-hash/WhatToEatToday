@@ -126,7 +126,7 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
     $('#socials').append(node);
   }
   const products = data.products.filter(product => product.published);
-  if (products.some(affiliateUrl)) {
+  if (products.some(p => affiliateUrl(p) || p.coupangSearchUrl)) {
     for (const selector of ['#disclosure', '#page-disclosure']) {
       if ($(selector)) { $(selector).hidden = false; $(selector).textContent = disclosure; }
     }
@@ -151,15 +151,16 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
     const affiliate = affiliateUrl(product);
     const original = safeUrl(product.url);
     renderPrice(info, product, data.look.id, affiliate || original);
-    if (affiliate) {
-      info.append(el('p', product.affiliateNote), el('p', disclosure, 'disclosure'));
-      body.append(link('상품 상세보기 ↗', affiliate, true, product, data.look.id));
-    }
-    if (!affiliate && original) {
-      const originalLink = link('상품 상세보기 ↗', original);
-      originalLink.classList.add('product-buy');
-      body.append(originalLink);
-    }
+    const shops=el('div',null,'product-shops');
+    shops.append(el('span','상품 상세보기','shops-label'));
+    const buttons=el('div',null,'shop-buttons');
+    if(original){const a=link('무신사',original);a.className='shop-button';buttons.append(a);}
+    const ably=ablyLink('에이블리','product',product);ably.className='shop-button';ably.title='LOOKMOOD 마이셀렉샵 · 비슷한 스타일';buttons.append(ably);
+    const search=safeUrl(product.coupangSearchUrl);
+    const coupang=affiliate || (search && new URL(search).hostname==='link.coupang.com' ? search : null);
+    if(coupang){const a=link('쿠팡',coupang,true,product,data.look.id);a.className='shop-button';a.title=affiliate?'쿠팡 상품 보기':'쿠팡 키워드 검색: '+product.coupangSearchKeyword;buttons.append(a);}
+    shops.append(buttons,el('p','에이블리: LOOKMOOD 마이셀렉샵'+(!affiliate&&coupang?' · 쿠팡: 관련 상품 검색':''),'shop-hint'));
+    body.append(shops);
     row.append(image, body); $('#product-list').append(row);
   }
   const dialog = $('#products'), panel = dialog.querySelector('.dialog-body');
@@ -183,46 +184,20 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
 // A-BLY affiliate placements. Keep the attributed destination byte-for-byte unchanged.
 const ablyUrl = 'https://applink.a-bly.com/3fn7wir';
 const ablyDisclosure = '이 링크를 통해 구매하면 LOOKMOOD에 수수료가 지급될 수 있습니다.';
-function ablyLink(label, placement) {
+function ablyLink(label, placement, product = null) {
   const a = el('a', label, 'ably-button');
   a.href = ablyUrl; a.target = '_blank'; a.rel = 'sponsored noopener noreferrer';
   a.dataset.ablyPlacement = placement;
   const track = event => {
     if (event.type === 'auxclick' && event.button !== 1) return;
     try { window.gtag?.('event', 'ably_click', {
-      placement, episode_id: location.pathname.match(/looks\/(\d+)/)?.[1] || 'home',
+      placement, ...(product ? {product_id:product.id,product_name:product.name.slice(0,100)} : {}), episode_id: location.pathname.match(/looks\/(\d+)/)?.[1] || 'home',
       link_url: ablyUrl, link_domain: 'applink.a-bly.com', transport_type: 'beacon'
     }); } catch { /* Navigation must work even if analytics is blocked. */ }
   };
   a.addEventListener('click', track); a.addEventListener('auxclick', track);
   return a;
 }
-function ablyRegion(title, label, placement) {
-  const section = el('aside', null, 'ably-region ably-' + placement);
-  section.setAttribute('aria-label', '에이블리 제휴 쇼핑');
-  section.append(el('p', title, 'ably-title'), ablyLink(label, placement), el('p', ablyDisclosure, 'ably-disclosure'));
-  return section;
-}
-const ablyTop = ablyRegion('LOOKMOOD와 함께 발견하는 쇼핑', '에이블리 쇼핑 바로가기', 'top');
-const intro = $('.intro') || $('.breadcrumb');
-if (intro) intro.after(ablyTop); else $('main')?.prepend(ablyTop);
-const cards = [...document.querySelectorAll('.look-grid > .look-card')];
-cards.forEach((card, index) => {
-  if ((index + 1) % 3 === 0 && index < cards.length - 1) card.after(ablyRegion('다음 코디 아이템도 찾아볼까요?', '에이블리 둘러보기', 'between_cards'));
-});
-const productList = $('#product-list');
-if (productList) productList.after(ablyRegion('에이블리에서도 쇼핑해 보세요', '에이블리 둘러보기', 'below_products'));
-let ablyDock = $('.mobile-actions');
-if (!ablyDock) { ablyDock = el('nav', null, 'mobile-actions'); ablyDock.setAttribute('aria-label', '쇼핑 바로가기'); document.body.append(ablyDock); }
-ablyDock.classList.add('ably-dock');
-const stickyAbly = ablyLink('에이블리 쇼핑', 'sticky');
-stickyAbly.append(el('small', '제휴 링크'));
-stickyAbly.hidden = true; ablyDock.append(stickyAbly);
-document.body.classList.add('has-ably');
-function setAblySticky(visible) { stickyAbly.hidden = !visible; ablyDock.classList.toggle('ably-active', visible); }
-if ('IntersectionObserver' in window) {
-  new IntersectionObserver(entries => setAblySticky(!entries[0].isIntersecting), {threshold:0}).observe(ablyTop.querySelector('a'));
-} else {
-  const sync = () => { const r = ablyTop.querySelector('a').getBoundingClientRect(); setAblySticky(r.bottom <= 0 || r.top >= innerHeight); };
-  addEventListener('scroll', sync, {passive:true}); addEventListener('resize', sync); sync();
-}
+
+const headerAbly=ablyLink('에이블리','header');headerAbly.className='header-ably';headerAbly.title='LOOKMOOD 마이셀렉샵 · 제휴 링크';$('#socials')?.prepend(headerAbly);
+const affiliateNotice=el('p','에이블리: 비슷한 스타일을 모은 LOOKMOOD 마이셀렉샵. '+ablyDisclosure,'shop-disclosure');$('footer')?.before(affiliateNotice);

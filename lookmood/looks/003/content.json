@@ -22,7 +22,9 @@
       "relation": "reference",
       "published": true,
       "affiliateUrl": null,
-      "affiliateVerified": false
+      "affiliateVerified": false,
+      "coupangSearchUrl": "https://link.coupang.com/a/hZwECLfM60",
+      "coupangSearchKeyword": "치미 코드 CODE BLACK"
     },
     {
       "id": "ep003-6652082",
@@ -86,7 +88,9 @@
       "relation": "reference",
       "published": true,
       "affiliateUrl": null,
-      "affiliateVerified": false
+      "affiliateVerified": false,
+      "coupangSearchUrl": "https://link.coupang.com/a/hZwECONGUu",
+      "coupangSearchKeyword": "세릭 Shirring Belt _ Black"
     },
     {
       "id": "ep003-5626723",
@@ -116,7 +120,9 @@
       "relation": "reference",
       "published": true,
       "affiliateUrl": null,
-      "affiliateVerified": false
+      "affiliateVerified": false,
+      "coupangSearchUrl": "https://link.coupang.com/a/hZwECRRQei",
+      "coupangSearchKeyword": "솔트앤초콜릿 이베르 와이드 롱부츠 412548004"
     }
   ]
 }

@@ -73,7 +73,9 @@
       "relation": "reference",
       "published": true,
       "affiliateUrl": null,
-      "affiliateVerified": false
+      "affiliateVerified": false,
+      "coupangSearchUrl": "https://link.coupang.com/a/hZwECFnuvs",
+      "coupangSearchKeyword": "무센트 그릭 레더 숄더백 남녀공용"
     },
     {
       "id": "ep002-6605356",
@@ -103,7 +105,9 @@
       "relation": "reference",
       "published": true,
       "affiliateUrl": null,
-      "affiliateVerified": false
+      "affiliateVerified": false,
+      "coupangSearchUrl": "https://link.coupang.com/a/hZwECH6wfY",
+      "coupangSearchKeyword": "오니츠카타이거 토쿠텐 1183C429_250"
     }
   ]
 }
