@@ -179,3 +179,50 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
   mobileLayout.addEventListener('change', syncLayout);
   syncLayout();
 }).catch(() => { $('#error').hidden = false; });
+
+// A-BLY affiliate placements. Keep the attributed destination byte-for-byte unchanged.
+const ablyUrl = 'https://applink.a-bly.com/3fn7wir';
+const ablyDisclosure = '이 링크를 통해 구매하면 LOOKMOOD에 수수료가 지급될 수 있습니다.';
+function ablyLink(label, placement) {
+  const a = el('a', label, 'ably-button');
+  a.href = ablyUrl; a.target = '_blank'; a.rel = 'sponsored noopener noreferrer';
+  a.dataset.ablyPlacement = placement;
+  const track = event => {
+    if (event.type === 'auxclick' && event.button !== 1) return;
+    try { window.gtag?.('event', 'ably_click', {
+      placement, episode_id: location.pathname.match(/looks\/(\d+)/)?.[1] || 'home',
+      link_url: ablyUrl, link_domain: 'applink.a-bly.com', transport_type: 'beacon'
+    }); } catch { /* Navigation must work even if analytics is blocked. */ }
+  };
+  a.addEventListener('click', track); a.addEventListener('auxclick', track);
+  return a;
+}
+function ablyRegion(title, label, placement) {
+  const section = el('aside', null, 'ably-region ably-' + placement);
+  section.setAttribute('aria-label', '에이블리 제휴 쇼핑');
+  section.append(el('p', title, 'ably-title'), ablyLink(label, placement), el('p', ablyDisclosure, 'ably-disclosure'));
+  return section;
+}
+const ablyTop = ablyRegion('LOOKMOOD와 함께 발견하는 쇼핑', '에이블리 쇼핑 바로가기', 'top');
+const intro = $('.intro') || $('.breadcrumb');
+if (intro) intro.after(ablyTop); else $('main')?.prepend(ablyTop);
+const cards = [...document.querySelectorAll('.look-grid > .look-card')];
+cards.forEach((card, index) => {
+  if ((index + 1) % 3 === 0 && index < cards.length - 1) card.after(ablyRegion('다음 코디 아이템도 찾아볼까요?', '에이블리 둘러보기', 'between_cards'));
+});
+const productList = $('#product-list');
+if (productList) productList.after(ablyRegion('에이블리에서도 쇼핑해 보세요', '에이블리 둘러보기', 'below_products'));
+let ablyDock = $('.mobile-actions');
+if (!ablyDock) { ablyDock = el('nav', null, 'mobile-actions'); ablyDock.setAttribute('aria-label', '쇼핑 바로가기'); document.body.append(ablyDock); }
+ablyDock.classList.add('ably-dock');
+const stickyAbly = ablyLink('에이블리 쇼핑', 'sticky');
+stickyAbly.append(el('small', '제휴 링크'));
+stickyAbly.hidden = true; ablyDock.append(stickyAbly);
+document.body.classList.add('has-ably');
+function setAblySticky(visible) { stickyAbly.hidden = !visible; ablyDock.classList.toggle('ably-active', visible); }
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver(entries => setAblySticky(!entries[0].isIntersecting), {threshold:0}).observe(ablyTop.querySelector('a'));
+} else {
+  const sync = () => { const r = ablyTop.querySelector('a').getBoundingClientRect(); setAblySticky(r.bottom <= 0 || r.top >= innerHeight); };
+  addEventListener('scroll', sync, {passive:true}); addEventListener('resize', sync); sync();
+}
