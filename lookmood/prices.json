@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T00:06:27.821Z",
+  "updatedAt": "2026-10-20T05:49:30.282Z",
   "products": {
     "001:glasses": {
       "source": "musinsa",
@@ -632,6 +632,62 @@
       "currency": "KRW",
       "checkedAt": "2026-10-20T00:15:09.245Z",
       "amount": 246050,
+      "status": "confirmed"
+    },
+    "012:ep012-6178496": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6178496",
+      "currency": "KRW",
+      "checkedAt": "2026-10-20T05:49:30.245Z",
+      "amount": 65000,
+      "status": "confirmed"
+    },
+    "012:ep012-6970058": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6970058",
+      "currency": "KRW",
+      "checkedAt": "2026-10-20T05:49:30.257Z",
+      "amount": 76500,
+      "status": "confirmed"
+    },
+    "012:ep012-7196337": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7196337",
+      "currency": "KRW",
+      "checkedAt": "2026-10-20T05:49:30.262Z",
+      "amount": 35700,
+      "status": "confirmed"
+    },
+    "012:ep012-4874829": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/4874829",
+      "currency": "KRW",
+      "checkedAt": "2026-10-20T05:49:30.268Z",
+      "amount": 86400,
+      "status": "confirmed"
+    },
+    "012:ep012-6482959": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6482959",
+      "currency": "KRW",
+      "checkedAt": "2026-10-20T05:49:30.274Z",
+      "amount": 77400,
+      "status": "confirmed"
+    },
+    "012:ep012-5666183": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/5666183",
+      "currency": "KRW",
+      "checkedAt": "2026-10-20T05:49:30.278Z",
+      "amount": 38900,
+      "status": "confirmed"
+    },
+    "012:ep012-7160531": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7160531",
+      "currency": "KRW",
+      "checkedAt": "2026-10-20T05:49:30.282Z",
+      "amount": 167300,
       "status": "confirmed"
     }
   }
