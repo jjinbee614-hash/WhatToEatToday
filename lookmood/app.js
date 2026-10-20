@@ -70,6 +70,12 @@ function affiliateUrl(product) {
   const url = safeUrl(product.affiliateUrl);
   return product.affiliateVerified && url && new URL(url).hostname === 'link.coupang.com' ? url : null;
 }
+function musinsaCuratorUrl(product) {
+  const url = safeUrl(product.musinsaCuratorUrl);
+  return product.musinsaCuratorVerified && url && new URL(url).hostname === 'www.musinsa.com' &&
+    /^\/curator\/goods\/[A-Za-z0-9]+$/.test(new URL(url).pathname) ? url : null;
+}
+const musinsaDisclosure = '이 페이지는 무신사 큐레이터 활동의 일환으로, 구매가 발생할 시 일정 수수료를 제공받습니다.';
 function link(text, url, affiliate = false, product = null, lookId = null) {
   const node = el('a', text, affiliate ? 'buy affiliate-buy' : 'buy');
   node.href = url; node.target = '_blank';
@@ -154,7 +160,22 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
     const shops=el('div',null,'product-shops');
     shops.append(el('span','상품 상세보기','shops-label'));
     const buttons=el('div',null,'shop-buttons');
-    if(original){const a=link('무신사',original);a.className='shop-button';buttons.append(a);}
+    if(original){
+      const curator = musinsaCuratorUrl(product);
+      const a=link('무신사',curator || original,Boolean(curator));
+      a.className='shop-button';
+      a.dataset.musinsaLinkType=curator?'curator':'original';
+      const track = event => {
+        if(event.type==='auxclick' && event.button!==1)return;
+        try { window.gtag?.('event','musinsa_click',{
+          episode_id:'EP'+data.look.id,product_id:product.id,
+          product_name:product.name.slice(0,100),link_url:a.href,
+          link_type:curator?'curator':'original',placement:'product',transport_type:'beacon'
+        }); } catch { /* Analytics must not prevent navigation. */ }
+      };
+      a.addEventListener('click',track);a.addEventListener('auxclick',track);
+      buttons.append(a);
+    }
     const ably=ablyLink('에이블리','product',product);ably.className='shop-button';ably.title='LOOKMOOD 마이셀렉샵 · 비슷한 스타일';buttons.append(ably);
     const search=safeUrl(product.coupangSearchUrl);
     const coupang=affiliate || (search && new URL(search).hostname==='link.coupang.com' ? search : null);
@@ -165,6 +186,7 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
   }
   const dialog = $('#products'), panel = dialog.querySelector('.dialog-body');
   panel.prepend(el('p', ablyDisclosure, 'notice'));
+  if(products.some(musinsaCuratorUrl)) panel.prepend(el('p',musinsaDisclosure,'notice'));
   panel.prepend(el('p', '확인 시점의 참고 가격입니다. 옵션·쿠폰·배송비에 따라 달라질 수 있으며 최종 가격은 판매처에서 확인해 주세요.', 'notice price-notice'));
   inlineProducts = el('section', null, 'inline-products');
   inlineProducts.id = 'shop-the-look';
@@ -202,3 +224,4 @@ function ablyLink(label, placement, product = null) {
 
 const headerAbly=ablyLink('에이블리','header');headerAbly.className='header-ably';headerAbly.title='LOOKMOOD 마이셀렉샵 · 제휴 링크';$('#socials')?.prepend(headerAbly);
 const affiliateNotice=el('p','에이블리: 비슷한 스타일을 모은 LOOKMOOD 마이셀렉샵. '+ablyDisclosure,'shop-disclosure');$('footer')?.before(affiliateNotice);
+$('footer')?.before(el('p',musinsaDisclosure,'shop-disclosure'));
