@@ -73,7 +73,15 @@
       "affiliateUrl": null,
       "affiliateVerified": false,
       "coupangSearchUrl": "https://link.coupang.com/a/hZwEDvMj1g",
-      "coupangSearchKeyword": "무신사 스탠다드 우먼 우먼즈 시어 텍스처드 라운드 넥 가디건 [올리브]"
+      "coupangSearchKeyword": "무신사 스탠다드 우먼 우먼즈 시어 텍스처드 라운드 넥 가디건 [올리브]",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/i39u8wir",
+      "musinsaCuratorVerified": true,
+      "musinsaVariant": {
+        "name": "우먼즈 시어 텍스처드 라운드 넥 가디건 [차콜 그레이]",
+        "color": "차콜 그레이",
+        "url": "https://www.musinsa.com/products/5164968",
+        "verified": true
+      }
     },
     {
       "id": "ep005-4765581",

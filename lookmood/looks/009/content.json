@@ -92,7 +92,15 @@
       "affiliateUrl": null,
       "affiliateVerified": false,
       "coupangSearchUrl": "https://link.coupang.com/a/hZwEFALaCG",
-      "coupangSearchKeyword": "플랙 우먼 라글란 하이넥 하프 트렌치 코트 베이지"
+      "coupangSearchKeyword": "플랙 우먼 라글란 하이넥 하프 트렌치 코트 베이지",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/TJ3WFrCd",
+      "musinsaCuratorVerified": true,
+      "musinsaVariant": {
+        "name": "라글란 하이넥 하프 트렌치 코트 브라운",
+        "color": "브라운",
+        "url": "https://www.musinsa.com/products/7290761",
+        "verified": true
+      }
     },
     {
       "id": "ep009-5385604",

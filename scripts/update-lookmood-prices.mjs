@@ -52,11 +52,12 @@ for(const file of files) {
   const data=JSON.parse(fs.readFileSync(path.join(root,file),'utf8'));
   for(const product of data.products.filter(p=>p.published)) {
     const key=data.look.id+':'+product.id;
-    const affiliate=product.affiliateVerified && product.affiliateUrl && new URL(product.affiliateUrl).hostname==='link.coupang.com';
-    const record={source:affiliate?'coupang':'musinsa',url:affiliate?product.affiliateUrl:product.url,currency:'KRW',checkedAt:new Date().toISOString(),amount:null,status:'unavailable'};
+    const variant=product.musinsaCuratorVerified && /^https:\/\/www\.musinsa\.com\/curator\/goods\/[A-Za-z0-9]+$/.test(product.musinsaCuratorUrl||'') && product.musinsaVariant?.verified === true && product.musinsaVariant.color && /^https:\/\/www\.musinsa\.com\/products\/\d+$/.test(product.musinsaVariant.url||'') ? product.musinsaVariant.url : null;
+    const affiliate=!variant && product.affiliateVerified && product.affiliateUrl && new URL(product.affiliateUrl).hostname==='link.coupang.com';
+    const record={source:affiliate?'coupang':'musinsa',url:variant|| (affiliate?product.affiliateUrl:product.url),currency:'KRW',checkedAt:new Date().toISOString(),amount:null,status:'unavailable'};
     try {
       if(affiliate && product.affiliateStock==='sold_out') {record.status='sold_out';}
-      else {record.amount=await (affiliate?coupang(product):musinsa(product));record.status='confirmed';confirmed++;}
+      else {record.amount=await (affiliate?coupang(product):musinsa({...product,url:variant||product.url}));record.status='confirmed';confirmed++;}
     } catch(error) {failed++;record.reason=/^(credentials_missing|option_unverified|api_http_\d+|api_unavailable|same_option_not_found|unsupported_source|source_http_\d+|price_unavailable)$/.test(error.message)?error.message:'request_failed';}
     output.products[key]=record;
     console.log(key,record.source,record.status,record.amount??record.reason??'');

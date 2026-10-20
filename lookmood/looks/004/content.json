@@ -58,7 +58,15 @@
       "affiliateUrl": null,
       "affiliateVerified": false,
       "coupangSearchUrl": "https://link.coupang.com/a/hZwEC1h2Dk",
-      "coupangSearchKeyword": "무신사 스탠다드 우먼 우먼즈 신세틱 레더 카 코트 [블랙]"
+      "coupangSearchKeyword": "무신사 스탠다드 우먼 우먼즈 신세틱 레더 카 코트 [블랙]",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/bitACp2j",
+      "musinsaCuratorVerified": true,
+      "musinsaVariant": {
+        "name": "우먼즈 신세틱 레더 카 코트 [브라운]",
+        "color": "브라운",
+        "url": "https://www.musinsa.com/products/6652081",
+        "verified": true
+      }
     },
     {
       "id": "ep004-7097818",

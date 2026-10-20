@@ -76,6 +76,11 @@ function musinsaCuratorUrl(product) {
     /^\/curator\/goods\/[A-Za-z0-9]+$/.test(new URL(url).pathname) ? url : null;
 }
 const musinsaDisclosure = '이 페이지는 무신사 큐레이터 활동의 일환으로, 구매가 발생할 시 일정 수수료를 제공받습니다.';
+function musinsaVariant(product) {
+  const variant = product.musinsaVariant;
+  return musinsaCuratorUrl(product) && variant?.verified === true &&
+    /^https:\/\/www\.musinsa\.com\/products\/\d+$/.test(variant.url || '') && variant.color ? variant : null;
+}
 function link(text, url, affiliate = false, product = null, lookId = null) {
   const node = el('a', text, affiliate ? 'buy affiliate-buy' : 'buy');
   node.href = url; node.target = '_blank';
@@ -108,10 +113,10 @@ function renderPrice(body, product, lookId, destination) {
     if (!record || record.url !== destination || record.currency !== 'KRW' || age < -60000 || age > 36*60*60*1000 || !Number.isFinite(age)) return;
     if (record.status === 'sold_out') { price.textContent = '확인한 옵션 품절 · 판매처 확인'; return; }
     if (record.status !== 'confirmed' || !Number.isSafeInteger(record.amount) || record.amount <= 0) return;
-    product.displayedPrice = record.amount;
+    if (!musinsaVariant(product)) product.displayedPrice = record.amount;
     price.textContent = new Intl.NumberFormat('ko-KR').format(record.amount) + '원';
     const timestamp = new Intl.DateTimeFormat('ko-KR', {timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(record.checkedAt));
-    price.append(el('small', (record.source === 'coupang' ? '쿠팡' : '무신사') + ' · ' + timestamp + ' 확인'));
+    price.append(el('small', (record.source === 'coupang' ? '쿠팡' : '무신사') + (musinsaVariant(product) ? ' · ' + musinsaVariant(product).color + ' 기준' : '') + ' · ' + timestamp + ' 확인'));
   });
 }
 fetch(document.body.dataset.content || '/lookmood/content.json').then(response => {
@@ -156,7 +161,8 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
     body.append(info);
     const affiliate = affiliateUrl(product);
     const original = safeUrl(product.url);
-    renderPrice(info, product, data.look.id, affiliate || original);
+    const variant = musinsaVariant(product);
+    renderPrice(info, product, data.look.id, variant?.url || affiliate || original);
     const shops=el('div',null,'product-shops');
     shops.append(el('span','상품 상세보기','shops-label'));
     const buttons=el('div',null,'shop-buttons');
@@ -170,7 +176,9 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
         try { window.gtag?.('event','musinsa_click',{
           episode_id:'EP'+data.look.id,product_id:product.id,
           product_name:product.name.slice(0,100),link_url:a.href,
-          link_type:curator?'curator':'original',placement:'product',transport_type:'beacon'
+          link_type:variant?'curator_color_variant':curator?'curator':'original',
+          ...(variant ? {linked_color:variant.color} : {}),
+          placement:'product',transport_type:'beacon'
         }); } catch { /* Analytics must not prevent navigation. */ }
       };
       a.addEventListener('click',track);a.addEventListener('auxclick',track);
@@ -181,6 +189,7 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
     const coupang=affiliate || (search && new URL(search).hostname==='link.coupang.com' ? search : null);
     if(coupang){const a=link('쿠팡',coupang,true,product,data.look.id);a.className='shop-button';a.title=affiliate?'쿠팡 상품 보기':'쿠팡 키워드 검색: '+product.coupangSearchKeyword;buttons.append(a);}
     shops.append(buttons,el('p','에이블리: LOOKMOOD 마이셀렉샵'+(!affiliate&&coupang?' · 쿠팡: 관련 상품 검색':''),'shop-hint'));
+    if (variant) shops.append(el('p','무신사: 다른 색상 상품으로 연결됩니다 · '+variant.color,'shop-hint'));
     body.append(shops);
     row.append(image, body); $('#product-list').append(row);
   }

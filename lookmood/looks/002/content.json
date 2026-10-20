@@ -117,7 +117,15 @@
       "affiliateUrl": null,
       "affiliateVerified": false,
       "coupangSearchUrl": "https://link.coupang.com/a/hZwECH6wfY",
-      "coupangSearchKeyword": "오니츠카타이거 토쿠텐 1183C429_250"
+      "coupangSearchKeyword": "오니츠카타이거 토쿠텐 1183C429_250",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/pqjJadGa",
+      "musinsaCuratorVerified": true,
+      "musinsaVariant": {
+        "name": "토쿠텐 1183C429_200",
+        "color": "색상 코드 200",
+        "url": "https://www.musinsa.com/products/4996201",
+        "verified": true
+      }
     }
   ]
 }

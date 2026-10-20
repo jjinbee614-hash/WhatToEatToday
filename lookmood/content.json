@@ -25,7 +25,15 @@
       "affiliateUrl": null,
       "affiliateVerified": false,
       "coupangSearchUrl": "https://link.coupang.com/a/hZwECCjlbE",
-      "coupangSearchKeyword": "파시온 페리테일 안경_브라운"
+      "coupangSearchKeyword": "파시온 페리테일 안경_브라운",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/h3pE3cKx",
+      "musinsaCuratorVerified": true,
+      "musinsaVariant": {
+        "name": "페리테일 안경_블랙 Fairytale Glasses_Black",
+        "color": "블랙",
+        "url": "https://www.musinsa.com/products/6806230",
+        "verified": true
+      }
     },
     {
       "id": "jacket",
@@ -44,7 +52,15 @@
       "affiliateOriginalUrl": "https://www.coupang.com/vp/products/9766035092?itemId=29229718241&vendorItemId=96148852770",
       "affiliateStock": "sold_out",
       "affiliateCheckedAt": "2026-10-07",
-      "affiliateNote": "쿠팡 해당 옵션 품절 · 2026.10.07 확인"
+      "affiliateNote": "쿠팡 해당 옵션 품절 · 2026.10.07 확인",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/FwzH6GoK",
+      "musinsaCuratorVerified": true,
+      "musinsaVariant": {
+        "name": "우먼즈 신세틱 스웨이드 하이넥 블루종 재킷 [건메탈]",
+        "color": "건메탈",
+        "url": "https://www.musinsa.com/products/6322597",
+        "verified": true
+      }
     },
     {
       "id": "shirt",
@@ -126,7 +142,15 @@
       "affiliateOriginalUrl": "https://www.coupang.com/vp/products/9766426210?itemId=29231351180&vendorItemId=96073583196",
       "affiliateStock": "unknown",
       "affiliateCheckedAt": "2026-10-07",
-      "affiliateNote": "상품명·모델 기준 매칭 · 사이즈·색상·현재 재고는 판매처 확인"
+      "affiliateNote": "상품명·모델 기준 매칭 · 사이즈·색상·현재 재고는 판매처 확인",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/cFPDBR0a",
+      "musinsaCuratorVerified": true,
+      "musinsaVariant": {
+        "name": "우먼즈 에센셜 스트레이트 데님 팬츠 [딥 인디고]",
+        "color": "딥 인디고",
+        "url": "https://www.musinsa.com/products/6450019",
+        "verified": true
+      }
     },
     {
       "id": "bag",

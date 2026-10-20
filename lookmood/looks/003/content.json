@@ -115,7 +115,15 @@
       "affiliateOriginalUrl": "https://www.coupang.com/vp/products/9752625812?itemId=29202506623&vendorItemId=96122789206",
       "affiliateProductName": "MUSINSA STANDARD WOMAN 우먼즈 저지 티어드 롱 스커트 [그레이]",
       "affiliateCheckedAt": "2026-10-09",
-      "affiliateNote": "브랜드·상품명·색상 일치 확인. 사이즈와 재고는 판매처에서 확인해 주세요."
+      "affiliateNote": "브랜드·상품명·색상 일치 확인. 사이즈와 재고는 판매처에서 확인해 주세요.",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/07YubcsX",
+      "musinsaCuratorVerified": true,
+      "musinsaVariant": {
+        "name": "우먼즈 저지 티어드 롱 스커트 [미디엄 그레이]",
+        "color": "미디엄 그레이",
+        "url": "https://www.musinsa.com/products/6607588",
+        "verified": true
+      }
     },
     {
       "id": "ep003-5439129",
