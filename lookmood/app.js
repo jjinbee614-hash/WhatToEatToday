@@ -232,5 +232,6 @@ function ablyLink(label, placement, product = null) {
 }
 
 const headerAbly=ablyLink('에이블리','header');headerAbly.className='header-ably';headerAbly.title='LOOKMOOD 마이셀렉샵 · 제휴 링크';$('#socials')?.prepend(headerAbly);
+const headerBlog=el('a','Blog');headerBlog.href='https://blog.naver.com/look_mood_';headerBlog.target='_blank';headerBlog.rel='noopener noreferrer';headerBlog.title='LOOKMOOD 네이버 블로그';headerAbly.after(headerBlog);
 const affiliateNotice=el('p','에이블리: 비슷한 스타일을 모은 LOOKMOOD 마이셀렉샵. '+ablyDisclosure,'shop-disclosure');$('footer')?.before(affiliateNotice);
 $('footer')?.before(el('p',musinsaDisclosure,'shop-disclosure'));
