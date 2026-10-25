@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-24T23:57:07.620Z",
+  "updatedAt": "2026-10-25T03:04:40.298Z",
   "products": {
     "001:glasses": {
       "source": "musinsa",
@@ -903,6 +903,62 @@
       "currency": "KRW",
       "checkedAt": "2026-10-25T00:09:36.951Z",
       "amount": 239000,
+      "status": "confirmed"
+    },
+    "017:ep017-3323598": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/3323598",
+      "currency": "KRW",
+      "checkedAt": "2026-10-24T09:05:23.376Z",
+      "amount": 35890,
+      "status": "confirmed"
+    },
+    "017:ep017-5721313": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/5721313",
+      "currency": "KRW",
+      "checkedAt": "2026-10-24T09:05:25.071Z",
+      "amount": 59390,
+      "status": "confirmed"
+    },
+    "017:ep017-3808011": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/3808011",
+      "currency": "KRW",
+      "checkedAt": "2026-10-24T09:05:26.725Z",
+      "amount": 258120,
+      "status": "confirmed"
+    },
+    "017:ep017-5292443": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/5292443",
+      "currency": "KRW",
+      "checkedAt": "2026-10-24T09:05:28.385Z",
+      "amount": 47390,
+      "status": "confirmed"
+    },
+    "017:ep017-5725445": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/5725445",
+      "currency": "KRW",
+      "checkedAt": "2026-10-24T09:05:30.099Z",
+      "amount": 52550,
+      "status": "confirmed"
+    },
+    "017:ep017-7140422": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7140422",
+      "currency": "KRW",
+      "checkedAt": "2026-10-24T09:05:31.843Z",
+      "amount": 9900,
+      "status": "confirmed"
+    },
+    "017:ep017-2611718": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/2611718",
+      "currency": "KRW",
+      "checkedAt": "2026-10-24T09:05:33.618Z",
+      "amount": 84150,
       "status": "confirmed"
     }
   }

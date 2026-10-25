@@ -103,6 +103,10 @@
     {
       "source": "/lookmood/looks/016",
       "destination": "/lookmood/looks/016/index.html"
+    },
+    {
+      "source": "/lookmood/looks/017",
+      "destination": "/lookmood/looks/017/index.html"
     }
   ],
   "headers": [
