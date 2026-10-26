@@ -31,7 +31,7 @@ for (const dialog of document.querySelectorAll('dialog')) {
   });
 }
 if ($('#open-products')) $('#open-products').onclick = event => showProducts(event.currentTarget);
-for (const button of document.querySelectorAll('[data-open="products"]')) button.onclick = event => showProducts(event.currentTarget);
+for (const button of document.querySelectorAll('[data-open="products"]')) button.onclick = event => showProducts(event.currentTarget, button.dataset.productTarget);
 const videoButtons = document.querySelectorAll('#open-video, [data-open="video"]');
 for (const button of videoButtons) { button.disabled = true; button.onclick = openVideo; }
 function openVideo() {
@@ -144,6 +144,7 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
   }
   if (!$('#product-list')) return;
   for (const product of products) {
+    if (product.groupHeading) $('#product-list').append(el('h2', product.groupHeading, 'product-group-heading'));
     const thumb = el('button'); thumb.setAttribute('aria-label', product.name + ' 상세보기');
     const thumbImage = el('img'); thumbImage.src = product.image; thumbImage.alt = ''; thumbImage.loading = 'lazy';
     thumb.append(thumbImage); thumb.onclick = event => showProducts(event.currentTarget, product.id);
@@ -200,7 +201,7 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
   inlineProducts = el('section', null, 'inline-products');
   inlineProducts.id = 'shop-the-look';
   inlineProducts.setAttribute('aria-labelledby', 'inline-products-title');
-  const heading = el('h2', '이 룩의 아이템 · ' + products.length);
+  const heading = el('h2', (data.look.id === 'pilot-fur' ? '세 코디의 아이템 · ' : '이 룩의 아이템 · ') + products.length);
   heading.id = 'inline-products-title';
   inlineProducts.append(heading);
   $('#latest').after(inlineProducts);
@@ -223,7 +224,7 @@ function ablyLink(label, placement, product = null) {
   const track = event => {
     if (event.type === 'auxclick' && event.button !== 1) return;
     try { window.gtag?.('event', 'ably_click', {
-      placement, ...(product ? {product_id:product.id,product_name:product.name.slice(0,100)} : {}), episode_id: location.pathname.match(/looks\/(\d+)/)?.[1] || 'home',
+      placement, ...(product ? {product_id:product.id,product_name:product.name.slice(0,100)} : {}), episode_id: location.pathname.match(/looks\/([\w-]+)/)?.[1] || 'home',
       link_url: ablyUrl, link_domain: 'applink.a-bly.com', transport_type: 'beacon'
     }); } catch { /* Navigation must work even if analytics is blocked. */ }
   };

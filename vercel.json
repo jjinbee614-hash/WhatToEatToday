@@ -111,6 +111,10 @@
     {
       "source": "/lookmood/looks/018",
       "destination": "/lookmood/looks/018/index.html"
+    },
+    {
+      "source": "/lookmood/looks/pilot-fur",
+      "destination": "/lookmood/looks/pilot-fur/index.html"
     }
   ],
   "headers": [

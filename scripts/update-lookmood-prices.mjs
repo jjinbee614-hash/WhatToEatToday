@@ -11,7 +11,7 @@ if (envFile) for (const line of fs.readFileSync(envFile, 'utf8').replace(/^\uFEF
   if (i > 0 && !line.trimStart().startsWith('#')) env[line.slice(0,i).trim()] = line.slice(i+1).trim().replace(/^['"]|['"]$/g,'');
 }
 const access = env.COUPANG_PARTNERS_ACCESS_KEY, secret = env.COUPANG_PARTNERS_SECRET_KEY;
-const files = ['lookmood/content.json', ...fs.readdirSync(path.join(root,'lookmood/looks')).filter(x => /^\d+$/.test(x)).map(x => `lookmood/looks/${x}/content.json`).filter(x => fs.existsSync(path.join(root,x)))];
+const files = ['lookmood/content.json', ...fs.readdirSync(path.join(root,'lookmood/looks')).filter(x => /^(?:\d+|pilot-fur)$/.test(x)).map(x => `lookmood/looks/${x}/content.json`).filter(x => fs.existsSync(path.join(root,x)))];
 const output = {updatedAt:new Date().toISOString(), products:{}};
 const destination = path.join(root,'lookmood/prices.json');
 const positivePrice = value => Number.isSafeInteger(Number(value)) && Number(value)>0 ? Number(value) : null;

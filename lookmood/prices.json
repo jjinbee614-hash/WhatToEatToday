@@ -1008,6 +1008,86 @@
       "checkedAt": "2026-10-25T01:04:24.609Z",
       "amount": 56610,
       "status": "confirmed"
+    },
+    "pilot-fur:fur-7109400": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7109400",
+      "currency": "KRW",
+      "checkedAt": "2026-10-26T03:32:06.899Z",
+      "amount": 399200,
+      "status": "confirmed"
+    },
+    "pilot-fur:fur-2430278": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/2430278",
+      "currency": "KRW",
+      "checkedAt": "2026-10-26T03:32:07.138Z",
+      "amount": 63850,
+      "status": "confirmed"
+    },
+    "pilot-fur:fur-6218533": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6218533",
+      "currency": "KRW",
+      "checkedAt": "2026-10-26T03:32:07.349Z",
+      "amount": 46200,
+      "status": "confirmed"
+    },
+    "pilot-fur:fur-2093494": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/2093494",
+      "currency": "KRW",
+      "checkedAt": "2026-10-26T03:32:07.645Z",
+      "amount": 44890,
+      "status": "confirmed"
+    },
+    "pilot-fur:fur-7155954": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7155954",
+      "currency": "KRW",
+      "checkedAt": "2026-10-26T03:32:07.863Z",
+      "amount": 280000,
+      "status": "confirmed"
+    },
+    "pilot-fur:fur-6218591": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6218591",
+      "currency": "KRW",
+      "checkedAt": "2026-10-26T03:32:08.139Z",
+      "amount": 77000,
+      "status": "confirmed"
+    },
+    "pilot-fur:fur-6716192": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6716192",
+      "currency": "KRW",
+      "checkedAt": "2026-10-26T03:32:08.369Z",
+      "amount": 84550,
+      "status": "confirmed"
+    },
+    "pilot-fur:fur-6996189": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6996189",
+      "currency": "KRW",
+      "checkedAt": "2026-10-26T03:32:08.549Z",
+      "amount": 113890,
+      "status": "confirmed"
+    },
+    "pilot-fur:fur-7308882": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7308882",
+      "currency": "KRW",
+      "checkedAt": "2026-10-26T03:32:08.743Z",
+      "amount": 143200,
+      "status": "confirmed"
+    },
+    "pilot-fur:fur-3758437": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/3758437",
+      "currency": "KRW",
+      "checkedAt": "2026-10-26T03:32:08.941Z",
+      "amount": 34890,
+      "status": "confirmed"
     }
   }
 }
