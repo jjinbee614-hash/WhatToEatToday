@@ -135,6 +135,10 @@
     {
       "source": "/lookmood/looks/bonus-halloween",
       "destination": "/lookmood/looks/bonus-halloween/index.html"
+    },
+    {
+      "source": "/lookmood/looks/023",
+      "destination": "/lookmood/looks/023/index.html"
     }
   ],
   "headers": [
