@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/kakao.py": {
+      "excludeFiles": "{lookmood/**,eat/**,wear/**,watch/**,scripts/**,*.html,*.md}"
+    }
+  },
   "redirects": [
     {
       "destination": "/lookmood",
