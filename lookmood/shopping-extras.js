@@ -1,6 +1,8 @@
 // Lucian UX/UI Prompt #208 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#208
 // Storefront motion adapted for text links; navigation and analytics handlers stay intact.
 (() => {
+  const promotion = document.querySelector('#matinkim-promotion');
+  if (promotion && Date.now() >= Date.parse('2026-11-21T00:00:00+09:00')) promotion.remove();
   const expires = Date.parse('2026-11-01T00:00:00+09:00');
   const registerUrl = 'https://applink.a-bly.com/oeu6tro';
   const track = (action, placement) => {try {window.gtag?.('event','ably_coupon_'+action,{coupon_code:'LOOKMOOD01',placement,transport_type:'beacon'});}catch{}};
