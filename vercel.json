@@ -172,6 +172,10 @@
     {
       "source": "/lookmood/looks/030",
       "destination": "/lookmood/looks/030/index.html"
+    },
+    {
+      "source": "/lookmood/looks/berghaus",
+      "destination": "/lookmood/looks/berghaus/index.html"
     }
   ],
   "headers": [

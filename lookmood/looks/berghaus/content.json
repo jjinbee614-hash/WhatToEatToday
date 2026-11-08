@@ -1,0 +1,122 @@
+{
+  "look": {
+    "id": "berghaus",
+    "title": "버그하우스와 함께하는 세 가지 가을·겨울 코디",
+    "description": "버그하우스 아우터 하나로 산행부터 주말 나들이, 도심 데일리까지. LOOKMOOD 단독 쿠폰 혜택과 코디 아이템을 확인해 보세요.",
+    "youtubeVideoId": "Dd_cX5YdNuU"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "berghaus-7579823-0",
+      "name": "버그하우스 여성 브램블펠 고어텍스 3 in 1 자켓 — 블랙",
+      "brand": "버그하우스",
+      "color": "판매처 옵션 확인",
+      "note": "버그하우스 단독 쿠폰은 상단 링크에서 확인해 주세요.",
+      "image": "https://image.msscdn.net/images/goods_img/20261021/7579823/7579823_17931659825546_500.jpg",
+      "url": "https://www.musinsa.com/products/7579823",
+      "relation": "reference",
+      "published": true,
+      "groupHeading": "공통 아우터"
+    },
+    {
+      "id": "berghaus-5335142-1",
+      "name": "산로 와이드 스트링 하이킹 팬츠 — 블랙",
+      "brand": "산로",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20250819/5335142/5335142_17555689241439_500.jpg",
+      "url": "https://www.musinsa.com/products/5335142",
+      "relation": "reference",
+      "published": true,
+      "groupHeading": "산행 코디"
+    },
+    {
+      "id": "berghaus-6114276-2",
+      "name": "노스페이스 헷지혹 보아 고어텍스 — 블랙",
+      "brand": "노스페이스",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260311/6114276/6114276_17828006847236_500.jpg",
+      "url": "https://www.musinsa.com/products/6114276",
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "berghaus-7326180-3",
+      "name": "마시모두띠 코튼 린넨 코듀로이 스트레이트 핏 팬츠",
+      "brand": "마시모두띠",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260914/7326180/7326180_17906045511925_500.jpg",
+      "url": "https://www.musinsa.com/products/7326180",
+      "relation": "reference",
+      "published": true,
+      "groupHeading": "주말 나들이 코디",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/By7wBuk3",
+      "musinsaCuratorVerified": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/irI3gST84O",
+      "coupangSearchKeyword": "마시모두띠 코튼 린넨 코듀로이 스트레이트 핏 팬츠"
+    },
+    {
+      "id": "berghaus-5758014-4",
+      "name": "듀베티카 사비아노 캔버스 크로스백",
+      "brand": "듀베티카",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20251120/5758014/5758014_17636242222808_500.jpg",
+      "url": "https://www.musinsa.com/products/5758014",
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "berghaus-6820201-5",
+      "name": "푸마 슬립캣 발레",
+      "brand": "푸마",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260710/6820201/6820201_17870346751306_500.jpg",
+      "url": "https://www.musinsa.com/products/6820201",
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "berghaus-4316587-6",
+      "name": "이알티알 Essential Relaxed Denim Pants — Light Blue",
+      "brand": "이알티알",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20240809/4316587/4316587_17537081788725_500.png",
+      "url": "https://www.musinsa.com/products/4316587",
+      "relation": "reference",
+      "published": true,
+      "groupHeading": "도심 데일리 코디"
+    },
+    {
+      "id": "berghaus-6840451-7",
+      "name": "질바이질스튜어트 아일리 아일렛 아코디언 숄더백",
+      "brand": "질바이질스튜어트",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260714/6840451/6840451_17860033925286_500.jpg",
+      "url": "https://www.musinsa.com/products/6840451",
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "berghaus-6820201-8",
+      "name": "푸마 슬립캣 발레",
+      "brand": "푸마",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260710/6820201/6820201_17870346751306_500.jpg",
+      "url": "https://www.musinsa.com/products/6820201",
+      "relation": "reference",
+      "published": true
+    }
+  ]
+}
