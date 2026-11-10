@@ -1754,6 +1754,70 @@
       "checkedAt": "2026-11-06T01:08:59.531Z",
       "amount": 71910,
       "status": "confirmed"
+    },
+    "032:ep032-6305297": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6305297",
+      "currency": "KRW",
+      "checkedAt": "2026-11-09T09:14:19.301Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "032:ep032-6595819": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6595819",
+      "currency": "KRW",
+      "checkedAt": "2026-11-09T09:14:19.301Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "032:ep032-6661183": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6661183",
+      "currency": "KRW",
+      "checkedAt": "2026-11-09T09:14:19.301Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "032:ep032-7472387": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7472387",
+      "currency": "KRW",
+      "checkedAt": "2026-11-09T09:14:19.301Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "032:ep032-5162178": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/5162178",
+      "currency": "KRW",
+      "checkedAt": "2026-11-09T09:14:19.301Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "032:ep032-6704384": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6704384",
+      "currency": "KRW",
+      "checkedAt": "2026-11-09T09:14:19.301Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "032:ep032-6450041": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6450041",
+      "currency": "KRW",
+      "checkedAt": "2026-11-09T09:14:19.301Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "032:ep032-7271990": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7271990",
+      "currency": "KRW",
+      "checkedAt": "2026-11-09T09:14:19.301Z",
+      "amount": null,
+      "status": "unavailable"
     }
   }
 }

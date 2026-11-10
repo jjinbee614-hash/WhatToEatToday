@@ -38,6 +38,10 @@
   ],
   "rewrites": [
     {
+      "source": "/lookmood/looks/032",
+      "destination": "/lookmood/looks/032/index.html"
+    },
+    {
       "destination": "/api/kakao",
       "source": "/api/kakao/search"
     },
