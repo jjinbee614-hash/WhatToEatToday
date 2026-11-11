@@ -169,15 +169,16 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
     const buttons=el('div',null,'shop-buttons');
     if(original){
       const curator = musinsaCuratorUrl(product);
-      const a=link('무신사',curator || original,Boolean(curator));
+      const campaign = data.look.id === 'berghaus-camping' && Date.now() < Date.parse('2026-11-16T00:00:00+09:00') && product.musinsaCouponUrl === 'https://www.musinsa.com/curator/coupons/8TFG8Cri' ? product.musinsaCouponUrl : null;
+      const a=link('무신사',campaign || curator || original,Boolean(campaign || curator));
       a.className='shop-button';
-      a.dataset.musinsaLinkType=curator?'curator':'original';
+      a.dataset.musinsaLinkType=campaign?'coupon':curator?'curator':'original';
       const track = event => {
         if(event.type==='auxclick' && event.button!==1)return;
         try { window.gtag?.('event','musinsa_click',{
           episode_id:'EP'+data.look.id,product_id:product.id,
           product_name:product.name.slice(0,100),link_url:a.href,
-          link_type:variant?'curator_color_variant':curator?'curator':'original',
+          link_type:campaign?'coupon':variant?'curator_color_variant':curator?'curator':'original',
           ...(variant ? {linked_color:variant.color} : {}),
           placement:'product',transport_type:'beacon'
         }); } catch { /* Analytics must not prevent navigation. */ }

@@ -1818,6 +1818,70 @@
       "checkedAt": "2026-11-09T09:14:19.301Z",
       "amount": null,
       "status": "unavailable"
+    },
+    "berghaus-camping:berghaus-camping-7516350": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7516350",
+      "currency": "KRW",
+      "checkedAt": "2026-11-11T03:07:10.516Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "berghaus-camping:berghaus-camping-7516069": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7516069",
+      "currency": "KRW",
+      "checkedAt": "2026-11-11T03:07:10.521Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "berghaus-camping:berghaus-camping-7670812": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7670812",
+      "currency": "KRW",
+      "checkedAt": "2026-11-11T03:07:10.521Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "berghaus-camping:berghaus-camping-7670532": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7670532",
+      "currency": "KRW",
+      "checkedAt": "2026-11-11T03:07:10.521Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "berghaus-camping:berghaus-camping-3417709": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/3417709",
+      "currency": "KRW",
+      "checkedAt": "2026-11-11T03:07:10.521Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "berghaus-camping:berghaus-camping-7567667": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7567667",
+      "currency": "KRW",
+      "checkedAt": "2026-11-11T03:07:10.521Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "berghaus-camping:berghaus-camping-7326180": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7326180",
+      "currency": "KRW",
+      "checkedAt": "2026-11-11T03:07:10.521Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "berghaus-camping:berghaus-camping-5259516": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/5259516",
+      "currency": "KRW",
+      "checkedAt": "2026-11-11T03:07:10.521Z",
+      "amount": null,
+      "status": "unavailable"
     }
   }
 }

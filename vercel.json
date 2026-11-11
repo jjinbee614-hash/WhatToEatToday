@@ -38,6 +38,10 @@
   ],
   "rewrites": [
     {
+      "source": "/lookmood/looks/berghaus-camping",
+      "destination": "/lookmood/looks/berghaus-camping/index.html"
+    },
+    {
       "source": "/lookmood/looks/032",
       "destination": "/lookmood/looks/032/index.html"
     },
