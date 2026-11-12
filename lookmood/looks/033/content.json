@@ -1,0 +1,93 @@
+{
+  "look": {
+    "id": "033",
+    "title": "퍼부츠와 레더 재킷으로 완성한 도시의 무드",
+    "description": "블랙 레더 재킷과 스카프, 퍼부츠로 완성하는 가을·겨울 데일리룩.",
+    "youtubeVideoId": "HtVeVANF0kc"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep033-7290689",
+      "name": "플레어업(FLAREUP) Structured Muffler (FL-749_Black)",
+      "brand": "플레어업",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260909/7290689/7290689_17907476178985_500.jpg",
+      "url": "https://www.musinsa.com/products/7290689",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iAyVRO82aO",
+      "coupangSearchKeyword": "플레어업 Structured Muffler"
+    },
+    {
+      "id": "ep033-7020728",
+      "name": "락케이크(ROCKCAKE) Contour Leather Jacket - Black",
+      "brand": "락케이크",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260807/7020728/7020728_17875470702791_500.jpg",
+      "url": "https://www.musinsa.com/products/7020728",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iAyVRSZtHU",
+      "coupangSearchKeyword": "락케이크 Contour Leather Jacket - Black"
+    },
+    {
+      "id": "ep033-7298374",
+      "name": "피아리(PIARI) 빈티지 워시드 포우 레더 숄더백(4color)",
+      "brand": "피아리",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260910/7298374/7298374_17894359373641_500.jpg",
+      "url": "https://www.musinsa.com/products/7298374",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iAyVRWclgq",
+      "coupangSearchKeyword": "피아리 빈티지 워시드 포우 레더 숄더백"
+    },
+    {
+      "id": "ep033-7290481",
+      "name": "플레어업(FLAREUP) Scarf Knit Cardigan (FL-054_Charcoal)",
+      "brand": "플레어업",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/prd_img/20260909/7290481/detail_7290481_17907494889168_500.jpg",
+      "url": "https://www.musinsa.com/products/7290481",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iAyVRYFyHA",
+      "coupangSearchKeyword": "플레어업 Scarf Knit Cardigan"
+    },
+    {
+      "id": "ep033-4350936",
+      "name": "미세키서울(MISEKI SEOUL) Unbalanced layered skirt BLACK",
+      "brand": "미세키서울",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20240821/4350936/4350936_17816746257467_500.png",
+      "url": "https://www.musinsa.com/products/4350936",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iAyVR1vrBQ",
+      "coupangSearchKeyword": "미세키서울 Unbalanced layered skirt BLACK"
+    },
+    {
+      "id": "ep033-5437429",
+      "name": "어그(UGG) [WOMEN] 클래식 미니 II - 블랙 / 1016222-BLK",
+      "brand": "어그",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20250910/5437429/5437429_17604240915825_500.jpg",
+      "url": "https://www.musinsa.com/products/5437429",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iAyVR4qH2j",
+      "coupangSearchKeyword": "어그 [WOMEN] 클래식 미니 II - 블랙 / 1016222-BLK"
+    }
+  ]
+}
