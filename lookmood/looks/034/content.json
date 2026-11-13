@@ -1,0 +1,93 @@
+{
+  "look": {
+    "id": "034",
+    "title": "캠퍼스부터 출근길까지 편안한 데일리룩",
+    "description": "패딩과 니트, 데님을 함께 매치한 편안한 데일리 스타일링.",
+    "youtubeVideoId": "a-5MnF2XU1Y"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep034-7634822",
+      "name": "폴로 랄프 로렌(POLO RALPH LAUREN) 여성 내수 패커블 후드 재킷(WMPOOTWN2820316001)",
+      "brand": "폴로 랄프 로렌",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20261027/7634822/7634822_17931164454862_500.jpg",
+      "url": "https://www.musinsa.com/products/7634822",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iBG6supeCG",
+      "coupangSearchKeyword": "폴로 랄프 로렌 여성 내수 패커블 후드 재킷"
+    },
+    {
+      "id": "ep034-7634999",
+      "name": "폴로 랄프 로렌(POLO RALPH LAUREN) 여성 케이블 울 캐시미어 하프 지퍼 스웨터(WMPOSWENC021678020)",
+      "brand": "폴로 랄프 로렌",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20261027/7634999/7634999_17932493970968_500.jpg",
+      "url": "https://www.musinsa.com/products/7634999",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iBG6sxg1N6",
+      "coupangSearchKeyword": "폴로 랄프 로렌 여성 케이블 울 캐시미어 하프 지퍼 스웨터"
+    },
+    {
+      "id": "ep034-6840451",
+      "name": "질바이질스튜어트(JILL BY JILLSTUART) [아일리] 아일렛 아코디언 숄더백",
+      "brand": "질바이질스튜어트",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260714/6840451/6840451_17860033925286_500.jpg",
+      "url": "https://www.musinsa.com/products/6840451",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iBG6sBWyaW",
+      "coupangSearchKeyword": "질바이질스튜어트 [아일리] 아일렛 아코디언 숄더백"
+    },
+    {
+      "id": "ep034-3097185",
+      "name": "폴로 랄프 로렌(POLO RALPH LAUREN) W 포플린 스트레치 셔츠 - 화이트",
+      "brand": "폴로 랄프 로렌",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20230221/3097185/3097185_16808334829966_500.jpg",
+      "url": "https://www.musinsa.com/products/3097185",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iBG6sF1L5w",
+      "coupangSearchKeyword": "폴로 랄프 로렌 W 포플린 스트레치 셔츠 - 화이트"
+    },
+    {
+      "id": "ep034-4316587",
+      "name": "이알티알(ERTR) Essential Relaxed Denim Pants (Light Blue)",
+      "brand": "이알티알",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20240809/4316587/4316587_17537081788725_500.png",
+      "url": "https://www.musinsa.com/products/4316587",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iBG6sJJzEa",
+      "coupangSearchKeyword": "이알티알 Essential Relaxed Denim Pants"
+    },
+    {
+      "id": "ep034-6820201",
+      "name": "푸마(PUMA) 슬립캣 발레 - 다크 초콜릿-스트롱 그레이 / 409424-02",
+      "brand": "푸마",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260710/6820201/6820201_17870346751306_500.jpg",
+      "url": "https://www.musinsa.com/products/6820201",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iBG6sMSXXE",
+      "coupangSearchKeyword": "푸마 슬립캣 발레 - 다크 초콜릿-스트롱 그레이 / 409424-02"
+    }
+  ]
+}
