@@ -170,7 +170,7 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
     if(original){
       const curator = musinsaCuratorUrl(product);
       const campaign = data.look.id === 'berghaus-camping' && Date.now() < Date.parse('2026-11-16T00:00:00+09:00') && product.musinsaCouponUrl === 'https://www.musinsa.com/curator/coupons/8TFG8Cri' ? product.musinsaCouponUrl : null;
-      const a=link('무신사',campaign || curator || original,Boolean(campaign || curator));
+      const a=link(new URL(original).hostname.endsWith('musinsa.com') ? '무신사' : '공식몰',campaign || curator || original,Boolean(campaign || curator));
       a.className='shop-button';
       a.dataset.musinsaLinkType=campaign?'coupon':curator?'curator':'original';
       const track = event => {

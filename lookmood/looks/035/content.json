@@ -1,0 +1,80 @@
+{
+  "look": {
+    "id": "035",
+    "title": "마뗑킴 아이보리 패딩 겨울 데일리룩",
+    "description": "아이보리 패딩에 그레이 가디건과 데님, 브라운 소품을 더한 겨울 데일리룩.",
+    "youtubeVideoId": "_qQWXDxaj7E"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep035-5571044",
+      "name": "마뗑킴(MATIN KIM) SMALL LOGO VOLUME DOWN JUMPER IN IVORY",
+      "brand": "마뗑킴",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20251005/5571044/5571044_17895271207382_500.png",
+      "url": "https://www.musinsa.com/products/5571044",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iDS5kGzVy8",
+      "coupangSearchKeyword": "마뗑킴 SMALL LOGO VOLUME DOWN JUMPER IN IVORY"
+    },
+    {
+      "id": "ep035-9813",
+      "name": "마뗑킴(MATIN KIM) BUTTON POCKET HIGH NECK KNIT CARDIGAN IN LIGHT GREY",
+      "brand": "마뗑킴",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://matinkim.com/web/product/big/202610/5bb2222db3ca6ffaff6483c861dc00ac.jpg",
+      "url": "https://matinkim.com/product/detail.html?cate_no=27&display_group=1&product_no=9813",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iDS5kJ52xU",
+      "coupangSearchKeyword": "마뗑킴 BUTTON POCKET HIGH NECK KNIT CARDIGAN IN LIGHT GREY"
+    },
+    {
+      "id": "ep035-4316587",
+      "name": "이알티알(ERTR) Essential Relaxed Denim Pants (Light Blue)",
+      "brand": "이알티알",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20240809/4316587/4316587_17537081788725_500.png",
+      "url": "https://www.musinsa.com/products/4316587",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iDS5kM0mmO",
+      "coupangSearchKeyword": "이알티알 Essential Relaxed Denim Pants"
+    },
+    {
+      "id": "ep035-7541565",
+      "name": "마뗑킴(MATIN KIM) LACED SHEARLING LOAFER IN BROWN",
+      "brand": "마뗑킴",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20261016/7541565/7541565_17924759625332_500.jpg",
+      "url": "https://www.musinsa.com/products/7541565",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iDS5kQo21I",
+      "coupangSearchKeyword": "마뗑킴 LACED SHEARLING LOAFER IN BROWN"
+    },
+    {
+      "id": "ep035-7541646",
+      "name": "마뗑킴(MATIN KIM) DOUBLE POCKET CORDUROY BACKPACK IN BROWN",
+      "brand": "마뗑킴",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20261016/7541646/7541646_17924753487246_500.jpg",
+      "url": "https://www.musinsa.com/products/7541646",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iDS5kTDtx6",
+      "coupangSearchKeyword": "마뗑킴 DOUBLE POCKET CORDUROY BACKPACK IN BROWN"
+    }
+  ]
+}

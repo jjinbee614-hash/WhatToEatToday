@@ -2167,6 +2167,46 @@
       "amount": null,
       "status": "unavailable",
       "reason": "unsupported_source"
+    },
+    "035:ep035-5571044": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/5571044",
+      "currency": "KRW",
+      "checkedAt": "2026-11-13T09:01:41.963Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "035:ep035-9813": {
+      "source": "musinsa",
+      "url": "https://matinkim.com/product/detail.html?cate_no=27&display_group=1&product_no=9813",
+      "currency": "KRW",
+      "checkedAt": "2026-11-13T09:01:41.963Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "035:ep035-4316587": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/4316587",
+      "currency": "KRW",
+      "checkedAt": "2026-11-13T09:01:41.963Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "035:ep035-7541565": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7541565",
+      "currency": "KRW",
+      "checkedAt": "2026-11-13T09:01:41.963Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "035:ep035-7541646": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7541646",
+      "currency": "KRW",
+      "checkedAt": "2026-11-13T09:01:41.963Z",
+      "amount": null,
+      "status": "unavailable"
     }
   }
 }
