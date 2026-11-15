@@ -1,0 +1,93 @@
+{
+  "look": {
+    "id": "wedding-guest",
+    "title": "평소에도 입는 하객룩",
+    "description": "차분한 코트와 니트, 블랙 아이템으로 완성한 데일리 하객룩.",
+    "youtubeVideoId": "uD-_Q3WQ47w"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "wedding-guest-2073191",
+      "name": "리올그(REORG) NUE REORG LOGO BELT_4COLOR",
+      "brand": "리올그",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20210820/2073191/2073191_1_500.jpg",
+      "url": "https://www.musinsa.com/products/2073191",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iEZL3tkoqO",
+      "coupangSearchKeyword": "리올그 NUE REORG LOGO BELT_4COLOR"
+    },
+    {
+      "id": "wedding-guest-5945833",
+      "name": "미쏘(MIXXO) 홀터넥 레이어드 골지 가디건_MIWCKG93QT",
+      "brand": "미쏘",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260128/5945833/5945833_17908379715623_500.jpg",
+      "url": "https://www.musinsa.com/products/5945833",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iEZL3v6Evs",
+      "coupangSearchKeyword": "미쏘 홀터넥 레이어드 골지 가디건_MIWCKG93QT"
+    },
+    {
+      "id": "wedding-guest-5756452",
+      "name": "코치(COACH) 태비 숄더 백 26 CCX04 B4/BK",
+      "brand": "코치",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20251120/5756452/5756452_17640599180234_500.jpg",
+      "url": "https://www.musinsa.com/products/5756452",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iEZL3zc5xQ",
+      "coupangSearchKeyword": "코치 태비 숄더 백 26 CCX04 B4/BK"
+    },
+    {
+      "id": "wedding-guest-7401208",
+      "name": "유라고(URAGO) Handmade belted wool maxi coat",
+      "brand": "유라고",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260923/7401208/7401208_17919448003687_500.jpg",
+      "url": "https://www.musinsa.com/products/7401208",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iEZL3CJGmq",
+      "coupangSearchKeyword": "유라고 Handmade belted wool maxi coat"
+    },
+    {
+      "id": "wedding-guest-7320008",
+      "name": "미쏘(MIXXO) 기모 H라인 롱스커트_MIWWHGV11B",
+      "brand": "미쏘",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260914/7320008/7320008_17908372189988_500.jpg",
+      "url": "https://www.musinsa.com/products/7320008",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iEZL3FOJ9E",
+      "coupangSearchKeyword": "미쏘 기모 H라인 롱스커트_MIWWHGV11B"
+    },
+    {
+      "id": "wedding-guest-6996185",
+      "name": "무신사 스탠다드 우먼(MUSINSA STANDARD WOMAN) 우먼즈 셔링 페니 로퍼 [블랙]",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260805/6996185/6996185_17944688954976_500.jpg",
+      "url": "https://www.musinsa.com/products/6996185",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iEZL3Ijo6e",
+      "coupangSearchKeyword": "무신사 스탠다드 우먼 우먼즈 셔링 페니 로퍼 [블랙]"
+    }
+  ]
+}

@@ -2210,6 +2210,54 @@
       "amount": null,
       "status": "unavailable",
       "reason": "unsupported_source"
+    },
+    "wedding-guest:wedding-guest-2073191": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/2073191",
+      "currency": "KRW",
+      "checkedAt": "2026-11-14T01:02:54.595Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "wedding-guest:wedding-guest-5945833": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/5945833",
+      "currency": "KRW",
+      "checkedAt": "2026-11-14T01:02:54.595Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "wedding-guest:wedding-guest-5756452": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/5756452",
+      "currency": "KRW",
+      "checkedAt": "2026-11-14T01:02:54.595Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "wedding-guest:wedding-guest-7401208": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7401208",
+      "currency": "KRW",
+      "checkedAt": "2026-11-14T01:02:54.595Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "wedding-guest:wedding-guest-7320008": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/7320008",
+      "currency": "KRW",
+      "checkedAt": "2026-11-14T01:02:54.595Z",
+      "amount": null,
+      "status": "unavailable"
+    },
+    "wedding-guest:wedding-guest-6996185": {
+      "source": "musinsa",
+      "url": "https://www.musinsa.com/products/6996185",
+      "currency": "KRW",
+      "checkedAt": "2026-11-14T01:02:54.595Z",
+      "amount": null,
+      "status": "unavailable"
     }
   }
 }
