@@ -38,6 +38,10 @@
   ],
   "rewrites": [
     {
+      "source": "/lookmood/looks/037",
+      "destination": "/lookmood/looks/037/index.html"
+    },
+    {
       "source": "/lookmood/looks/wedding-guest",
       "destination": "/lookmood/looks/wedding-guest/index.html"
     },

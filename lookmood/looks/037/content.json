@@ -1,0 +1,106 @@
+{
+  "look": {
+    "id": "037",
+    "title": "패딩과 트랙팬츠의 꾸안꾸 룩",
+    "description": "패딩에 트랙팬츠를 매치한 편안한 겨울 데일리 스타일링.",
+    "youtubeVideoId": "ht95m1zBMWY"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep037-7103168",
+      "name": "로긴 앤 로지(ROGIN N ROSIE) 세이지 스퀘어 브라운",
+      "brand": "로긴 앤 로지",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260819/7103168/7103168_17945485844690_500.jpg",
+      "url": "https://www.musinsa.com/products/7103168",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iHcS3OZ8eq",
+      "coupangSearchKeyword": "로긴 앤 로지 세이지 스퀘어 브라운"
+    },
+    {
+      "id": "ep037-5915918",
+      "name": "애즈유아(AS YOU ARE) 소잉 턴 로고 슬리브리스 화이트",
+      "brand": "애즈유아",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260120/5915918/5915918_17708616458902_500.jpg",
+      "url": "https://www.musinsa.com/products/5915918",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iHcS3SafiC",
+      "coupangSearchKeyword": "애즈유아 소잉 턴 로고 슬리브리스 화이트"
+    },
+    {
+      "id": "ep037-7585451",
+      "name": "룰루레몬(LULULEMON) 우먼스 하이 로프트 PrimaLoft™ UltraPeak™ 푸퍼",
+      "brand": "룰루레몬",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20261022/7585451/7585451_17937225860396_500.jpg",
+      "url": "https://www.musinsa.com/products/7585451",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iHcS3V9CVg",
+      "coupangSearchKeyword": "룰루레몬 우먼스 하이 로프트 PrimaLoft™ UltraPeak™ 푸퍼"
+    },
+    {
+      "id": "ep037-6170001",
+      "name": "미타유스(MITA YOUTH) 도트 스트링 짐색 [GRAY]",
+      "brand": "미타유스",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260320/6170001/6170001_17742428767146_500.png",
+      "url": "https://www.musinsa.com/products/6170001",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iHcS3Y8Oir",
+      "coupangSearchKeyword": "미타유스 도트 스트링 짐색 [GRAY]"
+    },
+    {
+      "id": "ep037-7002740",
+      "name": "낫포너드(NOT4NERD) Napoleon Applique Pigment Hood Zip Up - Red",
+      "brand": "낫포너드",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260805/7002740/7002740_17873053157614_500.jpg",
+      "url": "https://www.musinsa.com/products/7002740",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iHcS33b4JE",
+      "coupangSearchKeyword": "낫포너드 Napoleon Applique Pigment Hood Zip Up - Red"
+    },
+    {
+      "id": "ep037-5879557",
+      "name": "디오스피스(DAUSPICE) (DUC) Logo ombre checkshirt Pink",
+      "brand": "디오스피스",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260108/5879557/5879557_17885055224373_500.jpg",
+      "url": "https://www.musinsa.com/products/5879557",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iHcS37uAj6",
+      "coupangSearchKeyword": "디오스피스  Logo ombre checkshirt Pink"
+    },
+    {
+      "id": "ep037-6070084",
+      "name": "아디다스(ADIDAS) 태권도 F50 - 실버메탈릭 / IH1873",
+      "brand": "아디다스",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260303/6070084/6070084_17726064217087_500.jpg",
+      "url": "https://www.musinsa.com/products/6070084",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iHcS4aRffo",
+      "coupangSearchKeyword": "아디다스 태권도 F50 - 실버메탈릭 / IH1873"
+    }
+  ]
+}
