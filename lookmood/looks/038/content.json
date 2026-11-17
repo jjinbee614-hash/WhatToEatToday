@@ -1,0 +1,106 @@
+{
+  "look": {
+    "id": "038",
+    "title": "따뜻하고 편안한 겨울 꾸안꾸 코디",
+    "description": "패딩과 카고 팬츠를 더한 따뜻한 겨울 데일리 스타일링.",
+    "youtubeVideoId": "LEIlupPLF8Q"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep038-7037002",
+      "name": "길라아카이브(GILAARCHIVE) CROSS PATCH LETTERING LOGO BEANIE_GREY",
+      "brand": "길라아카이브",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260810/7037002/7037002_17885142080647_500.jpg",
+      "url": "https://www.musinsa.com/products/7037002",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iIlad8rzQy",
+      "coupangSearchKeyword": "길라아카이브 CROSS PATCH LETTERING LOGO BEANIE_GREY"
+    },
+    {
+      "id": "ep038-7158383",
+      "name": "아디다스(ADIDAS) 팀가이스트 경량 패딩 - 크리스탈스카이 / LC8271",
+      "brand": "아디다스",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260825/7158383/7158383_17912496862506_500.jpg",
+      "url": "https://www.musinsa.com/products/7158383",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iIlaebImlM",
+      "coupangSearchKeyword": "아디다스 팀가이스트 경량 패딩 - 크리스탈스카이 / LC8271"
+    },
+    {
+      "id": "ep038-6788300",
+      "name": "스파오(SPAO) 와플 후드 바라클라바 긴팔티_SPFWG4TC10",
+      "brand": "스파오",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260706/6788300/6788300_17853929939133_500.png",
+      "url": "https://www.musinsa.com/products/6788300",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iIlaefcqwS",
+      "coupangSearchKeyword": "스파오 와플 후드 바라클라바 긴팔티_SPFWG4TC10"
+    },
+    {
+      "id": "ep038-5336216",
+      "name": "데프가먼츠(DEFGARMENTS) NEEDLE STONE WALLET [KHAKI]",
+      "brand": "데프가먼츠",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20250819/5336216/5336216_17578681849098_500.jpg",
+      "url": "https://www.musinsa.com/products/5336216",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iIlaeimxA4",
+      "coupangSearchKeyword": "데프가먼츠 NEEDLE STONE WALLET [KHAKI]"
+    },
+    {
+      "id": "ep038-6551768",
+      "name": "샐볼(SALBOL) 503 MESH BACKPACK [PURPLE]",
+      "brand": "샐볼",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260527/6551768/6551768_17833003721795_500.jpg",
+      "url": "https://www.musinsa.com/products/6551768",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iIlaelMIXA",
+      "coupangSearchKeyword": "샐볼 503 MESH BACKPACK [PURPLE]"
+    },
+    {
+      "id": "ep038-6574239",
+      "name": "낫포너드(NOT4NERD) Shirring Panel Curved Nylon Cargo Pants - Khaki",
+      "brand": "낫포너드",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20260529/6574239/6574239_17806291062740_500.jpg",
+      "url": "https://www.musinsa.com/products/6574239",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iIlaeoLUkK",
+      "coupangSearchKeyword": "낫포너드 Shirring Panel Curved Nylon Cargo Pants - Khaki"
+    },
+    {
+      "id": "ep038-7447888",
+      "name": "어그(UGG) [WOMEN] 타제트 - 체스넛 / 1134810-CHE",
+      "brand": "어그",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/images/goods_img/20261002/7447888/7447888_17909236567803_500.jpg",
+      "url": "https://www.musinsa.com/products/7447888",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iIlaer0T1g",
+      "coupangSearchKeyword": "어그 [WOMEN] 타제트 - 체스넛 / 1134810-CHE"
+    }
+  ]
+}
