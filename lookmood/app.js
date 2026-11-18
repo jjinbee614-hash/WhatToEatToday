@@ -186,17 +186,16 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
       a.addEventListener('click',track);a.addEventListener('auxclick',track);
       buttons.append(a);
     }
-    const ably=ablyLink('에이블리','product',product);ably.className='shop-button';ably.title='LOOKMOOD 마이셀렉샵 · 비슷한 스타일';buttons.append(ably);
     const search=safeUrl(product.coupangSearchUrl);
     const coupang=affiliate || (search && new URL(search).hostname==='link.coupang.com' ? search : null);
     if(coupang){const a=link('쿠팡',coupang,true,product,data.look.id);a.className='shop-button';a.title=affiliate?'쿠팡 상품 보기':'쿠팡 키워드 검색: '+product.coupangSearchKeyword;buttons.append(a);}
-    shops.append(buttons,el('p','에이블리: LOOKMOOD 마이셀렉샵'+(!affiliate&&coupang?' · 쿠팡: 관련 상품 검색':''),'shop-hint'));
+    shops.append(buttons);
+    if(!affiliate&&coupang) shops.append(el('p','쿠팡: 관련 상품 검색','shop-hint'));
     if (variant) shops.append(el('p','무신사: 다른 색상 상품으로 연결됩니다 · '+variant.color,'shop-hint'));
     body.append(shops);
     row.append(image, body); $('#product-list').append(row);
   }
   const dialog = $('#products'), panel = dialog.querySelector('.dialog-body');
-  panel.prepend(el('p', ablyDisclosure, 'notice'));
   if(products.some(musinsaCuratorUrl)) panel.prepend(el('p',musinsaDisclosure,'notice'));
   panel.prepend(el('p', '확인 시점의 참고 가격입니다. 옵션·쿠폰·배송비에 따라 달라질 수 있으며 최종 가격은 판매처에서 확인해 주세요.', 'notice price-notice'));
   inlineProducts = el('section', null, 'inline-products');
@@ -215,25 +214,5 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
   syncLayout();
 }).catch(() => { $('#error').hidden = false; });
 
-// A-BLY affiliate placements. Keep the attributed destination byte-for-byte unchanged.
-const ablyUrl = 'https://applink.a-bly.com/3fn7wir';
-const ablyDisclosure = '이 링크를 통해 구매하면 LOOKMOOD에 수수료가 지급될 수 있습니다.';
-function ablyLink(label, placement, product = null) {
-  const a = el('a', label, 'ably-button');
-  a.href = ablyUrl; a.target = '_blank'; a.rel = 'sponsored noopener noreferrer';
-  a.dataset.ablyPlacement = placement;
-  const track = event => {
-    if (event.type === 'auxclick' && event.button !== 1) return;
-    try { window.gtag?.('event', 'ably_click', {
-      placement, ...(product ? {product_id:product.id,product_name:product.name.slice(0,100)} : {}), episode_id: location.pathname.match(/looks\/([\w-]+)/)?.[1] || 'home',
-      link_url: ablyUrl, link_domain: 'applink.a-bly.com', transport_type: 'beacon'
-    }); } catch { /* Navigation must work even if analytics is blocked. */ }
-  };
-  a.addEventListener('click', track); a.addEventListener('auxclick', track);
-  return a;
-}
-
-const headerAbly=ablyLink('에이블리','header');headerAbly.className='header-ably';headerAbly.title='LOOKMOOD 마이셀렉샵 · 제휴 링크';$('#socials')?.prepend(headerAbly);
-const headerBlog=el('a','Blog');headerBlog.href='https://blog.naver.com/look_mood_';headerBlog.target='_blank';headerBlog.rel='noopener noreferrer';headerBlog.title='LOOKMOOD 네이버 블로그';headerAbly.after(headerBlog);
-const affiliateNotice=el('p','에이블리: 비슷한 스타일을 모은 LOOKMOOD 마이셀렉샵. '+ablyDisclosure,'shop-disclosure');$('footer')?.before(affiliateNotice);
+const headerBlog=el('a','Blog');headerBlog.href='https://blog.naver.com/look_mood_';headerBlog.target='_blank';headerBlog.rel='noopener noreferrer';headerBlog.title='LOOKMOOD 네이버 블로그';$('#socials')?.prepend(headerBlog);
 $('footer')?.before(el('p',musinsaDisclosure,'shop-disclosure'));

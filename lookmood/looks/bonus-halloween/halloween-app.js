@@ -193,23 +193,5 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
   syncLayout();
 }).catch(() => { $('#error').hidden = false; });
 
-// A-BLY affiliate placements. Keep the attributed destination byte-for-byte unchanged.
-const ablyUrl = 'https://applink.a-bly.com/3fn7wir';
-const ablyDisclosure = '이 링크를 통해 구매하면 LOOKMOOD에 수수료가 지급될 수 있습니다.';
-function ablyLink(label, placement, product = null) {
-  const a = el('a', label, 'ably-button');
-  a.href = ablyUrl; a.target = '_blank'; a.rel = 'sponsored noopener noreferrer';
-  a.dataset.ablyPlacement = placement;
-  const track = event => {
-    if (event.type === 'auxclick' && event.button !== 1) return;
-    try { window.gtag?.('event', 'ably_click', {
-      placement, ...(product ? {product_id:product.id,product_name:product.name.slice(0,100)} : {}), episode_id: location.pathname.match(/looks\/([\w-]+)/)?.[1] || 'home',
-      link_url: ablyUrl, link_domain: 'applink.a-bly.com', transport_type: 'beacon'
-    }); } catch { /* Navigation must work even if analytics is blocked. */ }
-  };
-  a.addEventListener('click', track); a.addEventListener('auxclick', track);
-  return a;
-}
-
 const headerBlog=el('a','Blog');headerBlog.href='https://blog.naver.com/look_mood_';headerBlog.target='_blank';headerBlog.rel='noopener noreferrer';$('#socials')?.append(headerBlog);
 
