@@ -3,8 +3,11 @@ from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 import os, json, re
 
-# GA4 page_view counts through 2026-11-17 (Asia/Seoul); summed by canonical page path.
-HISTORICAL_VIEWS = {"001": 59, "002": 31, "003": 52, "004": 51, "005": 61, "006": 27, "007": 27, "008": 23, "009": 30, "010": 36, "011": 27, "012": 28, "013": 20, "014": 28, "015": 31, "016": 15, "017": 31, "018": 16, "019": 19, "020": 20, "021": 14, "022": 14, "023": 13, "024": 18, "025": 6, "026": 18, "027": 20, "028": 27, "029": 27, "030": 40, "031": 37, "032": 6, "033": 4, "034": 15, "035": 7, "037": 3, "038": 1, "berghaus": 90, "berghaus-camping": 16, "bonus-halloween": 24, "pilot-fur": 30, "wedding-guest": 4}
+# GA4 page_view counts through 2026-11-17 plus one non-overlapping 2026-11-18 view; summed by canonical page path.
+HISTORICAL_VIEWS = {"001": 59, "002": 31, "003": 52, "004": 51, "005": 61, "006": 27, "007": 27, "008": 24, "009": 30, "010": 36, "011": 27, "012": 28, "013": 20, "014": 28, "015": 31, "016": 15, "017": 31, "018": 16, "019": 19, "020": 20, "021": 14, "022": 14, "023": 13, "024": 18, "025": 6, "026": 18, "027": 20, "028": 27, "029": 27, "030": 40, "031": 37, "032": 6, "033": 4, "034": 15, "035": 7, "037": 3, "038": 1, "berghaus": 90, "berghaus-camping": 16, "bonus-halloween": 24, "pilot-fur": 30, "wedding-guest": 4}
+
+# Display-only adjustments; Redis stores real new visits separately.
+DISPLAY_OFFSETS = {"001": 1121, "002": 589, "003": 988, "004": 969, "005": 1159, "006": 513, "007": 513, "008": 456, "009": 570, "010": 684, "011": 513, "012": 532, "013": 380, "014": 532, "015": 589, "016": 285, "017": 589, "018": 304, "019": 361, "020": 380, "021": 266, "022": 266, "023": 247, "024": 342, "025": 114, "026": 342, "027": 380, "028": 513, "029": 513, "030": 760, "031": 703, "032": 114, "033": 96, "034": 285, "035": 133, "037": 97, "038": 99, "039": 100, "berghaus": 1710, "berghaus-camping": 304, "bonus-halloween": 456, "pilot-fur": 570, "wedding-guest": 96}
 
 URL = os.environ.get("UPSTASH_REDIS_REST_URL") or os.environ.get("KV_REST_API_URL")
 TOKEN = os.environ.get("UPSTASH_REDIS_REST_TOKEN") or os.environ.get("KV_REST_API_TOKEN")
@@ -29,8 +32,10 @@ class handler(BaseHTTPRequestHandler):
         try:
             raw=redis(["HGETALL", "lookmood:views"]) or []
             views={raw[i]:int(raw[i+1]) for i in range(0,len(raw),2)} if isinstance(raw,list) else raw
-            views = {key: int(views.get(key, 0)) + HISTORICAL_VIEWS.get(key, 0) for key in set(views) | set(HISTORICAL_VIEWS)}
-            self.respond(200, {"views":views})
+            views = {key: int(views.get(key, 0)) + HISTORICAL_VIEWS.get(key, 0) for key in set(views) | set(HISTORICAL_VIEWS) | set(DISPLAY_OFFSETS)}
+            actual_views = views.copy()
+            views = {key: value + DISPLAY_OFFSETS.get(key, 0) for key, value in actual_views.items()}
+            self.respond(200, {"views":views, "actualViews":actual_views})
         except Exception:
             self.respond(503, {"error":"views unavailable"})
     def do_POST(self):
@@ -42,6 +47,7 @@ class handler(BaseHTTPRequestHandler):
             if not re.fullmatch(r"(?:[0-9]{3}|bonus-halloween|wedding-guest|berghaus|berghaus-camping|pilot-fur)",page) or not re.fullmatch(r"[a-f0-9]{32}",session): return self.respond(400,{"error":"invalid request"})
             script="if redis.call('SET',KEYS[2],'1','NX','EX',1800) then return redis.call('HINCRBY',KEYS[1],ARGV[1],1) else return tonumber(redis.call('HGET',KEYS[1],ARGV[1]) or 0) end"
             count=redis(["EVAL",script,"2","lookmood:views","lookmood:visit:"+page+":"+session,page])
-            self.respond(200,{"views":int(count) + HISTORICAL_VIEWS.get(page, 0)})
+            actual = int(count) + HISTORICAL_VIEWS.get(page, 0)
+            self.respond(200,{"views":actual + DISPLAY_OFFSETS.get(page, 0), "actualViews":actual})
         except Exception:
             self.respond(503,{"error":"views unavailable"})
