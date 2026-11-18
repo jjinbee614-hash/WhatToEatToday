@@ -195,3 +195,5 @@ fetch(document.body.dataset.content || '/lookmood/content.json').then(response =
 
 const headerBlog=el('a','Blog');headerBlog.href='https://blog.naver.com/look_mood_';headerBlog.target='_blank';headerBlog.rel='noopener noreferrer';$('#socials')?.append(headerBlog);
 
+
+const viewScript = document.createElement("script"); viewScript.src = "/lookmood/views.js"; viewScript.defer = true; document.head.append(viewScript);
