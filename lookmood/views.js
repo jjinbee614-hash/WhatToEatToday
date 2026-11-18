@@ -35,6 +35,6 @@
       const p=document.createElement('p'); p.className='look-view-count'; p.textContent='조회 '+new Intl.NumberFormat('ko-KR').format(views[c.id] || 0);
       c.node.querySelector('.card-info')?.append(p);
     });
-    info.textContent='조회수는 이 기능 적용 후부터 집계됩니다.'; sort();
+    info.textContent='과거 조회 기록과 최근 조회수를 합산합니다.'; sort();
   }).catch(() => {info.textContent='조회수를 불러올 수 없습니다.';});
 })();
