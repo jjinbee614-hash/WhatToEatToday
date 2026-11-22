@@ -32,9 +32,9 @@
     views = data.views;
     cards.forEach(c => {
       if (!c.id) return;
-      const p=document.createElement('p'); p.className='look-view-count'; p.textContent='보정 조회 '+new Intl.NumberFormat('ko-KR').format(views[c.id] || 0);
+      const p=document.createElement('p'); p.className='look-view-count'; p.textContent='조회수 '+new Intl.NumberFormat('ko-KR').format(views[c.id] || 0);
       c.node.querySelector('.card-info')?.append(p);
     });
-    info.textContent='보정 조회수는 실제 조회수에 표시용 보정값을 더한 수치입니다.'; sort();
+    info.textContent='조회수에는 실제 조회에 더해진 표시용 수치가 포함됩니다.'; sort();
   }).catch(() => {info.textContent='조회수를 불러올 수 없습니다.';});
 })();
