@@ -44,7 +44,7 @@ class handler(BaseHTTPRequestHandler):
             data=json.loads(self.rfile.read(int(self.headers.get("Content-Length", "0"))))
             page=data.get("id", "")
             session=data.get("session", "")
-            if not re.fullmatch(r"(?:[0-9]{3}|bonus-halloween|wedding-guest|berghaus|berghaus-camping|pilot-fur)",page) or not re.fullmatch(r"[a-f0-9]{32}",session): return self.respond(400,{"error":"invalid request"})
+            if not re.fullmatch(r"(?:[0-9]{3}|bonus-halloween|wedding-guest|berghaus|berghaus-camping|pilot-fur|mujinjang-hansohee)",page) or not re.fullmatch(r"[a-f0-9]{32}",session): return self.respond(400,{"error":"invalid request"})
             script="if redis.call('SET',KEYS[2],'1','NX','EX',1800) then return redis.call('HINCRBY',KEYS[1],ARGV[1],1) else return tonumber(redis.call('HGET',KEYS[1],ARGV[1]) or 0) end"
             count=redis(["EVAL",script,"2","lookmood:views","lookmood:visit:"+page+":"+session,page])
             actual = int(count) + HISTORICAL_VIEWS.get(page, 0)
