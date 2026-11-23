@@ -1,0 +1,120 @@
+{
+  "look": {
+    "id": "weekly-mood-20261123",
+    "title": "이번 주 서울 온도차 코디",
+    "description": "아침과 낮의 온도차에 맞춘 출근룩과 주말룩."
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_/"
+  },
+  "products": [
+    {
+      "id": "weekly-7391477",
+      "name": "미쏘 버클 하이넥 숏코트",
+      "brand": "미쏘",
+      "color": "판매처 옵션 확인",
+      "note": "이미지 속 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/weekly-mood-1123-product-1.svg",
+      "url": "https://www.musinsa.com/products/7391477",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/B4DsNfIK",
+      "musinsaCuratorVerified": true,
+      "relation": "reference",
+      "published": true,
+      "groupHeading": "LOOK 1 · 출근룩"
+    },
+    {
+      "id": "weekly-5195015",
+      "name": "에센셜 라운드넥 니트 블랙",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "판매처 옵션 확인",
+      "note": "이미지 속 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/weekly-mood-1123-product-2.svg",
+      "url": "https://www.musinsa.com/products/5195015",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/oGheWb20",
+      "musinsaCuratorVerified": true,
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "weekly-7788171",
+      "name": "미쏘 클래식 와이드 슬랙스",
+      "brand": "미쏘",
+      "color": "판매처 옵션 확인",
+      "note": "이미지 속 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/weekly-mood-1123-product-3.svg",
+      "url": "https://www.musinsa.com/products/7788171",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/kgY96dMU",
+      "musinsaCuratorVerified": true,
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "weekly-5378044",
+      "name": "레이븐 폴더블 버클 부츠",
+      "brand": "기호",
+      "color": "판매처 옵션 확인",
+      "note": "이미지 속 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/weekly-mood-1123-product-4.svg",
+      "url": "https://www.musinsa.com/products/5378044",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/wIKycL5R",
+      "musinsaCuratorVerified": true,
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "weekly-5162178",
+      "name": "후디드 라이트 다운 스톤 화이트",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "판매처 옵션 확인",
+      "note": "이미지 속 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/weekly-mood-1123-product-5.svg",
+      "url": "https://www.musinsa.com/products/5162178",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/lHkXFbrb",
+      "musinsaCuratorVerified": true,
+      "relation": "reference",
+      "published": true,
+      "groupHeading": "LOOK 2 · 주말룩"
+    },
+    {
+      "id": "weekly-7788106",
+      "name": "안티필링 라운드넥 가디건",
+      "brand": "미쏘",
+      "color": "판매처 옵션 확인",
+      "note": "이미지 속 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/weekly-mood-1123-product-6.svg",
+      "url": "https://www.musinsa.com/products/7788106",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/XR9HVJBM",
+      "musinsaCuratorVerified": true,
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "weekly-1357768",
+      "name": "와이드 데님 워시드 블랙",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "판매처 옵션 확인",
+      "note": "이미지 속 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/weekly-mood-1123-product-7.svg",
+      "url": "https://www.musinsa.com/products/1357768",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/unMIR4AW",
+      "musinsaCuratorVerified": true,
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "weekly-5437430",
+      "name": "클래식 미니 II 체스넛",
+      "brand": "어그",
+      "color": "판매처 옵션 확인",
+      "note": "이미지 속 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/weekly-mood-1123-product-8.svg",
+      "url": "https://www.musinsa.com/products/5437430",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/7SbURC1f",
+      "musinsaCuratorVerified": true,
+      "relation": "reference",
+      "published": true
+    }
+  ]
+}
