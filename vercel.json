@@ -41,6 +41,10 @@
   ],
   "rewrites": [
     {
+      "source": "/lookmood/looks/042",
+      "destination": "/lookmood/looks/042/index.html"
+    },
+    {
       "source": "/lookmood/looks/mujinjang-hansohee",
       "destination": "/lookmood/looks/mujinjang-hansohee/index.html"
     },

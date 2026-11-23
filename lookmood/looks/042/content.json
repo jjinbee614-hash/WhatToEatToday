@@ -1,0 +1,99 @@
+{
+  "look": {
+    "id": "042",
+    "title": "고윤정 패딩으로 완성하는 겨울 데일리룩",
+    "description": "젝시믹스 패딩과 레깅스, 조거, 부츠컷으로 완성한 스타일링.",
+    "youtubeVideoId": "LnSVu0DxBSM"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_?lang=ko-KR"
+  },
+  "products": [
+    {
+      "id": "ep042-7466848",
+      "name": "젝시믹스 RX 윈드라이트 패딩 점퍼 XFL4JP1003",
+      "brand": "젝시믹스",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/thumbnails/images/goods_img/20261007/7466848/7466848_17913650186532_big.jpg?w=192",
+      "url": "https://www.musinsa.com/products/7466848",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iSg1OLSBZk",
+      "coupangSearchKeyword": "젝시믹스 RX 윈드라이트 패딩 점퍼 XFL4JP1003",
+      "groupHeading": "공통 패딩"
+    },
+    {
+      "id": "ep042-3449637",
+      "name": "블랙라벨 시그니처 360N 더블플러피 기모 레깅스 블랙",
+      "brand": "젝시믹스",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/thumbnails/images/goods_img/20230808/3449637/3449637_17026088164053_big.jpg?w=192",
+      "url": "https://www.musinsa.com/products/3449637",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iSg1OO64DQ",
+      "coupangSearchKeyword": "블랙라벨 시그니처 360N 더블플러피 기모 레깅스 블랙",
+      "groupHeading": "레깅스룩"
+    },
+    {
+      "id": "ep042-5237155",
+      "name": "홀딩웜 플러피 조거팬츠 XWFTP02J3",
+      "brand": "젝시믹스",
+      "color": "블랙",
+      "note": "상품 이미지 확인 중입니다.",
+      "image": "/lookmood/assets/product-image-unavailable.svg",
+      "url": "https://www.musinsa.com/products/5237155",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iSg1OSFupg",
+      "coupangSearchKeyword": "홀딩웜 플러피 조거팬츠 XWFTP02J3",
+      "groupHeading": "조거룩"
+    },
+    {
+      "id": "ep042-6779246",
+      "name": "블랙라벨 시그니처 360N 기모 부츠컷 팬츠 XP9217G",
+      "brand": "젝시믹스",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/thumbnails/images/goods_img/20260703/6779246/6779246_17833068760138_500.png",
+      "url": "https://www.musinsa.com/products/6779246",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iSg1OV6aFE",
+      "coupangSearchKeyword": "블랙라벨 시그니처 360N 기모 부츠컷 팬츠 XP9217G",
+      "groupHeading": "부츠컷룩"
+    },
+    {
+      "id": "ep042-3449927",
+      "name": "모크넥 핑거홀 베이직 티셔츠 블랙",
+      "brand": "젝시믹스",
+      "color": "판매처 옵션 확인",
+      "note": "",
+      "image": "https://image.msscdn.net/thumbnails/images/goods_img/20230808/3449927/3449927_16917092964082_500.jpg",
+      "url": "https://www.musinsa.com/products/3449927",
+      "relation": "reference",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iSg1OYW1fw",
+      "coupangSearchKeyword": "모크넥 핑거홀 베이직 티셔츠 블랙",
+      "groupHeading": "블랙 이너"
+    },
+    {
+      "id": "ep042-new-balance-530-reference",
+      "name": "뉴발란스 530 화이트",
+      "brand": "뉴발란스",
+      "color": "판매처 옵션 확인",
+      "note": "참고 제품군. 영상의 정확한 색상 품번은 확인되지 않았으며 개별 상품으로 단정하지 않음.",
+      "image": "/lookmood/assets/product-image-unavailable.svg",
+      "url": "https://www.musinsa.com/content/cms/12035",
+      "relation": "alternative",
+      "published": true,
+      "coupangSearchUrl": "https://link.coupang.com/a/iSg1O1S1uK",
+      "coupangSearchKeyword": "뉴발란스 530 화이트",
+      "groupHeading": "신발 참고"
+    }
+  ]
+}
