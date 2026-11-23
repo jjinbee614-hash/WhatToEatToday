@@ -33,7 +33,9 @@
       "url": "https://www.musinsa.com/products/5335142",
       "relation": "reference",
       "published": true,
-      "groupHeading": "산행 코디"
+      "groupHeading": "산행 코디",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/UQWD7a6P",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "berghaus-6114276-2",
@@ -44,7 +46,9 @@
       "image": "https://image.msscdn.net/images/goods_img/20260311/6114276/6114276_17828006847236_500.jpg",
       "url": "https://www.musinsa.com/products/6114276",
       "relation": "reference",
-      "published": true
+      "published": true,
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/0VLjYCUn",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "berghaus-7326180-3",
@@ -71,7 +75,9 @@
       "image": "https://image.msscdn.net/images/goods_img/20251120/5758014/5758014_17636242222808_500.jpg",
       "url": "https://www.musinsa.com/products/5758014",
       "relation": "reference",
-      "published": true
+      "published": true,
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/qepT4X5l",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "berghaus-6820201-5",
@@ -82,7 +88,9 @@
       "image": "https://image.msscdn.net/images/goods_img/20260710/6820201/6820201_17870346751306_500.jpg",
       "url": "https://www.musinsa.com/products/6820201",
       "relation": "reference",
-      "published": true
+      "published": true,
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/OoR8Djnv",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "berghaus-4316587-6",
@@ -94,7 +102,9 @@
       "url": "https://www.musinsa.com/products/4316587",
       "relation": "reference",
       "published": true,
-      "groupHeading": "도심 데일리 코디"
+      "groupHeading": "도심 데일리 코디",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/gy8G3dzY",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "berghaus-6840451-7",
@@ -105,7 +115,9 @@
       "image": "https://image.msscdn.net/images/goods_img/20260714/6840451/6840451_17860033925286_500.jpg",
       "url": "https://www.musinsa.com/products/6840451",
       "relation": "reference",
-      "published": true
+      "published": true,
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/I283J0Kg",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "berghaus-6820201-8",
@@ -116,7 +128,9 @@
       "image": "https://image.msscdn.net/images/goods_img/20260710/6820201/6820201_17870346751306_500.jpg",
       "url": "https://www.musinsa.com/products/6820201",
       "relation": "reference",
-      "published": true
+      "published": true,
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/OoR8Djnv",
+      "musinsaCuratorVerified": true
     }
   ]
 }
