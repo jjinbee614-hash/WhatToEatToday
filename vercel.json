@@ -41,6 +41,10 @@
   ],
   "rewrites": [
     {
+      "source": "/lookmood/looks/daily-mood-20261124",
+      "destination": "/lookmood/looks/daily-mood-20261124/index.html"
+    },
+    {
       "source": "/lookmood/looks/weekly-mood-20261123",
       "destination": "/lookmood/looks/weekly-mood-20261123/index.html"
     },

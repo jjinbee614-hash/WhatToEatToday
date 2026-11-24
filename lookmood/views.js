@@ -15,9 +15,10 @@
   const cards = [...grid.querySelectorAll(':scope > .look-card')].map((node, i) => ({node, index:i, id:node.querySelector('.card-image')?.getAttribute('href')?.match(/\/looks\/([\w-]+)/)?.[1]}));
   const controls = document.createElement('div');
   controls.className = 'look-sort';
-  controls.innerHTML = '<label for="look-sort-select">정렬</label><select id="look-sort-select"><option value="latest">최신순</option><option value="popular">인기순</option><option value="recommended">추천순</option></select><span class="view-info">조회수 집계 중</span>';
+  controls.innerHTML = '<label for="look-type-select">콘텐츠</label><select id="look-type-select"><option value="all">전체</option><option value="video">영상</option><option value="post">이미지 게시물</option></select><label for="look-sort-select">정렬</label><select id="look-sort-select"><option value="latest">최신순</option><option value="popular">인기순</option><option value="recommended">추천순</option></select><span class="view-info">조회수 집계 중</span>';
   grid.before(controls);
-  const select = controls.querySelector('select');
+  const select = controls.querySelector('#look-sort-select');
+  const typeSelect = controls.querySelector('#look-type-select');
   const info = controls.querySelector('.view-info');
   let views = null;
   function sort() {
@@ -25,9 +26,10 @@
     const ordered = [...cards];
     if (views && select.value === 'popular') ordered.sort((a,b) => (views[b.id] || 0) - (views[a.id] || 0) || a.index - b.index);
     if (views && select.value === 'recommended') ordered.sort((a,b) => (Math.log1p(views[b.id] || 0) / Math.sqrt(1 + b.index / 5)) - (Math.log1p(views[a.id] || 0) / Math.sqrt(1 + a.index / 5)) || a.index - b.index);
-    ordered.forEach(c => grid.append(c.node));
+    ordered.forEach(c => { c.node.hidden = typeSelect.value !== 'all' && (c.node.dataset.contentType || 'video') !== typeSelect.value; grid.append(c.node); });
   }
   select.addEventListener('change', sort);
+  typeSelect.addEventListener('change', sort);
   fetch(endpoint, {cache:'no-store'}).then(r => {if (!r.ok) throw Error(); return r.json();}).then(data => {
     views = data.views;
     cards.forEach(c => {

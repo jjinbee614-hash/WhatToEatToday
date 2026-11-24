@@ -1,0 +1,127 @@
+{
+  "look": {
+    "id": "daily-mood-20261124",
+    "title": "롱코트 말고 이거 · 짧은 아우터 세 가지",
+    "description": "겨울 아침을 위한 퍼 코트, 하프 트렌치, 숏 무스탕 스타일링."
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_/"
+  },
+  "products": [
+    {
+      "id": "daily-6987762-1",
+      "name": "플러피 페이크 퍼 하프 코트 크림",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "판매처 옵션 확인",
+      "note": "AI 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/daily-mood-20261124-product-1.svg",
+      "url": "https://www.musinsa.com/products/6987762",
+      "relation": "reference",
+      "published": true,
+      "groupHeading": "LOOK 1 · 포근하게 귀여운 기분"
+    },
+    {
+      "id": "daily-1357771-2",
+      "name": "와이드 데님 팬츠 미디엄 인디고",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "판매처 옵션 확인",
+      "note": "AI 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/daily-mood-20261124-product-2.svg",
+      "url": "https://www.musinsa.com/products/1357771",
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "daily-3517008-3",
+      "name": "엘루이 스퀘어 롱부츠 3cm 블랙",
+      "brand": "사뿐",
+      "color": "판매처 옵션 확인",
+      "note": "AI 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/daily-mood-20261124-product-3.svg",
+      "url": "https://www.musinsa.com/products/3517008",
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "daily-2764536-4",
+      "name": "맥 하프 트렌치 코트 딥 베이지",
+      "brand": "틸아이다이",
+      "color": "판매처 옵션 확인",
+      "note": "AI 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/daily-mood-20261124-product-4.svg",
+      "url": "https://www.musinsa.com/products/2764536",
+      "relation": "reference",
+      "published": true,
+      "groupHeading": "LOOK 2 · 서순라길 산책 기분"
+    },
+    {
+      "id": "daily-5290316-5",
+      "name": "신세틱 스웨이드 미니 스커트 브라운",
+      "brand": "무신사 스탠다드 우먼",
+      "color": "판매처 옵션 확인",
+      "note": "AI 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/daily-mood-20261124-product-5.svg",
+      "url": "https://www.musinsa.com/products/5290316",
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "daily-3517008-6",
+      "name": "엘루이 스퀘어 롱부츠 3cm 블랙",
+      "brand": "사뿐",
+      "color": "판매처 옵션 확인",
+      "note": "AI 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/daily-mood-20261124-product-6.svg",
+      "url": "https://www.musinsa.com/products/3517008",
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "daily-2860044-7",
+      "name": "RC 울터치 니트 머플러 와인",
+      "brand": "리끌로우",
+      "color": "판매처 옵션 확인",
+      "note": "AI 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/daily-mood-20261124-product-7.svg",
+      "url": "https://www.musinsa.com/products/2860044",
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "daily-3552592-8",
+      "name": "시어링 크롭 무스탕 재킷 브라운 스웨이드",
+      "brand": "드로우핏 우먼",
+      "color": "판매처 옵션 확인",
+      "note": "AI 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/daily-mood-20261124-product-8.svg",
+      "url": "https://www.musinsa.com/products/3552592",
+      "relation": "reference",
+      "published": true,
+      "groupHeading": "LOOK 3 · 칼바람에도 시크한 기분"
+    },
+    {
+      "id": "daily-4459431-9",
+      "name": "윈터 원 턱 와이드 슬랙스 차콜",
+      "brand": "몽돌",
+      "color": "판매처 옵션 확인",
+      "note": "AI 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/daily-mood-20261124-product-9.svg",
+      "url": "https://www.musinsa.com/products/4459431",
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "daily-5334806-10",
+      "name": "타즈먼 II 체스넛",
+      "brand": "어그",
+      "color": "판매처 옵션 확인",
+      "note": "AI 스타일링 참고 상품입니다.",
+      "image": "/lookmood/assets/daily-mood-20261124-product-10.svg",
+      "url": "https://www.musinsa.com/products/5334806",
+      "relation": "reference",
+      "published": true
+    }
+  ]
+}
