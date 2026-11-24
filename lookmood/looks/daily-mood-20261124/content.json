@@ -20,7 +20,9 @@
       "url": "https://www.musinsa.com/products/6987762",
       "relation": "reference",
       "published": true,
-      "groupHeading": "LOOK 1 · 포근하게 귀여운 기분"
+      "groupHeading": "LOOK 1 · 포근하게 귀여운 기분",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/ep9Xpwgc",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "daily-1357771-2",
@@ -31,7 +33,9 @@
       "image": "/lookmood/assets/daily-mood-20261124-product-2.svg",
       "url": "https://www.musinsa.com/products/1357771",
       "relation": "reference",
-      "published": true
+      "published": true,
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/rK0QqPRu",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "daily-3517008-3",
@@ -42,7 +46,9 @@
       "image": "/lookmood/assets/daily-mood-20261124-product-3.svg",
       "url": "https://www.musinsa.com/products/3517008",
       "relation": "reference",
-      "published": true
+      "published": true,
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/sh8vvBHo",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "daily-2764536-4",
@@ -54,7 +60,9 @@
       "url": "https://www.musinsa.com/products/2764536",
       "relation": "reference",
       "published": true,
-      "groupHeading": "LOOK 2 · 서순라길 산책 기분"
+      "groupHeading": "LOOK 2 · 서순라길 산책 기분",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/ru7EsCIQ",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "daily-5290316-5",
@@ -65,7 +73,9 @@
       "image": "/lookmood/assets/daily-mood-20261124-product-5.svg",
       "url": "https://www.musinsa.com/products/5290316",
       "relation": "reference",
-      "published": true
+      "published": true,
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/VH1YoCGa",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "daily-3517008-6",
@@ -76,7 +86,9 @@
       "image": "/lookmood/assets/daily-mood-20261124-product-6.svg",
       "url": "https://www.musinsa.com/products/3517008",
       "relation": "reference",
-      "published": true
+      "published": true,
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/sh8vvBHo",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "daily-2860044-7",
@@ -87,7 +99,9 @@
       "image": "/lookmood/assets/daily-mood-20261124-product-7.svg",
       "url": "https://www.musinsa.com/products/2860044",
       "relation": "reference",
-      "published": true
+      "published": true,
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/5TW3B11y",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "daily-3552592-8",
@@ -99,7 +113,9 @@
       "url": "https://www.musinsa.com/products/3552592",
       "relation": "reference",
       "published": true,
-      "groupHeading": "LOOK 3 · 칼바람에도 시크한 기분"
+      "groupHeading": "LOOK 3 · 칼바람에도 시크한 기분",
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/GleO6RxU",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "daily-4459431-9",
@@ -110,7 +126,9 @@
       "image": "/lookmood/assets/daily-mood-20261124-product-9.svg",
       "url": "https://www.musinsa.com/products/4459431",
       "relation": "reference",
-      "published": true
+      "published": true,
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/cO3Y9RDh",
+      "musinsaCuratorVerified": true
     },
     {
       "id": "daily-5334806-10",
@@ -121,7 +139,9 @@
       "image": "/lookmood/assets/daily-mood-20261124-product-10.svg",
       "url": "https://www.musinsa.com/products/5334806",
       "relation": "reference",
-      "published": true
+      "published": true,
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/VWfD1sY5",
+      "musinsaCuratorVerified": true
     }
   ]
 }
