@@ -1,0 +1,138 @@
+{
+  "look": {
+    "id": "044",
+    "title": "사나 무스탕으로 완성하는 겨울 데일리룩",
+    "description": "사나 무스탕을 활용한 겨울 스타일링",
+    "youtubeVideoId": "HUFjLrGUp8Y"
+  },
+  "socials": {
+    "YouTube": "https://www.youtube.com/channel/UC622uL6TUcK96tF197ibAGw",
+    "Instagram": "https://www.instagram.com/look_m00d_/",
+    "TikTok": "https://www.tiktok.com/@look_mood_/"
+  },
+  "products": [
+    {
+      "id": "sana-7479145",
+      "name": "커버낫 우먼 스티치 시어링 무스탕 베이지",
+      "brand": "",
+      "color": "판매처 옵션 확인",
+      "note": "사나 착용 제품·영상 제작 참고",
+      "image": "/lookmood/assets/product-image-unavailable.svg",
+      "url": "https://www.musinsa.com/products/7479145",
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "sana-4414774",
+      "name": "커버낫 우먼 레글런 케이블 니트 아이보리",
+      "brand": "",
+      "color": "판매처 옵션 확인",
+      "note": "유사 제품",
+      "image": "/lookmood/assets/product-image-unavailable.svg",
+      "url": "https://www.musinsa.com/products/4414774",
+      "relation": "alternative",
+      "published": true
+    },
+    {
+      "id": "sana-4292821",
+      "name": "무신사 스탠다드 데님 웨스턴 셔츠 딥 인디고",
+      "brand": "",
+      "color": "판매처 옵션 확인",
+      "note": "니트 안에 보이는 데님 카라와 유사한 제품",
+      "image": "/lookmood/assets/product-image-unavailable.svg",
+      "url": "https://www.musinsa.com/products/4292821",
+      "relation": "alternative",
+      "published": true
+    },
+    {
+      "id": "sana-1357771",
+      "name": "무신사 스탠다드 우먼 와이드 데님 팬츠 미디엄 인디고",
+      "brand": "",
+      "color": "판매처 옵션 확인",
+      "note": "유사 제품",
+      "image": "https://image.msscdn.net/thumbnails/images/goods_img/20200318/1357771/1357771_17827149117318_big.jpg?w=192",
+      "url": "https://www.musinsa.com/products/1357771",
+      "relation": "alternative",
+      "published": true,
+      "musinsaCuratorUrl": "https://www.musinsa.com/curator/goods/rK0QqPRu",
+      "musinsaCuratorVerified": true
+    },
+    {
+      "id": "sana-1635193",
+      "name": "무신사 스탠다드 레더 코트 스니커즈 화이트",
+      "brand": "",
+      "color": "판매처 옵션 확인",
+      "note": "유사 제품",
+      "image": "/lookmood/assets/product-image-unavailable.svg",
+      "url": "https://www.musinsa.com/products/1635193",
+      "relation": "alternative",
+      "published": true
+    },
+    {
+      "id": "sana-4642929",
+      "name": "무신사 스탠다드 우먼 와이드 데님 팬츠 로우 블랙",
+      "brand": "",
+      "color": "판매처 옵션 확인",
+      "note": "영상 제작 참고",
+      "image": "/lookmood/assets/product-image-unavailable.svg",
+      "url": "https://www.musinsa.com/products/4642929",
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "sana-2117249",
+      "name": "무신사 스탠다드 우먼 베이식 미니 스커트 블랙",
+      "brand": "",
+      "color": "판매처 옵션 확인",
+      "note": "영상 제작 참고",
+      "image": "/lookmood/assets/product-image-unavailable.svg",
+      "url": "https://www.musinsa.com/products/2117249",
+      "relation": "reference",
+      "published": true
+    },
+    {
+      "id": "sana-3017392",
+      "name": "렛츠슬림 라시아 400M 기능성 기모 타이즈",
+      "brand": "",
+      "color": "판매처 옵션 확인",
+      "note": "유사 제품 · 4매 구성 · 4매 구성",
+      "image": "/lookmood/assets/product-image-unavailable.svg",
+      "url": "https://www.musinsa.com/products/3017392",
+      "relation": "alternative",
+      "published": true
+    },
+    {
+      "id": "sana-5629616",
+      "name": "블랙퍼플 러스크 스트랩 슬라우치드 부츠 블랙",
+      "brand": "",
+      "color": "판매처 옵션 확인",
+      "note": "유사 제품",
+      "image": "/lookmood/assets/product-image-unavailable.svg",
+      "url": "https://www.musinsa.com/products/5629616",
+      "relation": "alternative",
+      "published": true
+    },
+    {
+      "id": "sana-1595551",
+      "name": "무신사 스탠다드 우먼 리브드 슬림 터틀 넥 니트 블랙",
+      "brand": "",
+      "color": "판매처 옵션 확인",
+      "note": "유사 제품",
+      "image": "/lookmood/assets/product-image-unavailable.svg",
+      "url": "https://www.musinsa.com/products/1595551",
+      "relation": "alternative",
+      "published": true
+    },
+    {
+      "id": "sana-6655758",
+      "name": "무신사 스탠다드 우먼 버클 슬라우치 숄더백 다크 브라운",
+      "brand": "",
+      "color": "판매처 옵션 확인",
+      "note": "유사 제품",
+      "image": "/lookmood/assets/product-image-unavailable.svg",
+      "url": "https://www.musinsa.com/products/6655758",
+      "relation": "alternative",
+      "published": true
+    }
+  ]
+}
